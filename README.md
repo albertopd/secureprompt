@@ -81,7 +81,7 @@ streamlit run scrubber_app.py
 
 ## 👤 Collaborators
 
-[Estefania Sosa](https://github.com/hermstefanny)
-[Floriane Haulot](https://github.com/fhaulot)
-[Preeti Duhan](https://github.com/Preeti9392)
-[Alberto Pérez](https://github.com/albertopd)
+- [Estefania Sosa](https://github.com/hermstefanny)
+- [Floriane Haulot](https://github.com/fhaulot)
+- [Preeti Duhan](https://github.com/Preeti9392)
+- [Alberto Pérez](https://github.com/albertopd)
