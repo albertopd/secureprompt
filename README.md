@@ -75,6 +75,50 @@ streamlit run scrubber_app.py
 
 - Browse: http://localhost:8501
 
+## 🪳 Debugging
+
+To debug the application in Visual Studio Code, follow these instructions:
+
+**1. Create (or update) a .vscode/launch.json in your project root:**
+- Create a `.vscode` folder in the root directory of the project if it doesn't already exist.
+- Inside the `.vscode` folder, create a file named `launch.json`.
+- Add the following configuration to `launch.json`:
+
+``` json
+{
+    "configurations": [
+        {
+            "name": "FastAPI",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "api.main:app",
+                "--reload"
+            ],
+            "cwd": "${workspaceFolder}/backend",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Streamlit",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "scrubber_app.py"
+            ],
+            "cwd": "${workspaceFolder}/frontend",
+            "console": "integratedTerminal"
+        }
+    ]
+}
+```
+**2. Start Debugging:**
+- Go to the `Run and Debug` panel in VS Code (Ctrl+Shift+D).
+- Select the desired configuration ("FastAPI" or "Streamlit") from the dropdown at the top.
+- Click the green play button or press F5 to start debugging.
+
 ## 📝 Example Output
 
 ## 📜 License
