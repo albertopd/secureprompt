@@ -50,7 +50,7 @@ pip install -r requirements_frontend.txt
 ### Run locally with Docker
 
 - Use the following URLs:
-    - Backend: http://localhost:8000
+    - Backend: http://localhost:8000/docs
     - UI: http://localhost:8501
 
 ### Run locally without Docker
