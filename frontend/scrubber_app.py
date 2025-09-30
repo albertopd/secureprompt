@@ -2,7 +2,9 @@ import streamlit as st
 import requests
 import os
 
-API_URL = os.environ.get("SECUREPROMPT_API", "http://backend:8000/api/v1")
+
+API_URL = os.environ.get("SECUREPROMPT_API", "http://localhost:8000/api/v1")
+
 
 st.title("SecurePrompt")
 
