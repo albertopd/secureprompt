@@ -1,14 +1,9 @@
 import re
-import time
-from audit.auditor import Auditor
 from scrubbers.recognizers import RECOGNIZERS
 
 
 class TextScrubber:
-    def __init__(self, secret: str | bytes = b'dev_secret'):
-        if isinstance(secret, str):
-            secret = secret.encode('utf-8')
-        self.auditor = Auditor()
+    def __init__(self):
         # compile patterns
         self.recognizers = []
         for r in RECOGNIZERS:
