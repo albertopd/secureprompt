@@ -24,3 +24,7 @@ if "token" in st.session_state:
     if st.button("Scrub"):
         r = requests.post(f"{API_URL}/scrub", json={"user_id": "demo", "prompt": prompt}, headers=headers)
         st.json(r.json())
+
+    if st.button("Anonymize"):
+        r = requests.post(f"{API_URL}/text/anonymize", json={"user_id": "demo", "prompt": prompt}, headers=headers)
+        st.write(r.text)
