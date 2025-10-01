@@ -1,0 +1,5 @@
+{"timestamp": "2025-10-01T09:40:01.565048", "entity_type": "PERSON", "original_text": "Mary", "anonymized_text": "<PERSON>", "box": [96, 33, 31, 13]}
+{"timestamp": "2025-10-01T09:40:01.617888", "entity_type": "EMAIL_ADDRESS", "original_text": "\u2018mary.sims@ing.com)", "anonymized_text": "\u2018<EMAIL_ADDRESS>)", "box": [11, 53, 133, 13]}
+{"timestamp": "2025-10-01T09:40:01.633469", "entity_type": "PERSON", "original_text": "John", "anonymized_text": "<PERSON>", "box": [224, 53, 26, 10]}
+{"timestamp": "2025-10-01T09:40:01.636481", "entity_type": "PERSON", "original_text": "Graham", "anonymized_text": "<PERSON>", "box": [256, 53, 49, 10]}
+{"timestamp": "2025-10-01T09:40:01.655375", "entity_type": "EMAIL_ADDRESS", "original_text": "john.graham@ing.com).", "anonymized_text": "<EMAIL_ADDRESS>).", "box": [39, 73, 153, 14]}
