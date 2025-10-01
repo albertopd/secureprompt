@@ -109,29 +109,76 @@ def anonymize_screenshot(input_image, output_image, log_file="backend/audit_logs
         pii_boxes = []
         audit_logs = []
 
+        # 1. Prepare for full text analysis and mapping
+        full_text = ""
+        box_map = [] # To map character index back to the OCR box
+        current_offset = 0
+
+        # Build the full text string and the box map
         for item in ocr_results:
             text, box = item["text"], item["box"]
+            
+            # The space is crucial for separating words for Presidio analysis
+            padded_text = text + " "
+            full_text += padded_text
+            
+            box_map.append({
+                "box": box,
+                "start": current_offset,
+                "end": current_offset + len(text)
+            })
+            current_offset += len(padded_text)
 
-            results = analyze_text(text)
-            if results:  # PII detected
-                pii_boxes.append(box)
+        # 2. Analyze the full text for PII
+        all_results = analyze_text(full_text)
+        
+        # 3. Process the results and map PII spans back to boxes
+        for r in all_results:
+            # Find the OCR boxes that fall within the detected PII span (r.start, r.end)
+            
+            # Extract the original text for the log (based on the full span)
+            original_pii_text = full_text[r.start:r.end].strip()
 
-                # anonymize detected text
-                anonymized = anonymizer.anonymize(text=text, analyzer_results=results)
+            # The anonymizer needs a slightly different structure than the log
+            anonymized_result = anonymizer.anonymize(
+                text=full_text, 
+                analyzer_results=[r]
+            )
+            anonymized_pii_text = anonymized_result.text[r.start:r.end].strip()
 
-                for r in results:
-                    audit_logs.append({
-                        "timestamp": datetime.utcnow().isoformat(),
-                        "entity_type": r.entity_type,
-                        "original_text": text,
-                        "anonymized_text": anonymized.text,
-                        "box": box
-                    })
+            # Find all boxes that overlap with the PII span
+            boxes_to_redact = []
+            for item in box_map:
+                # Check for overlap: [item.start, item.end] inside [r.start, r.end]
+                # A box is included if its start or end falls within the PII span
+                if max(item["start"], r.start) < min(item["end"], r.end):
+                    pii_boxes.append(item["box"])
+                    boxes_to_redact.append(item["box"])
+            
+            # Deduplicate the boxes for redaction (important if one box is part of multiple PII)
+            # The pii_boxes list at the function level is used for redaction and should be unique.
+            # Using a set to ensure unique boxes before the redaction step is a good practice.
+            # For logging, we log the *full* PII entity only once.
+            
+            if boxes_to_redact:
+                audit_logs.append({
+                    "timestamp": datetime.utcnow().isoformat(),
+                    "entity_type": r.entity_type,
+                    "original_text": original_pii_text,
+                    "anonymized_text": anonymized_pii_text,
+                    # Log the full span in the text, not just one word's box
+                    "start": r.start,
+                    "end": r.end,
+                    "confidence_score": r.score
+                })
 
-        # redact detected PII from image
-        image = redact_boxes(image, pii_boxes, mode="black")
+        # Remove duplicate boxes (e.g., if a box contains a name AND part of a phone number)
+        unique_pii_boxes = list(set(pii_boxes)) 
+        
+        # 4. Redact detected PII from image
+        image = redact_boxes(image, unique_pii_boxes, mode="black")
 
-        # save outputs
+        # 5. Save outputs
         cv2.imwrite(output_image, image)
         save_audit_log(audit_logs, log_file)
 
@@ -140,7 +187,8 @@ def anonymize_screenshot(input_image, output_image, log_file="backend/audit_logs
 
     except Exception as e:
         print(f"❌ Unexpected error during anonymization: {e}")
-        sys.exit(1)
+        # Only exit on critical error, not on a simple exception
+        # sys.exit(1) # Consider removing this to allow partial success
 
 
 if __name__ == "__main__":
