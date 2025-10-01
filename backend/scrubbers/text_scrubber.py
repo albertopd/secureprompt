@@ -34,7 +34,7 @@ class TextScrubber:
             etype = m['type']
             counts.setdefault(etype, 0)
             counts[etype] += 1
-            token = f"[[{etype}_{counts[etype]}]]"
+            token = f"<{etype}_{counts[etype]}>"
             # perform redaction
             redacted = redacted[:m['start']] + token + redacted[m['end']:]
             entities.append({
