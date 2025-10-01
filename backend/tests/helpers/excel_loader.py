@@ -1,0 +1,41 @@
+from pathlib import Path
+import pandas as pd
+from typing import List, Tuple
+
+
+_DEFAULT_PROMPTS_DIR = "tests/data/prompts"
+_PROMPT_COLUMN = "Prompt"
+_SANITIZED_COLUMN = "Sanitized Prompt"
+
+
+def load_test_cases_from_excels(
+    data_dir: str = _DEFAULT_PROMPTS_DIR
+) -> List[Tuple[str, str, str]]:
+    """
+    Load (file, input_prompt, sanitized_prompt) tuples from all Excel files in a folder.
+
+    Files missing the required columns ('Prompt' and 'Sanitized Prompt') are skipped.
+
+    Args:
+        data_dir (str): Directory containing Excel files with prompt data.
+
+    Returns:
+        list: List of tuples (filename, input_prompt, sanitized_prompt) for each row in valid Excel files.
+    """
+    base_path = Path(data_dir)
+    all_cases: List[Tuple[str, str, str]] = []
+
+    for excel_file in base_path.glob("*.xlsx"):
+        df = pd.read_excel(excel_file)
+        missing_columns = [col for col in [_PROMPT_COLUMN, _SANITIZED_COLUMN] if col not in df.columns]
+
+        if missing_columns:
+            print(f"Skipping {excel_file.name}: missing columns {missing_columns}")
+            continue  
+
+        for _, row in df.iterrows():
+            input_prompt = str(row[_PROMPT_COLUMN])
+            sanitized_prompt = str(row[_SANITIZED_COLUMN])
+            all_cases.append((excel_file.name, input_prompt, sanitized_prompt))
+
+    return all_cases

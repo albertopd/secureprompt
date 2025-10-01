@@ -11,10 +11,10 @@ SecurePrompt is a demonstration application designed for banking environments, s
 ## 📋 Requirements
 
 - Python 3.11 or later
-- MongoDB instance (local or cloud)
+- MongoDB instance (local or in docker)
 - Required Python packages listed in:
     - [requirements_backend.txt](requirements_backend.txt)
-    - [requirements_frontend.txt](requirements_fronten.txt)
+    - [requirements_frontend.txt](requirements_frontend.txt)
 
 ## 📦 Installation
 
@@ -119,9 +119,31 @@ To debug the application in Visual Studio Code, follow these instructions:
 - Select the desired configuration ("FastAPI" or "Streamlit") from the dropdown at the top.
 - Click the green play button or press F5 to start debugging.
 
-## 📝 Example Output
+## 🧪 Unit Testing
 
-## 📜 License
+The project includes unit tests for the scrubber component to ensure its functionality and reliability.
+It uses a combination of `pytest` for testing and `pandas` for handling test data stored in Excel files under `backend/tests/data/prompts`.
+
+### Running Tests
+
+Run the test suite with detailed output (for local validation and CI/CD pipelines):
+
+```bash
+cd backend
+pytest -vv --maxfail=3 tests/test_text_scrubber.py
+```
+
+### Test Reports
+
+Run tests with coverage reporting.
+
+```bash
+cd backend
+pytest -vv tests/test_text_scrubber_report.py
+```
+
+Test reports are generated automatically and saved in the `backend/tests/data/reports` directory. These reports include detailed information about test failures and successes.
+
 
 ## 👤 Collaborators
 
