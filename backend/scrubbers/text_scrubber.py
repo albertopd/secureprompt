@@ -3,7 +3,7 @@ import time
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern
 from presidio_anonymizer import AnonymizerEngine
 from audit.auditor import Auditor
-from scrubbers.recognizers import RECOGNIZERS_CLIENT_C4, DEFAULT_RECOGNIZERS_CLIENT_C4
+from scrubbers.recognizers import DENY_LIST_RECOGNIZERS_CLIENT_C4, RECOGNIZERS_CLIENT_C4, DEFAULT_RECOGNIZERS_CLIENT_C4
 
 
 class TextScrubber:
@@ -22,7 +22,7 @@ class TextScrubber:
         
 
 
-    def add_recognizers(self):
+    def add_pattern_recognizers(self) -> None:
 
         for rec in self.recognizers:
             pattern=Pattern(
@@ -38,19 +38,26 @@ class TextScrubber:
 
             self.analyzer.registry.add_recognizer(recognizer)
 
+    def add_list_recognizers(self) -> None:
+        for  rec in DENY_LIST_RECOGNIZERS_CLIENT_C4:
+            recognizer = PatternRecognizer(
+                supported_entity=rec["entity"],
+                deny_list=rec["deny_list"]
+            )
+            self.analyzer.registry.add_recognizer(recognizer)
+
 
     def anonymize_text(self, text:str, target_risk: str = "C4", language: str ="en") -> str:
 
         classification_entities = [] 
 
         if target_risk == "C4":
-            for rec in DEFAULT_RECOGNIZERS_CLIENT_C4 + RECOGNIZERS_CLIENT_C4:
+            for rec in DEFAULT_RECOGNIZERS_CLIENT_C4 + RECOGNIZERS_CLIENT_C4 + DENY_LIST_RECOGNIZERS_CLIENT_C4:
                 classification_entities.append(rec["entity"])
         else:
             pass # Todo: Define for other risk levels
 
         results = self.analyzer.analyze(text=text , entities = classification_entities,language='en')
-        print(results)
 
         anonymized_text = self.anonymizer.anonymize(text=text, analyzer_results=results)
 

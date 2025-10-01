@@ -1,4 +1,8 @@
 
+
+
+
+
 DEFAULT_RECOGNIZERS_CLIENT_C4 = [
   
     {"name": "person", "entity": "PERSON"},
@@ -21,4 +25,17 @@ RECOGNIZERS_CLIENT_C4 = [
 
     {"name": "add_be", "entity": "ADDRESS_BE", "pattern": r"(?i)\b(?:st(?:reet)?|str|dr|rd|road|ave|blvd|boulevard|sq|square|rue|av|avenue|bd|boulevard|straat|laan|plein)\.?$"}
     
+]
+
+
+DENY_LIST_RECOGNIZERS_CLIENT_C4 = [
+  
+    {"name": "eth_pr", "entity": "ETHNIC_ORIGIN", "deny_list": ["ethnic origin", "black", "arab", "mixed", "asian", "white", "hispanic"]},
+    {"name": "pol_op", "entity": "POLITICAL_OPINION", "deny_list": ["political opinion", "liberal", "green", "conservative", "socialist"]},
+    {"name": "hlth", "entity": "HEALTH", "deny_list": ["client health", "health record","chronic illness", "mental health", "disability"]},
+    {"name": "rel_bel", "entity": "RELIGIOUS_BELIEF", "deny_list": ["religious belief", "religion", "religious","christian", "muslim", "jewish", "hindu", "buddhist"]},
+    {"name": "phil_bel", "entity": "PHILOSOPHICAL_BELIEF", "deny_list": ["philosophical belief", "agnostic", "atheist", "humanist", "spiritual"]},
+    {"name": "sex_or", "entity": "SEXUAL_ORIENTATION", "deny_list": ["sexual orientation", "asexual", "homosexual", "heterosexual","bisexual"]}
+
+
 ]
