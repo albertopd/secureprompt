@@ -16,7 +16,18 @@ class FileScrubber:
 
         return {
             "label": "LOW",
-            "entities": [],
-            "redacted_text": "[REDACTED FILE CONTENT - demo]",
-            "redacted_file": f"/api/v1/file/download/{redacted_filename}",
+            "entities": [
+                {
+                    "span": "+324985715",
+                    "type": "PHONE_BE",
+                    "replacement": "<PHONE_BE_1>",
+                    "source": "regex",
+                    "score": 0.9,
+                    "start": 0,
+                    "end": 10,
+                    "explanation": "Detected by regex"
+                }
+            ],
+            "filename": filename,
+            "download_url": f"file/download/{redacted_filename}"
         }

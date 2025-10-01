@@ -30,7 +30,11 @@ def login(req: LoginRequest):
     token = str(uuid.uuid4())
     SESSIONS[token] = {"username": req.username}
     auditor.log(req.username, "login", {})
-    return {"token": token}
+    return {
+        "token": token,
+        "full_name": "John Doe",
+        "role": "admin"
+    }
 
 @app.post("/api/v1/logout")
 def logout(session=Depends(require_auth), authorization: str = Header(None)):
