@@ -28,12 +28,13 @@ class TextScrubber:
             pattern=Pattern(
                 name= f"{rec['name']}_pattern", 
                 regex= rec['pattern'], 
-                score= 0.8    
+                score= rec.get("score", 0.8)   
             )
 
             recognizer = PatternRecognizer(
                 supported_entity=rec["entity"],
-                patterns=[pattern]
+                patterns=[pattern],
+                context=rec.get("context", []) 
             )
 
             self.analyzer.registry.add_recognizer(recognizer)
@@ -42,9 +43,12 @@ class TextScrubber:
         for  rec in DENY_LIST_RECOGNIZERS_CLIENT_C4:
             recognizer = PatternRecognizer(
                 supported_entity=rec["entity"],
-                deny_list=rec["deny_list"]
+                deny_list=rec["deny_list"],
+                context=rec.get("context", []) 
+        
             )
             self.analyzer.registry.add_recognizer(recognizer)
+
 
 
     def anonymize_text(self, text:str, target_risk: str = "C4", language: str ="en") -> str:
@@ -57,7 +61,7 @@ class TextScrubber:
         else:
             pass # Todo: Define for other risk levels
 
-        results = self.analyzer.analyze(text=text , entities = classification_entities,language='en')
+        results = self.analyzer.analyze(text=text, entities=classification_entities, language='en')
 
         anonymized_text = self.anonymizer.anonymize(text=text, analyzer_results=results)
 

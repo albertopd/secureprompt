@@ -29,24 +29,15 @@ if __name__ == "__main__":
                  "/home/javanegas/estefy/Anonymization/BECODE/PROMPTS/prompts_13_16_18.xlsx",
                  "/home/javanegas/estefy/Anonymization/BECODE/PROMPTS/prompts_09_16_17.xlsx"])
 
-artificial_prompts =[ "John Smith, living at 45 Green Street, Brussels 1000, phone +32 475 123 456 "
-"is of Arab ethnic origin and a practicing muslim."
-"His IBAN is BE78676613260743 and his credit card 5851 9202 8729 1507. He voted for the socialist party.",
-
-"Maria Gonzalez, 12 Rue de la Loi, 1040 Etterbeek, phone 0478 555 222,"
-"is Hispanic and identifies as Christian. "
-"She has a chronic illness that requires ongoing treatment. "
-"Her card number is 4532 6987 2209 8871 and her IBAN is BE24699985452067.",
-
-"David Cohen, address 89 Avenue Louise, 1050 Brussels, phone +32 488 444 321,"
-"is Jewish and politically liberal. "
-"His health record mentions a disability. "
-"His MasterCard is 5100 4321 8765 1234 and IBAN BE75573778827078.",
-
-"Anika Sharma, 5 Drève des Chênes, 1410 Waterloo, phone 0472 333 999,"
-"is of Asian ethnic origin and follows Hindu religious beliefs. "
-"She supports the Green party. "
-"Her credit card is 3714 496353 98431 and IBAN BE67999912345678."
+artificial_prompts =[ "I live in 1234 Maple ST and my PIN is 1234.",
+                      "My credit score is 750 and my birth date is 1990-05-15",
+                      "4321 is a random number, but 5678 is my PIN code.",
+                      "my pin is 9876 and my CCV is 123",
+                      "234 keilagh",
+                      "My ccv is 457",
+                      "My credit score is 820 and my expiration date is 12/25",
+                      "My card expires on 11-24 and my credit score is 680",
+                      "My ccv is 321 and my pin is 4567"
 
 ]
 
