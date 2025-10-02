@@ -70,7 +70,7 @@ uvicorn api.main:app --reload
 - Run Streamlit app:
 ```bash
 cd frontend
-streamlit run scrubber_app.py
+streamlit run app.py
 ```
 
 - Browse: http://localhost:8501
