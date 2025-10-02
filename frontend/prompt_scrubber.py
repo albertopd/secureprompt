@@ -48,7 +48,7 @@ def prompt_scrubber_tab():
                     redacted_text = json_result["redacted_text"]
 
                     st.html("<div class='field_header'>Redacted prompt:</div>")
-                    st.code(redacted_text, language="html")
+                    st.code(redacted_text, language="html", wrap_lines=True)
 
                     with st.expander("Redaction details"):
                         df = create_scrubbed_entity_report(entities)

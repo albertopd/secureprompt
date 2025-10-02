@@ -47,7 +47,7 @@ def logout(session=Depends(require_auth), authorization: str = Header(None)):
 @app.post("/api/v1/scrub")
 def scrub(req: ScrubRequest, session=Depends(require_auth)):
     lang = req.language if req.language else "en"
-    scrub_result = text_scrubber.scrub(req.prompt, req.target_risk, lang)
+    scrub_result = text_scrubber.anonymize_text(req.prompt, req.target_risk, lang)
     auditor.log(session["username"], "scrub", scrub_result)
     return scrub_result
 

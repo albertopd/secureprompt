@@ -28,7 +28,7 @@ def test_text_scrubber_report():
 
     results = []
     for file, prompt, expected in cases:
-        result = scrubber.scrub(prompt)
+        result = scrubber.anonymize_text(prompt)
         passed = result == expected
         results.append({
             "file": file,

@@ -8,7 +8,7 @@ class LoginRequest(BaseModel):
 class ScrubRequest(BaseModel):
     user_id: str
     prompt: str
-    target_risk: str = "C3"
+    target_risk: str = "C4"
     language: Optional[str] = "en"
 
 class DescrubRequest(BaseModel):
