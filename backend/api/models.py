@@ -1,9 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 
 class LoginRequest(BaseModel):
-    username: str
-    password: str
+    email: str
+    CorpKey: str
 
 class ScrubRequest(BaseModel):
     user_id: str
