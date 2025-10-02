@@ -49,7 +49,6 @@ class TextScrubber:
             })
             replacements[token] = m['span']
         return {
-            "label": "LOW" if not entities else "MEDIUM",
             "entities": entities,
             "redacted_text": redacted
         }

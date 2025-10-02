@@ -1,0 +1,23 @@
+/* Updated styles for the tab headers */
+[data-baseweb="tab"] p {
+    font-size: 1.15rem;
+    font-weight: 500 !important;
+}
+
+/* Updated styles for the logout button */
+[class*="st-key-logout_button"] p {
+    font-size: 0.9rem;
+}
+
+/* Add styles for the welcome message */
+.welcome-message {
+    font-size: 1.4rem;
+    font-weight: 500 !important;
+}
+
+/* Add styles for field headers */
+.field_header {
+    font-size: 1.1rem;
+    font-weight: 500 !important;
+    margin-bottom: -0.8rem;
+}
