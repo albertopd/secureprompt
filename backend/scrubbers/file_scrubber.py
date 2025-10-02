@@ -15,7 +15,6 @@ class FileScrubber:
             f.write("[REDACTED FILE CONTENT - demo]")
 
         return {
-            "label": "LOW",
             "entities": [
                 {
                     "span": "+324985715",

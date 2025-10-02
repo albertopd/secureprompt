@@ -1,6 +1,5 @@
 # Streamlit UI
 streamlit>=1.33.0
-st-copy
 
 # API requests
 requests>=2.31.0
