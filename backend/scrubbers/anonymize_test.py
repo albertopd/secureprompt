@@ -21,28 +21,40 @@ def test_anonymization(text_to_anonymize: str, risk_level: str = "C4"):
   text_scrubber = TextScrubber(risk_level=risk_level)
   text_scrubber.add_pattern_recognizers()
   text_scrubber.add_list_recognizers()
+  text_scrubber.add_spacy_recognizers()
   anonymized = text_scrubber.anonymize_text(text_to_anonymize)
   return anonymized
 
 
 if __name__ == "__main__":
 
-  file_paths = ["/home/javanegas/estefy/Anonymization/BECODE/PROMPTS/prompts_08_17_18.xlsx", 
-                "/home/javanegas/estefy/Anonymization/BECODE/PROMPTS/prompts_13_16_18.xlsx",
-                "/home/javanegas/estefy/Anonymization/BECODE/PROMPTS/prompts_09_16_17.xlsx"]
+  file_paths = ["/home/javanegas/estefy/Anonymization/anonymization-presidio/csv_files_PROMPTS/prompts_01_05_15.csv", 
+                "/home/javanegas/estefy/Anonymization/anonymization-presidio/csv_files_PROMPTS/prompts_01_06_14.csv",
+                "/home/javanegas/estefy/Anonymization/anonymization-presidio/csv_files_PROMPTS/prompts_01_06_18.csv"]
 
-  df_test = pd.read_excel(file_paths[0])
+  df_test = pd.read_csv(file_paths[0])
   prompts, responses = get_test_text(df_test)
 
 
-  test_prompts =["""Provide a compliance sample set: 03488215-4c4a-49aa-ae1c-b7f6ede56a4a (Pending), 
-  7f244a6e-6042-4b1f-b1e4-aced4fc1087d (Completed), 5518158a-0d88-48fb-9ed9-db32800c5216 (Failed), 
-  2fc89765-a638-4b6a-881a-83b5cfa4b877 (Pending), 36d0b951-2d3d-4161-abff-147784fb9e6d (Completed)."""]
+  test_prompts =["""I have 54.000 euros in my bank account with IBAN BE12 3456 7890 1234.""",
+
+  """Mary Smith is of Asian descent and a votes for the socialist party.
+    Confirm if she is heterosexual and has a chronic illness? 
+    She has 35000 dollars in her savings account.""",
+
+   """Linda Walker was born on 1996-05-28 with National ID 96.05.28-537.79. Her phone number is +32 68 536 512.
+   Her email is laura.walker@proximus.be.  Provide her IBAN.
+   Currently she have $5,000 in her account.""",
+
+   """To whom it belongs the IBAN BE64322050574468, biometric data FaceID 
+   with credit card number 5390880703591623, CVV 910 and expiry date 02/28 ? 
+   Also, this person has 75000 in savings and 54650 in checking account.""",
+]
 
 
-  for text in responses:
+  for text in test_prompts:
     print("**********************************")
     print("Original Text: ", text)
-    print("Anonymized Text level C4: ", test_anonymization(text, risk_level="C4"))
+    print("Anonymized Text level C2: ", test_anonymization(text, risk_level="C2"))
     print("**********************************")
 
