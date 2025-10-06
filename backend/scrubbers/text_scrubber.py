@@ -87,7 +87,7 @@ class TextScrubber:
   
         # Build a quick lookup of scores from analyzer results
         scores_map = {
-            (r.entity_type, r.start): getattr(r, "score", 0.0)
+            (r.entity_type, r.start): getattr(r, "score", 0.5)
             for r in results
         }
 

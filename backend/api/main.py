@@ -7,6 +7,7 @@ from scrubbers.text_scrubber import TextScrubber
 from scrubbers.file_scrubber import FileScrubber
 from audit.auditor import Auditor
 from database.mongo import get_collection
+from pathlib import Path
 
 app = FastAPI(title="SecurePrompt API")
 
@@ -32,6 +33,7 @@ def login(req: LoginRequest):
     auditor.log(req.username, "login", {})
     return {
         "token": token,
+        "user_id": req.username,
         "full_name": "John Doe",
         "role": "admin"
     }
@@ -60,17 +62,21 @@ async def scrub_file(file: UploadFile = File(...), session=Depends(require_auth)
     return result
 
 @app.get("/api/v1/file/download/{file_id}")
-def download_file(file_id: str, session=Depends(require_auth)):
-    try:
-        record = files_col.find_one({"_id": file_id})
-    except Exception:
-        raise HTTPException(status_code=400, detail="Invalid file_id")
+def download_file(file_id: str):
+    # try:
+    #     record = files_col.find_one({"_id": file_id})
+    # except Exception:
+    #     raise HTTPException(status_code=400, detail="Invalid file_id")
 
-    if not record:
-        raise HTTPException(status_code=404, detail="File record not found")
+    # if not record:
+    #     raise HTTPException(status_code=404, detail="File record not found")
 
-    redacted_path = record.get("redacted_path")
-    if not redacted_path or not os.path.exists(redacted_path):
+    # redacted_path = record.get("redacted_path")
+
+    redacted_dir = Path("C:/tmp/secureprompt_files")
+    redacted_path = redacted_dir / f"redacted_{file_id}"
+
+    if not os.path.exists(redacted_path):
         raise HTTPException(status_code=404, detail="File not available")
 
     return FileResponse(redacted_path, filename=os.path.basename(redacted_path))
