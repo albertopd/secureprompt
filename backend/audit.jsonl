@@ -1,0 +1,11 @@
+{"timestamp": "2025-10-01T09:40:01.565048", "entity_type": "PERSON", "original_text": "Mary", "anonymized_text": "<PERSON>", "box": [96, 33, 31, 13]}
+{"timestamp": "2025-10-01T09:40:01.617888", "entity_type": "EMAIL_ADDRESS", "original_text": "\u2018mary.sims@ing.com)", "anonymized_text": "\u2018<EMAIL_ADDRESS>)", "box": [11, 53, 133, 13]}
+{"timestamp": "2025-10-01T09:40:01.633469", "entity_type": "PERSON", "original_text": "John", "anonymized_text": "<PERSON>", "box": [224, 53, 26, 10]}
+{"timestamp": "2025-10-01T09:40:01.636481", "entity_type": "PERSON", "original_text": "Graham", "anonymized_text": "<PERSON>", "box": [256, 53, 49, 10]}
+{"timestamp": "2025-10-01T09:40:01.655375", "entity_type": "EMAIL_ADDRESS", "original_text": "john.graham@ing.com).", "anonymized_text": "<EMAIL_ADDRESS>).", "box": [39, 73, 153, 14]}
+{"timestamp": "2025-10-01T10:03:13.966629", "entity_type": "EMAIL_ADDRESS", "original_text": "mary.sims@ing.com", "anonymized_text": "<EMAIL_ADDRESS>)", "start": 102, "end": 119, "confidence_score": 1.0}
+{"timestamp": "2025-10-01T10:03:13.966629", "entity_type": "EMAIL_ADDRESS", "original_text": "john.graham@ing.com", "anonymized_text": "<EMAIL_ADDRESS>). I", "start": 162, "end": 181, "confidence_score": 1.0}
+{"timestamp": "2025-10-01T10:03:13.966629", "entity_type": "PERSON", "original_text": "Mary Sims", "anonymized_text": "<PERSON>", "start": 74, "end": 83, "confidence_score": 0.85}
+{"timestamp": "2025-10-01T10:03:13.966629", "entity_type": "PERSON", "original_text": "John Graham", "anonymized_text": "<PERSON> (+", "start": 132, "end": 143, "confidence_score": 0.85}
+{"timestamp": "2025-10-01T10:03:13.966629", "entity_type": "DATE_TIME", "original_text": "31 603 '900", "anonymized_text": "<DATE_TIME>", "start": 149, "end": 160, "confidence_score": 0.85}
+{"timestamp": "2025-10-01T10:03:13.966629", "entity_type": "PHONE_NUMBER", "original_text": "(+32 42 361 650", "anonymized_text": "<PHONE_NUMBER>,", "start": 84, "end": 99, "confidence_score": 0.4}
