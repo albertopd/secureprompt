@@ -1,112 +1,129 @@
-import uuid
 import os
+import jwt
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException, Header
 from fastapi.responses import FileResponse
 from api.models import LoginRequest, ScrubRequest, DescrubRequest
 from scrubbers.text_scrubber import TextScrubber
 from scrubbers.file_scrubber import FileScrubber
-from audit.auditor import Auditor
-from database.mongo import get_collection
+from database.users_db import UsersDatabase
+from database.audits_db import AuditsDatabase
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi.logger import logger
 
-app = FastAPI(title="SecurePrompt API")
 
-SESSIONS = {}
+TOKEN_JWT_SECRET = os.getenv("JWT_SECRET", "secrete-should-be-long-and-random")
+TOKEN_EXPIRY_SECONDS = int(os.environ.get("TOKEN_EXPIRY_SECONDS", 3600))  # 1 hour default
+SESSIONS = []  # In-memory session store for demo purposes
+
+
+app = FastAPI(title="SecurePrompt API")
 text_scrubber = TextScrubber()
 file_scrubber = FileScrubber()
-auditor = Auditor()
 
-# Use the get_collection function to connect to MongoDB
-users_col = get_collection("employees")
-logs_col = get_collection("logs")
 
 def require_auth(authorization: str = Header(None)):
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Unauthorized")
     token = authorization.split(" ", 1)[1]
-    if token not in SESSIONS:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-    return SESSIONS[token]
-
-# Update login route to handle MongoDB field names
-@app.post("/api/v1/login")
-def login(req: LoginRequest):
-    logger.info("Received login request for email: %s", req.email)
-    # Log the incoming request data
-    print(f"Login attempt: email={req.email}, CorpKey={req.CorpKey}")
-
-    # Check user credentials in MongoDB
-    user = users_col.find_one({"email": req.email, "CorpKey": req.CorpKey})
-    logger.debug("MongoDB query result: %s", user)
-
-    if not user:
-        logger.warning("Invalid login attempt for email: %s", req.email)
-        # Log failed login attempt
-        print(f"Login failed for email={req.email}")
-        logs_col.insert_one({
-            "email": req.email,
-            "action": "login",
-            "status": "failure",
-            "timestamp": datetime.utcnow()
-        })
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-
-    print(f"Received email: {req.email}, CorpKey: {req.CorpKey}")
-    print(f"Query result: {user}")
-    # Generate session token
-    token = str(uuid.uuid4())
-    SESSIONS[token] = {"email": req.email, "role": user["role"]}
-
-    # Log successful login
-    logs_col.insert_one({
-        "email": req.email,
-        "action": "login",
-        "status": "success",
-        "timestamp": datetime.utcnow()
-    })
-
+    try:
+        payload = jwt.decode(token, TOKEN_JWT_SECRET, algorithms=["HS256"])
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
     return {
         "token": token,
-        "first_name": user["First Name"],
-        "last_name": user["Last Name"],
-        "role": user["role"]
+        "corp_key": payload.get("corp_key"),
+        "email": payload.get("email"),
+        "first_name": payload.get("first_name"),
+        "last_name": payload.get("last_name"),
+        "role": payload.get("role")
     }
 
-@app.post("/api/v1/logout")
-def logout(authorization: str = Header(None)):
-    if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Unauthorized")
 
-    token = authorization.split(" ", 1)[1]
-    if token not in SESSIONS:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
+@app.get("/api/v1/health")
+def health_check():
+    return {"status": "healthy"}
 
-    # Log the logout action
-    user = SESSIONS.pop(token)
-    logs_col.insert_one({
-        "e-mail": user.get("email"),
-        "action": "logout",
+
+@app.post("/api/v1/login")
+def login(req: LoginRequest):
+    logger.info(f"Login attempt: email={req.email}")
+
+    # Check user credentials in MongoDB
+    with UsersDatabase() as users_db:
+        user = users_db.check_user_credentials(req.email, req.password)
+
+        if not user:
+            logger.warning("Invalid login attempt for email: %s", req.email)
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    # Generate JWT token
+    payload = {
+        "corp_key": user["corp_key"],
+        "email": req.email,
+        "first_name": user["first_name"],
+        "last_name": user["last_name"],
+        "role": user["role"],
+        "exp": datetime.now(timezone.utc).timestamp() + TOKEN_EXPIRY_SECONDS
+    }
+
+    token = jwt.encode(payload, TOKEN_JWT_SECRET, algorithm="HS256")
+    SESSIONS.append(token)
+
+    with AuditsDatabase() as audits_db:
+        audits_db.log(user["corp_key"], "login", {"status": "success"})
+
+    return {
         "status": "success",
-        "timestamp": datetime.utcnow()
-    })
+        "token": token
+    }
 
-    return {"message": "Successfully logged out"}
+
+@app.post("/api/v1/logout")
+def logout(session=Depends(require_auth)):
+    logger.info(f"Logout attempt: email={session['email']}")
+
+    SESSIONS.remove(session["token"])
+
+    with AuditsDatabase() as audits_db:
+        audits_db.log(session["corp_key"], "logout", {"status": "success"})
+
+    return {"status": "success"}
+
 
 @app.post("/api/v1/scrub")
 def scrub(req: ScrubRequest, session=Depends(require_auth)):
     lang = req.language if req.language else "en"
-    scrub_result = text_scrubber.anonymize_text(req.prompt, req.target_risk, lang)
-    auditor.log(session["username"], "scrub", scrub_result)
+    target_risk = req.target_risk if req.target_risk else "C4"
+    scrub_result = text_scrubber.anonymize_text(req.prompt, target_risk, lang)
+
+    audits_details = {
+        "language": lang,
+        "target_risk": target_risk,
+        "original_text": req.prompt
+    }
+    audits_details.update(scrub_result)
+
+    with AuditsDatabase() as audits_db:
+        audits_db.log(session["corp_key"], "scrub", audits_details)
+
     return scrub_result
 
-## Added endpoint for text anonymization 
+
+## Added endpoint for text anonymization
 @app.post("/api/v1/text/anonymize")
 def anonymize_text(req: ScrubRequest, session=Depends(require_auth)):
     lang = req.language if req.language else "en"
     anon_result = text_scrubber.anonymize_text(req.prompt, req.target_risk, lang)
-    auditor.log(session["username"], "anonymize_text", {"target_risk": req.target_risk, "anonymized_text": anon_result}) #Indlude original text ?
+
+    with AuditsDatabase() as auditor:
+        auditor.log(
+            session["corp_key"],
+            "anonymize_text",
+            {"target_risk": req.target_risk, "anonymized_text": anon_result},
+        )  # Include original text ?
     return anon_result
 
 
@@ -115,8 +132,12 @@ async def scrub_file(file: UploadFile = File(...), session=Depends(require_auth)
     if file.filename is None:
         raise HTTPException(status_code=400, detail="Filename is required")
     result = file_scrubber.scrub_file(file.filename, await file.read())
-    auditor.log(session["username"], "file_scrub", {"filename": file.filename})
+
+    with AuditsDatabase() as audits_db:
+        audits_db.log(session["corp_key"], "file_scrub", {"filename": file.filename})
+
     return result
+
 
 @app.get("/api/v1/file/download/{file_id}")
 def download_file(file_id: str):
@@ -138,7 +159,10 @@ def download_file(file_id: str):
 
     return FileResponse(redacted_path, filename=os.path.basename(redacted_path))
 
+
 @app.post("/api/v1/descrub")
 def descrub(req: DescrubRequest, session=Depends(require_auth)):
-    auditor.log(session["username"], "descrub", req.dict())
+    with AuditsDatabase() as audits_db:
+        audits_db.log(session["corp_key"], "descrub", req.model_dump())
+
     return {"status": "OK"}

@@ -1,16 +1,17 @@
-from database.mongo import get_collection
-import time
+#from backend.database.users_db import get_collection
+from datetime import datetime, timezone
 
 class Auditor:
     def __init__(self):
-        self.col = get_collection("audits")
+        self.col = None #get_collection("audits")
 
-    def log(self, user: str, action: str, details: dict):
+    def log(self, corp_key: str, action: str, details: dict):
         record = {
-            "user": user,
+            "timestamp": datetime.now(timezone.utc),
+            "corp_key": corp_key,
             "action": action,
             "details": details,
-            "timestamp": time.time()
+
         }
-        self.col.insert_one(record)
+        #self.col.insert_one(record)
         return str(record.get("_id"))
