@@ -10,6 +10,7 @@ def add_roles_and_save_csv(input_file: str, output_file: str) -> None:
     Roles are assigned as follows:
     - 10 employees get "Administrator"
     - 10 employees get "Auditor"
+    - 10 employees get "Advanced User"
     - The rest are assigned "User"
 
     Args:

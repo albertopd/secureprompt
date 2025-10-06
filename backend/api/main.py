@@ -1,7 +1,5 @@
-import sys
 import uuid
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException, Header
 from fastapi.responses import FileResponse
 from api.models import LoginRequest, ScrubRequest, DescrubRequest
@@ -11,7 +9,6 @@ from audit.auditor import Auditor
 from database.mongo import get_collection
 from pathlib import Path
 from datetime import datetime
-from pymongo import MongoClient
 from fastapi.logger import logger
 
 app = FastAPI(title="SecurePrompt API")
