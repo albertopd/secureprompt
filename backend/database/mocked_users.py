@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import random
 from pymongo import MongoClient
-import uuid
 
 def add_roles_and_save_csv(input_file: str, output_file: str) -> None:
     """
@@ -56,10 +55,6 @@ def import_employees_to_mongo(csv_file: str) -> None:
     # Load employees
     df = pd.read_csv(csv_file)
 
-    # Rename 'e-mail' column to 'email'
-    if 'e-mail' in df.columns:
-        df.rename(columns={'e-mail': 'email'}, inplace=True)
-
     # Connect to MongoDB
     MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
     DB_NAME = os.getenv("MONGO_DB", "secureprompt")
@@ -77,27 +72,6 @@ def import_employees_to_mongo(csv_file: str) -> None:
         collection.insert_one(document)
 
     print("Employees inserted into MongoDB with proper structure.")
-
-def get_collection(collection_name: str):
-    """
-    Connect to MongoDB and return the specified collection.
-
-    Args:
-        collection_name (str): The name of the MongoDB collection to connect to.
-
-    Returns:
-        Collection: A pymongo collection object.
-    """
-    MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
-    DB_NAME = os.getenv("MONGO_DB", "secureprompt")
-    client = MongoClient(MONGO_URI)
-    db = client[DB_NAME]
-    users_col = db["employees"]
-    logs_col = db["logs"]
-    return db[collection_name]
-
-
-
 
 # Example usage
 if __name__ == "__main__":
