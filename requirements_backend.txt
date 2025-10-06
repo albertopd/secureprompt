@@ -19,3 +19,7 @@ openpyxl>=3.0.10
 # Scrubbing
 presidio-analyzer
 presidio-anonymizer
+
+# OCR
+pytesseract
+opencv-python-headless
