@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
    """To whom it belongs the IBAN BE64322050574468, biometric data FaceID 
    with credit card number 5390880703591623, CVV 910 and expiry date 02/28 ? 
-   Also, this person has 75000 in savings and 54650 in checking account.""",
+   Also, this person has 75.000 in savings and 54650 in checking account.""",
 ]
 
 

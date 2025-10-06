@@ -1,7 +1,11 @@
+import random
 import re
 import pandas as pd
 import json
 import os
+
+import spacy
+from spacy.tokens import DocBin
 
 
 def extract_raw_labels(csv_folder: str,  column_with_labels = "Sanitized Prompt", destination_file: str = "backend/scrubbers/nlp/datafiles/raw_labels.json"):
@@ -87,6 +91,7 @@ def extract_entities_from_template(raw, label):
     pointer = 0
     entities = []
     i = 0
+    original_text = raw
     while i < len(tokens):
         token = tokens[i]
         if token.startswith('<') and token.endswith('>'):
@@ -125,7 +130,26 @@ def extract_entities_from_template(raw, label):
                     raise ValueError(f"Static token not found: '{static}'\nRaw: {raw}\nTemplate: {template}")
             pointer = idx + len(static)
             i += 1
-    return entities
+    return (original_text, {"entities": entities})
+
+def shuffle_data(tagged_data, training_split, seed=42):
+    random.shuffle(tagged_data)
+    split = int(len(tagged_data)*training_split)
+    train_data = tagged_data[:split]
+    test_data = tagged_data[split:]
+    return train_data, test_data
+
+def save_spacy_data(tagged_data, output_path:str):
+    nlp = spacy.blank("en")
+    db = DocBin()
+
+    for text, annot in tagged_data:
+        doc = nlp.make_doc(text)
+        ents = [doc.char_span(start, end, label) for start, end, label in annot["entities"] if doc.char_span(start, end, label)]
+        doc.ents = ents
+        db.add(doc)
+
+    db.to_disk(output_path)
 
 
 
@@ -134,14 +158,26 @@ if __name__ == "__main__":
     #extract_raw_labels("backend/scrubbers/nlp/datafiles/csv_files")
     #consolidate_labels("backend/scrubbers/nlp/datafiles/raw_labels.json")
 
-    pairs = parse_pair_from_file("backend/scrubbers/nlp/datafiles/csv_files/prompts_13_16_18.csv")
+    pairs_1 = parse_pair_from_file("/home/javanegas/estefy/Anonymization/anonymization-presidio/csv_files_PROMPTS/prompts_ccv_pin.csv")
+    pairs_2 = parse_pair_from_file("/home/javanegas/estefy/Anonymization/anonymization-presidio/csv_files_PROMPTS/security_code_prompts.csv")
+    pairs_total = pairs_1 + pairs_2
 
+    tagged_data_file = []
     count = 0
-    for raw, template in pairs:
+
+    for raw, template in pairs_total:
         try:
             entities = extract_entities_from_template(raw, template)
             count += 1
+            tagged_data_file.append(entities)
         except ValueError as e:
             print(f"Skipping pair due to error: {e}")
             continue
     print(f"Processed {count} pairs successfully.")
+
+    print(f"Total tagged data samples: {len(tagged_data_file)}")
+
+
+    train, test = shuffle_data(tagged_data_file, training_split=0.8)
+    save_spacy_data (train, "backend/scrubbers/nlp/datafiles/train.spacy")
+    save_spacy_data (test, "backend/scrubbers/nlp/datafiles/test.spacy")
