@@ -211,3 +211,5 @@ __marimo__/
 
 # Test reports
 backend/tests/data/reports/
+
+/backend/scrubbers/nlp/datafiles/

@@ -51,6 +51,15 @@ def scrub(req: ScrubRequest, session=Depends(require_auth)):
     auditor.log(session["username"], "scrub", scrub_result)
     return scrub_result
 
+## Added endpoint for text anonymization 
+@app.post("/api/v1/text/anonymize")
+def anonymize_text(req: ScrubRequest, session=Depends(require_auth)):
+    lang = req.language if req.language else "en"
+    anon_result = text_scrubber.anonymize_text(req.prompt, req.target_risk, lang)
+    auditor.log(session["username"], "anonymize_text", {"target_risk": req.target_risk, "anonymized_text": anon_result}) #Indlude original text ?
+    return anon_result
+
+
 @app.post("/api/v1/file/scrub")
 async def scrub_file(file: UploadFile = File(...), session=Depends(require_auth)):
     if file.filename is None:
