@@ -1,3 +1,4 @@
+import logging
 import os
 from pathlib import Path
 from fastapi import APIRouter, Request, UploadFile, File, Depends, HTTPException
@@ -5,14 +6,10 @@ from fastapi.responses import FileResponse
 
 from api.routers.authentication import require_auth_flexible, extract_client_info
 from api.rbac import DESCRUBBER_OR_ADMIN, SCRUBBER_OR_ABOVE
-from api.dependencies import get_audit_manager_dep, get_file_scrubber_dep
+from api.dependencies import get_log_manager_dep, get_file_scrubber_dep
 from api.models import DescrubRequest, FileScrubResponse
-from database.log_manager import (
-    LogRecordAction,
-    LogRecordCategory,
-    LogManager,
-    LogRecord,
-)
+from database.log_record import LogRecord, LogRecordAction, LogRecordCategory
+from database.log_manager import LogManager
 from scrubbers.file_scrubber import FileScrubber
 
 
@@ -24,7 +21,7 @@ async def scrub(
     request: Request,
     file: UploadFile = File(...),
     session=Depends(SCRUBBER_OR_ABOVE),
-    audit_manager: LogManager = Depends(get_audit_manager_dep),
+    log_manager: LogManager = Depends(get_log_manager_dep),
     file_scrubber: FileScrubber = Depends(get_file_scrubber_dep),
 ):
     """Upload and scrub a file for sensitive information"""
@@ -35,7 +32,7 @@ async def scrub(
 
     client_info = extract_client_info(request)
 
-    id = audit_manager.add_log(
+    id = log_manager.add_log(
         LogRecord(
             corp_key=session["corp_key"],
             category=LogRecordCategory.FILE,
@@ -61,7 +58,7 @@ def descrub(
     request: Request,
     req: DescrubRequest,
     session=Depends(DESCRUBBER_OR_ADMIN),
-    audit_manager: LogManager = Depends(get_audit_manager_dep),
+    log_manager: LogManager = Depends(get_log_manager_dep),
 ):
     """Descrub (restore) previously scrubbed content - RESTRICTED to descrubber/admin roles"""
     # TODO: Implement descrubbing logic if applicable
@@ -69,7 +66,7 @@ def descrub(
 
     client_info = extract_client_info(request)
 
-    audit_manager.add_log(
+    log_manager.add_log(
         LogRecord(
             corp_key=session["corp_key"],
             category=LogRecordCategory.FILE,
@@ -86,7 +83,11 @@ def descrub(
 
 @router.get("/download/{file_id}")
 def download(
-    file_id: str, token: str | None = None, session=Depends(require_auth_flexible)
+    request: Request,
+    file_id: str,
+    token: str | None = None,
+    session=Depends(require_auth_flexible),
+    log_manager: LogManager = Depends(get_log_manager_dep),
 ):
     """Download a previously processed file"""
     # TODO: Implement proper file storage and retrieval
@@ -105,6 +106,22 @@ def download(
     redacted_path = redacted_dir / f"anonymized_{file_id}"
 
     if not os.path.exists(redacted_path):
+        logging.warning(f"File not found: {redacted_path}")
         raise HTTPException(status_code=404, detail="File not available")
+
+    client_info = extract_client_info(request)
+
+    log_manager.add_log(
+        LogRecord(
+            corp_key=session["corp_key"],
+            category=LogRecordCategory.FILE,
+            action=LogRecordAction.DOWNLOAD,
+            details={"file_id": file_id, "file_path": os.path.basename(redacted_path)},
+            device_info=client_info.device_info,
+            browser_info=client_info.browser_info,
+            client_ip=client_info.client_ip,
+            user_agent=client_info.user_agent,
+        )
+    )
 
     return FileResponse(redacted_path, filename=os.path.basename(redacted_path))

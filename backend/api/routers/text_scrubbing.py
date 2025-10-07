@@ -7,14 +7,10 @@ from api.models import (
     DescrubRequest,
 )
 from api.rbac import DESCRUBBER_OR_ADMIN, SCRUBBER_OR_ABOVE
-from api.dependencies import get_audit_manager_dep, get_text_scrubber_dep
+from api.dependencies import get_log_manager_dep, get_text_scrubber_dep
 from api.routers.authentication import extract_client_info
-from database.log_manager import (
-    LogRecordAction,
-    LogRecordCategory,
-    LogManager,
-    LogRecord,
-)
+from database.log_record import LogRecord, LogRecordAction, LogRecordCategory
+from database.log_manager import LogManager
 from scrubbers.text_scrubber import TextScrubber
 
 
@@ -26,7 +22,7 @@ def scrub(
     request: Request,
     req: ScrubRequest,
     session=Depends(SCRUBBER_OR_ABOVE),
-    audit_manager: LogManager = Depends(get_audit_manager_dep),
+    log_manager: LogManager = Depends(get_log_manager_dep),
     text_scrubber: TextScrubber = Depends(get_text_scrubber_dep),
 ):
     """Scrub sensitive information from text"""
@@ -43,7 +39,7 @@ def scrub(
 
     client_info = extract_client_info(request)
 
-    id = audit_manager.add_log(
+    id = log_manager.add_log(
         LogRecord(
             corp_key=session["corp_key"],
             category=LogRecordCategory.TEXT,
@@ -68,11 +64,11 @@ def descrub(
     request: Request,
     req: DescrubRequest,
     session=Depends(DESCRUBBER_OR_ADMIN),
-    audit_manager: LogManager = Depends(get_audit_manager_dep),
+    log_manager: LogManager = Depends(get_log_manager_dep),
 ):
     """Descrub (restore) previously scrubbed content - RESTRICTED to descrubber/admin roles"""
     # TODO: Ensure requesting user has permission to descrub this content
-    audit_record = audit_manager.get_log(req.scrub_id)
+    audit_record = log_manager.get_log(req.scrub_id)
     if not audit_record:
         raise HTTPException(status_code=404, detail="Scrub record not found")
 
@@ -120,7 +116,7 @@ def descrub(
 
     client_info = extract_client_info(request)
 
-    audit_manager.add_log(
+    log_manager.add_log(
         LogRecord(
             corp_key=session["corp_key"],
             category=LogRecordCategory.TEXT,

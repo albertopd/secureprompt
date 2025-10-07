@@ -1,38 +1,7 @@
-from datetime import datetime, timezone
-from typing import Any, Literal
 from pymongo import MongoClient
 from bson import ObjectId
 from core.config import settings
-from dataclasses import dataclass
-from enum import Enum
-
-
-class LogRecordCategory(Enum):
-    SECURITY = "security"
-    TEXT = "text"
-    FILE = "file"
-    SYSTEM = "system"
-
-
-class LogRecordAction(Enum):
-    LOGIN = "login"
-    LOGOUT = "logout"
-    SCRUB = "scrub"
-    DESCRUB = "descrub"
-    DOWNLOAD = "download"
-
-
-@dataclass
-class LogRecord:
-    corp_key: str
-    category: LogRecordCategory
-    action: LogRecordAction
-    details: Any
-    device_info: str
-    browser_info: str
-    client_ip: str
-    user_agent: str
-    timestamp: datetime = datetime.now(timezone.utc)
+from database.log_record import LogRecord, LogRecordAction, LogRecordCategory
 
 
 class LogManager:

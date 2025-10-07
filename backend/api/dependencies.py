@@ -20,10 +20,10 @@ def get_user_manager_dep(
     return UserManager(client)
 
 
-def get_audit_manager_dep(
+def get_log_manager_dep(
     client: MongoClient = Depends(get_mongo_client_dep),
 ) -> LogManager:
-    """Get AuditManager instance with MongoDB client"""
+    """Get LogManager instance with MongoDB client"""
     return LogManager(client)
 
 
