@@ -11,15 +11,14 @@ class FileScrubber:
     def scrub_file(self, filename: str, data: bytes):
         ts = int(time.time())
         redacted_filename = f"{ts}_{filename}"
-        redacted_path = os.path.join(self.out_dir, f"redacted_{redacted_filename}")
+        redacted_path = os.path.join(self.out_dir, f"anonymized_{redacted_filename}")
 
-        # make case depending on file type - for demo, just txt files
+        # Make case depending on file type - for demo, just txt files
         if filename.lower().endswith(".txt"):
             text = data.decode("utf-8", errors="ignore")
-            # Here you would call your TextScrubber to process the text
             scrub_result = self.text_scrubber.anonymize_text(text)
             with open(redacted_path, "w", encoding="utf-8") as f:
-                f.write(scrub_result["redacted_text"])
+                f.write(scrub_result["anonymized_text"])
 
         return {
             "entities": scrub_result.get("entities", []),

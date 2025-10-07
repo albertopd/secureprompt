@@ -20,7 +20,7 @@ def prompt_scrubber_tab():
     )
     st.markdown("")
 
-    if st.button("Scrub Prompt", type="primary", key="scrub_prompt"):
+    if st.button("Anonymize Prompt", type="primary", key="scrub_prompt"):
         if not prompt:
             st.warning("Please enter a prompt.")
             st.stop()
@@ -34,7 +34,7 @@ def prompt_scrubber_tab():
 
         try:
             response = requests.post(
-                f"{API_URL}/scrub",
+                f"{API_URL}/text/scrub",
                 json={"user_id": "demo", "prompt": prompt, "target_risk": prompt_risk_level},
                 headers=headers,
             )
@@ -45,12 +45,12 @@ def prompt_scrubber_tab():
 
                 if entities:
                     st.markdown("")
-                    redacted_text = json_result["redacted_text"]
+                    scrubbed_text = json_result["scrubbed_text"]
 
-                    st.html("<div class='field_header'>Redacted prompt:</div>")
-                    st.code(redacted_text, language="html", wrap_lines=True)
+                    st.html("<div class='field_header'>Anonymized prompt:</div>")
+                    st.code(scrubbed_text, language="html", wrap_lines=True)
 
-                    with st.expander("Redaction details"):
+                    with st.expander("Anonymization details"):
                         df = create_scrubbed_entity_report(entities)
                         st.dataframe(df, hide_index=True)
                 else:

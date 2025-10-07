@@ -2,6 +2,16 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 
+class DetectedEntity(BaseModel):
+    type: str
+    start: int
+    end: int
+    original: str
+    replacement: str
+    explanation: str
+    score: float
+
+
 class LoginRequest(BaseModel):
     email: str
     password: str
@@ -18,8 +28,26 @@ class ScrubRequest(BaseModel):
     language: Optional[str] = "en"
 
 
+class TextScrubResponse(BaseModel):
+    scrub_id: str
+    scrubbed_text: str
+    entities: List[DetectedEntity]
+
+
+class FileScrubResponse(BaseModel):
+    scrub_id: str
+    entities: List[DetectedEntity]
+    filename: str
+    download_url: str
+
+
 class DescrubRequest(BaseModel):
-    prompt: str
+    scrub_id: str
     all_entitites: bool = False
     entities_ids: List[str]
     justification: str
+
+class TextDescrubResponse(BaseModel):
+    scrub_id: str
+    descrubbed_text: str
+
