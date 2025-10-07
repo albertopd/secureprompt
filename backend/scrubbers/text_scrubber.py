@@ -3,7 +3,7 @@ import spacy
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern
 from presidio_anonymizer import AnonymizerEngine
 from presidio_analyzer.predefined_recognizers import SpacyRecognizer
-
+from scrubbers.custom_spacy_recognizer import CustomSpacyRecognizer
 from presidio_analyzer.nlp_engine import NlpEngineProvider
 
 from audit.auditor import Auditor
@@ -99,9 +99,37 @@ class TextScrubber:
         supported_entities=["MONEY"])
         self.analyzer.registry.add_recognizer(spacy_money)
 
+    
+    def add_custom_recognizers(self) -> None:
+        
+        if self.risk_level == "C4":
+            self.custom_c4_recognizers()
+            
+        elif self.risk_level == "C3":
+            self.custom_c4_recognizers()
+             #TODO: add customs spacy for C3
+
+        elif self.risk_level == "C2":
+            self.custom_c4_recognizers()
+            #TODO: add customs spacy for C2
+
+    def custom_c4_recognizers(self):
+        c4_entities = ["PIN", "CVV"]
+        custom_spacy_c4 = CustomSpacyRecognizer(
+           path_to_model="scrubbers/nlp/models/model_vers_3_small/model-best", 
+           supported_entities=c4_entities)
+        
+        self.analyzer.registry.add_recognizer(custom_spacy_c4)
+        self.classification_entities.extend(c4_entities)
+    
+    def custom_c3_recognizers(self):
+        pass
+
+    def custom_c2_recognizers(self):
+        pass
+  
 
     def anonymize_text(self, text:str, language: str ="en") -> str:
-
 
         results = self.analyzer.analyze(text=text, entities=self.classification_entities, language='en')
 

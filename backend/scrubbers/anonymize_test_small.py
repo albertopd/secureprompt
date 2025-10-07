@@ -55,13 +55,13 @@ if __name__ == "__main__":
 
 
   test_prompts = [
-  "Phone order from Jennifer Maddox. Card CVV is 323. Should I process?",
+  "Phone order from Jennifer Maddox. Card CVV is 323 .  Should I process?",
   "David Coleman's CVV 871 used in suspicious transaction.",
-  "Kevin Johnson correctly provided PIN 2034 but CVV 175 doesn't match. Proceed?",
-  "James Gonzalez accidentally shared CVV 481 on social media. How should we proceed?",
-  "Whose PIN 4821 is this?",
+  "Kevin Johnson correctly provided PIN 2034  but CVV 175  doesn't match. Proceed?",
+  "James Gonzalez accidentally shared CVV 481  on social media. How should we proceed?",
+  "Whose PIN 4821  is this?",
     "Alert: Multiple failed attempts with PIN 5732. Lock account?",
-    "Confirm if PIN 1943 belongs to Sarah Lee.",
+    "Confirm if PIN 1943  belongs to Sarah Lee.",
   ]
 
   

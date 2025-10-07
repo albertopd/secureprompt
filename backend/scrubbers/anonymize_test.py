@@ -22,6 +22,7 @@ def test_anonymization(text_to_anonymize: str, risk_level: str = "C4"):
   text_scrubber.add_pattern_recognizers()
   text_scrubber.add_list_recognizers()
   text_scrubber.add_spacy_recognizers()
+  text_scrubber.add_custom_recognizers()
   anonymized = text_scrubber.anonymize_text(text_to_anonymize)
   return anonymized
 
@@ -49,6 +50,9 @@ if __name__ == "__main__":
    """To whom it belongs the IBAN BE64322050574468, biometric data FaceID 
    with credit card number 5390880703591623, CVV 910 and expiry date 02/28 ? 
    Also, this person has 75.000 in savings and 54650 in checking account.""",
+
+   """Confirm if PIN 1943  belongs to Sarah Lee.""",
+   """Kevin Johnson correctly provided PIN 2034  but CVV 175  doesn't match. Proceed?""", """PIN 4821  is this?"""
 ]
 
 

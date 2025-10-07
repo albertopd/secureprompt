@@ -9,8 +9,8 @@ ruler = nlp.add_pipe("entity_ruler", after="ner")
 
 # Add your patterns
 patterns = patterns = [
-    {"label": "PIN", "pattern": [{"TEXT": {"REGEX": r"(?<!\d)\d{4}(?!\d)"}}]},
-    {"label": "CVV", "pattern": [{"TEXT": {"REGEX": r"(?<!\d)\d{3}(?!\d)"}}]},
+    {"label": "PIN", "pattern": [{"TEXT": {"REGEX": r"[^\d]+\d{4}[^\d|^\-]+"}}]},
+    {"label": "CVV", "pattern": [{"TEXT": {"REGEX": r"[^\d]+\d{3}[^\d|^\-]+"}}]},
 ]
 ruler.add_patterns(patterns)
 

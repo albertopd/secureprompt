@@ -23,7 +23,7 @@ REGEX_RECOGNIZERS_C4 = [
     {"name": "pin_mask", "entity": "PIN_MASKED", "pattern": r"\*{4}\d{2}"},
    
     {"name": "cred_sc", "entity":"CREDIT_SCORE", "pattern": r"\b(3\d{2}|4\d{2}|5\d{2}|6\d{2}|7\d{2}|8[0-4]\d|850)\b", "score": 0.2, "context":["credit score", "credit"]},
-    {"name": "pin", "entity": "PIN", "pattern": r"(?<!\d)\d{4}(?!\d)", "score": 0.2, "context":["PIN", "pin", "pin code", "pin:", "code", "passcode"]},
+    #{"name": "pin", "entity": "PIN", "pattern": r"(?<!\d)\d{4}(?!\d)", "score": 0.2, "context":["PIN", "pin", "pin code", "pin:", "code", "passcode"]},
     #{"name": "ccv", "entity": "CCV", "pattern": r"(?<!\d)\d{3}(?!\d)", "score": 0.2, "context":["CCV", "ccv", "ccv:", "cvc", "cvc:", "security code", "security number", "card security", "card code"]},
    
     {"name": "exp_dt", "entity": "EXPIRATION_DATE", "pattern": r"\b(0[1-9]|1[0-2])\s?[\/\-]\s?\d{2}\b", "context":["expiration date", "exp date", "expiry date", "valid thru", "valid through", "expires"]}

@@ -137,6 +137,7 @@ def shuffle_data(tagged_data, training_split, seed=42):
     test_data = tagged_data[split:]
     return train_data, test_data
 
+
 def save_spacy_data(tagged_data, output_path:str):
     nlp = spacy.blank("en")
     db = DocBin()
@@ -165,7 +166,7 @@ if __name__ == "__main__":
     #     pairs = parse_pair_from_file(file)
     #     pairs_total.extend(pairs)
     
-    pairs_total =parse_pair_from_file("/home/javanegas/estefy/Anonymization/anonymization-presidio/synthetic_DATA/c4_sensitive_data_prompts_v2.csv")
+    pairs_total = parse_pair_from_file("/home/javanegas/estefy/Anonymization/anonymization-presidio/synthetic_DATA/c4_sensitive_data_prompts_v3.csv")
     tagged_data_file = []
     count = 0
 
@@ -181,10 +182,12 @@ if __name__ == "__main__":
 
     print(f"Total tagged data samples: {len(tagged_data_file)}")
 
-    with open("./datafiles/tagged_data_v3.json", "w") as f:
+    version = "v6"
+
+    with open(f"./datafiles/tagged_data_{version}.json", "w") as f:
         json.dump(tagged_data_file, f, indent=2)
 
-
+ 
     train, test = shuffle_data(tagged_data_file, training_split=0.8)
-    save_spacy_data (train, "./datafiles/train_v3.spacy")
-    save_spacy_data (test, "./datafiles/dev_v3.spacy")
+    save_spacy_data (train, f"./datafiles/train_{version}.spacy")
+    save_spacy_data (test, f"./datafiles/dev_{version}.spacy")
