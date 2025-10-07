@@ -7,6 +7,11 @@ class LoginRequest(BaseModel):
     password: str
 
 
+class LoginResponse(BaseModel):
+    status: str
+    token: str
+
+
 class ScrubRequest(BaseModel):
     prompt: str
     target_risk: str = "C4"
