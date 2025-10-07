@@ -15,9 +15,9 @@ class CustomSpacyRecognizer(SpacyRecognizer):
         """
         
         self.path_to_model = path_to_model
-        self.model = None # Model will be loaded on .load()
+        self.model = None 
 
-        entities = supported_entities # TODO: Add more entities as needed
+        entities = supported_entities
         spacy_label_groups = [({ent}, {ent}) for ent in entities]
         
         super().__init__(

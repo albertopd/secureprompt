@@ -1,6 +1,5 @@
 import pandas as pd
-from scrubbers.custom_spacy_recognizer import CustomSpacyRecognizer
-from scrubbers.text_scrubber import TextScrubber
+from custom_spacy_recognizer import CustomSpacyRecognizer
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern
 from presidio_anonymizer import AnonymizerEngine
 
@@ -24,7 +23,7 @@ class AnonymizationTest:
 
   def add_custom_recognizers(self) -> None:
         custom_spacy = CustomSpacyRecognizer(
-           path_to_model="./scrubbers/nlp/models/pin_ccv_model", 
+           path_to_model="./nlp/models/model_vers_3_small/model-best", 
            supported_entities=["PIN", "CVV"])
         self.analyzer.registry.add_recognizer(custom_spacy)
 
@@ -55,14 +54,15 @@ if __name__ == "__main__":
   test.add_custom_recognizers()
 
 
-  test_prompts =["""I have 54.000 euros in my bank account.""", """The PIN number of my card is 4355""",
-
-  """She has 35000 dollars in her savings account.""", """Her card's PIN is 8586.""",
-
-   """Currently she has $5,000 in her account.""", """Her PIN is 2389 """,
-
-   """Follow-up on ticket #54321 for Kendra Clayton. They confirmed their PIN is 7968 and the issue is resolved. Their CVV is 123."""
-]
+  test_prompts = [
+  "Phone order from Jennifer Maddox. Card CVV is 323. Should I process?",
+  "David Coleman's CVV 871 used in suspicious transaction.",
+  "Kevin Johnson correctly provided PIN 2034 but CVV 175 doesn't match. Proceed?",
+  "James Gonzalez accidentally shared CVV 481 on social media. How should we proceed?",
+  "Whose PIN 4821 is this?",
+    "Alert: Multiple failed attempts with PIN 5732. Lock account?",
+    "Confirm if PIN 1943 belongs to Sarah Lee.",
+  ]
 
   
   for text in test_prompts:

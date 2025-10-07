@@ -2,6 +2,11 @@ import spacy
 from spacy.tokens import DocBin
 
 
+from spacy.training import Example
+from spacy.util import minibatch
+import random
+
+
 nlp = spacy.blank("en")
 
 
@@ -11,21 +16,17 @@ else:
     ner = nlp.get_pipe("ner")
 
 ner.add_label("PIN")
-ner.add_label("CCV")
+ner.add_label("CVV")
 
 
 # load training data
-db_train = DocBin().from_disk("./datafiles/train.spacy")
+db_train = DocBin().from_disk("./datafiles/train_v3.spacy")
 train_docs = list(db_train.get_docs(nlp.vocab))
 
 # Load development (validation) data
-db_dev = DocBin().from_disk("./datafiles/test.spacy")
+db_dev = DocBin().from_disk("./datafiles/val_v3.spacy")
 dev_docs = list(db_dev.get_docs(nlp.vocab))
 
-
-from spacy.training import Example
-from spacy.util import minibatch
-import random
 
 n_iter = 30  # number of epochs
 optimizer = nlp.initialize()  # initialize blank model weights
@@ -47,5 +48,5 @@ for epoch in range(n_iter):
     print(f"Epoch {epoch+1}/{n_iter}, Losses: {losses}")
 
 # Save the trained model
-nlp.to_disk("./models/pin_ccv_model")
-print("Model saved to ./model/pin_ccv_model")
+nlp.to_disk("./models/pin_cvv_model_v3")
+print("Model saved to ./models/pin_cvv_model_v3")

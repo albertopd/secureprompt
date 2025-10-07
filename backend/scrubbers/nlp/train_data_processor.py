@@ -41,8 +41,6 @@ def map_labels(origin_file):
     with open("backend/scrubbers/nlp/datafiles/mapped_labels.json", "w") as f:
         json.dump(mapped_labels, f, indent=2)
 
-
-
 def parse_pair_from_file(csv_path):
     df = pd.read_csv(csv_path)
     original_text_col = "Original Prompt" if "Original Prompt" in df.columns else "Prompt"
@@ -158,10 +156,16 @@ if __name__ == "__main__":
     #extract_raw_labels("backend/scrubbers/nlp/datafiles/csv_files")
     #consolidate_labels("backend/scrubbers/nlp/datafiles/raw_labels.json")
 
-    pairs_1 = parse_pair_from_file("/home/javanegas/estefy/Anonymization/anonymization-presidio/csv_files_PROMPTS/prompts_ccv_pin.csv")
-    pairs_2 = parse_pair_from_file("/home/javanegas/estefy/Anonymization/anonymization-presidio/csv_files_PROMPTS/security_code_prompts.csv")
-    pairs_total = pairs_1 + pairs_2
+    # folder_path = '/home/javanegas/estefy/Anonymization/anonymization-presidio/synthetic_DATA/'  
 
+    # files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+    # print(files)
+    # pairs_total=[]
+    # for file in files:
+    #     pairs = parse_pair_from_file(file)
+    #     pairs_total.extend(pairs)
+    
+    pairs_total =parse_pair_from_file("/home/javanegas/estefy/Anonymization/anonymization-presidio/synthetic_DATA/c4_sensitive_data_prompts_v2.csv")
     tagged_data_file = []
     count = 0
 
@@ -177,7 +181,10 @@ if __name__ == "__main__":
 
     print(f"Total tagged data samples: {len(tagged_data_file)}")
 
+    with open("./datafiles/tagged_data_v3.json", "w") as f:
+        json.dump(tagged_data_file, f, indent=2)
+
 
     train, test = shuffle_data(tagged_data_file, training_split=0.8)
-    save_spacy_data (train, "backend/scrubbers/nlp/datafiles/train.spacy")
-    save_spacy_data (test, "backend/scrubbers/nlp/datafiles/test.spacy")
+    save_spacy_data (train, "./datafiles/train_v3.spacy")
+    save_spacy_data (test, "./datafiles/dev_v3.spacy")
