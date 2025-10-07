@@ -43,8 +43,8 @@ class FileScrubResponse(BaseModel):
 
 class DescrubRequest(BaseModel):
     scrub_id: str
-    all_entitites: bool = False
-    entities_ids: List[str]
+    descrub_all: bool = False
+    entity_replacements: List[str]
     justification: str
 
 class TextDescrubResponse(BaseModel):

@@ -1,13 +1,13 @@
 import os
 from pathlib import Path
-from fastapi import APIRouter, UploadFile, File, Depends, HTTPException
+from fastapi import APIRouter, Request, UploadFile, File, Depends, HTTPException
 from fastapi.responses import FileResponse
 
-from api.routers.authentication import require_auth_flexible
+from api.routers.authentication import require_auth_flexible, extract_client_info
 from api.rbac import DESCRUBBER_OR_ADMIN, SCRUBBER_OR_ABOVE
 from api.dependencies import get_audit_manager_dep, get_file_scrubber_dep
 from api.models import DescrubRequest, FileScrubResponse
-from database.audit_manager import AuditManager
+from database.audit_manager import AuditManager, AuditLog
 from scrubbers.file_scrubber import FileScrubber
 
 
@@ -16,6 +16,7 @@ router = APIRouter(prefix="/file", tags=["file-scrubbing"])
 
 @router.post("/scrub", response_model=FileScrubResponse)
 async def scrub(
+    request: Request,
     file: UploadFile = File(...),
     session=Depends(SCRUBBER_OR_ABOVE),
     audit_manager: AuditManager = Depends(get_audit_manager_dep),
@@ -27,7 +28,23 @@ async def scrub(
 
     result = file_scrubber.scrub_file(file.filename, await file.read())
 
-    id = audit_manager.log(session["corp_key"], "file_scrub", {"filename": file.filename})
+    client_info = extract_client_info(request)
+
+    id = audit_manager.log(
+        AuditLog(
+            corp_key=session["corp_key"], 
+            category="file",
+            action="scrub", 
+            details={
+                "filename": file.filename,
+                "entities": result.get("entities", [])
+            },
+            device_info=client_info.device_info,
+            browser_info=client_info.browser_info,
+            client_ip=client_info.client_ip,
+            user_agent=client_info.user_agent
+        )
+    )
 
     return FileScrubResponse(
         scrub_id=str(id),
@@ -39,6 +56,7 @@ async def scrub(
 
 @router.post("/descrub")
 def descrub(
+    request: Request,
     req: DescrubRequest,
     session=Depends(DESCRUBBER_OR_ADMIN),
     audit_manager: AuditManager = Depends(get_audit_manager_dep),
@@ -46,7 +64,21 @@ def descrub(
     """Descrub (restore) previously scrubbed content - RESTRICTED to descrubber/admin roles"""
     # TODO: Implement descrubbing logic if applicable
     # TODO: Ensure requesting user has permission to descrub this content
-    audit_manager.log(session["corp_key"], "descrub", req.model_dump())
+
+    client_info = extract_client_info(request)
+
+    audit_manager.log(
+        AuditLog(
+            corp_key=session["corp_key"], 
+            category="file",
+            action="descrub",
+            details=req.model_dump(),
+            device_info=client_info.device_info,
+            browser_info=client_info.browser_info,
+            client_ip=client_info.client_ip,
+            user_agent=client_info.user_agent
+        )
+    )
     return {"status": "OK"}
 
 
