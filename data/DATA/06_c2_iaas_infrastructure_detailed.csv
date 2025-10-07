@@ -1,0 +1,31 @@
+Application Name,Hosting Type,VM Name,Network Interface ID,System Name,Storage Type,Storage Capacity (GB),Network Type,Virtual System Configuration,Design Document Reference,Environment,Operational Status,Cost Model,Provider,Deployment Date
+IaaSApp_1,IaaS,VM-IAAS-1,NIC-IAAS-1,SYS-IAAS-1,Managed,1486,Managed,"4 vCPU, 16 GB",DOCH92Y1C,Development,Maintenance,OpEx,Azure,2020-10-01
+IaaSApp_2,IaaS,VM-IAAS-2,NIC-IAAS-2,SYS-IAAS-2,Physical,1554,Managed,"4 vCPU, 32 GB",DOCJP622G,Test,Running,OpEx,AWS,2023-06-30
+IaaSApp_3,IaaS,VM-IAAS-3,NIC-IAAS-3,SYS-IAAS-3,Physical,855,Managed,"2 vCPU, 16 GB",DOC62HCZL,Test,Maintenance,OpEx,Azure,2023-04-25
+IaaSApp_4,IaaS,VM-IAAS-4,NIC-IAAS-4,SYS-IAAS-4,Managed,1795,Managed,"8 vCPU, 32 GB",DOCGDJE1T,Production,Running,OpEx,Azure,2023-04-16
+IaaSApp_5,IaaS,VM-IAAS-5,NIC-IAAS-5,SYS-IAAS-5,Physical,1094,Managed,"8 vCPU, 8 GB",DOC8A2S2K,Test,Maintenance,OpEx,AWS,2023-09-27
+IaaSApp_6,IaaS,VM-IAAS-6,NIC-IAAS-6,SYS-IAAS-6,Managed,1714,Managed,"4 vCPU, 8 GB",DOC1G2PV4,Production,Running,OpEx,Google Cloud,2024-06-19
+IaaSApp_7,IaaS,VM-IAAS-7,NIC-IAAS-7,SYS-IAAS-7,Physical,541,Physical,"8 vCPU, 32 GB",DOCA2WXZS,Development,Running,OpEx,AWS,2021-01-03
+IaaSApp_8,IaaS,VM-IAAS-8,NIC-IAAS-8,SYS-IAAS-8,Managed,937,Managed,"8 vCPU, 8 GB",DOCOXSFSO,Development,Retired,OpEx,AWS,2024-11-29
+IaaSApp_9,IaaS,VM-IAAS-9,NIC-IAAS-9,SYS-IAAS-9,Physical,809,Physical,"4 vCPU, 32 GB",DOCM0VFN2,Test,Maintenance,OpEx,Azure,2021-10-24
+IaaSApp_10,IaaS,VM-IAAS-10,NIC-IAAS-10,SYS-IAAS-10,Physical,1487,Physical,"2 vCPU, 8 GB",DOCWDA449,Test,Retired,OpEx,Google Cloud,2022-03-05
+IaaSApp_11,IaaS,VM-IAAS-11,NIC-IAAS-11,SYS-IAAS-11,Physical,1674,Physical,"4 vCPU, 16 GB",DOCSWOJH6,Development,Retired,OpEx,AWS,2020-05-25
+IaaSApp_12,IaaS,VM-IAAS-12,NIC-IAAS-12,SYS-IAAS-12,Physical,1734,Managed,"4 vCPU, 8 GB",DOCI8N3AU,Development,Running,OpEx,Google Cloud,2024-02-11
+IaaSApp_13,IaaS,VM-IAAS-13,NIC-IAAS-13,SYS-IAAS-13,Physical,1001,Managed,"8 vCPU, 32 GB",DOCGO5XQ9,Production,Maintenance,OpEx,Azure,2022-04-08
+IaaSApp_14,IaaS,VM-IAAS-14,NIC-IAAS-14,SYS-IAAS-14,Managed,856,Physical,"2 vCPU, 32 GB",DOCCPFK74,Production,Running,OpEx,Google Cloud,2024-02-22
+IaaSApp_15,IaaS,VM-IAAS-15,NIC-IAAS-15,SYS-IAAS-15,Managed,570,Physical,"4 vCPU, 32 GB",DOC523GAH,Development,Running,OpEx,Google Cloud,2024-06-07
+IaaSApp_16,IaaS,VM-IAAS-16,NIC-IAAS-16,SYS-IAAS-16,Physical,807,Managed,"8 vCPU, 8 GB",DOCYEX2T9,Production,Running,OpEx,Azure,2024-10-27
+IaaSApp_17,IaaS,VM-IAAS-17,NIC-IAAS-17,SYS-IAAS-17,Physical,1273,Physical,"4 vCPU, 32 GB",DOC2SNVNE,Development,Maintenance,OpEx,Google Cloud,2023-10-09
+IaaSApp_18,IaaS,VM-IAAS-18,NIC-IAAS-18,SYS-IAAS-18,Physical,786,Managed,"4 vCPU, 16 GB",DOCV8HJY0,Test,Maintenance,OpEx,AWS,2021-10-30
+IaaSApp_19,IaaS,VM-IAAS-19,NIC-IAAS-19,SYS-IAAS-19,Physical,937,Physical,"4 vCPU, 16 GB",DOCK67FSF,Development,Maintenance,OpEx,Google Cloud,2021-08-29
+IaaSApp_20,IaaS,VM-IAAS-20,NIC-IAAS-20,SYS-IAAS-20,Managed,1882,Physical,"8 vCPU, 16 GB",DOC4ZK0HT,Production,Retired,OpEx,AWS,2024-05-09
+IaaSApp_21,IaaS,VM-IAAS-21,NIC-IAAS-21,SYS-IAAS-21,Managed,1098,Managed,"8 vCPU, 32 GB",DOCMWXHZC,Test,Maintenance,OpEx,Google Cloud,2022-03-20
+IaaSApp_22,IaaS,VM-IAAS-22,NIC-IAAS-22,SYS-IAAS-22,Managed,1778,Physical,"2 vCPU, 32 GB",DOC68MUV0,Development,Retired,OpEx,AWS,2025-05-22
+IaaSApp_23,IaaS,VM-IAAS-23,NIC-IAAS-23,SYS-IAAS-23,Physical,1837,Physical,"8 vCPU, 8 GB",DOCTV610R,Development,Maintenance,OpEx,AWS,2025-02-21
+IaaSApp_24,IaaS,VM-IAAS-24,NIC-IAAS-24,SYS-IAAS-24,Managed,559,Managed,"2 vCPU, 16 GB",DOCAPDCT6,Production,Maintenance,OpEx,AWS,2020-05-24
+IaaSApp_25,IaaS,VM-IAAS-25,NIC-IAAS-25,SYS-IAAS-25,Physical,1748,Physical,"4 vCPU, 32 GB",DOCKTE2OF,Production,Retired,OpEx,AWS,2025-06-08
+IaaSApp_26,IaaS,VM-IAAS-26,NIC-IAAS-26,SYS-IAAS-26,Managed,589,Managed,"4 vCPU, 8 GB",DOCL595HW,Production,Retired,OpEx,Azure,2024-01-22
+IaaSApp_27,IaaS,VM-IAAS-27,NIC-IAAS-27,SYS-IAAS-27,Physical,891,Managed,"4 vCPU, 8 GB",DOCV6W3VU,Production,Retired,OpEx,AWS,2023-12-21
+IaaSApp_28,IaaS,VM-IAAS-28,NIC-IAAS-28,SYS-IAAS-28,Managed,1951,Managed,"8 vCPU, 32 GB",DOCERJXSH,Development,Maintenance,OpEx,AWS,2021-10-20
+IaaSApp_29,IaaS,VM-IAAS-29,NIC-IAAS-29,SYS-IAAS-29,Managed,1813,Physical,"4 vCPU, 32 GB",DOC6OMY8X,Production,Retired,OpEx,Azure,2023-05-07
+IaaSApp_30,IaaS,VM-IAAS-30,NIC-IAAS-30,SYS-IAAS-30,Physical,774,Physical,"2 vCPU, 16 GB",DOC5T0BTE,Development,Running,OpEx,AWS,2022-11-06

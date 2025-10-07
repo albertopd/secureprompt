@@ -1,0 +1,150 @@
+Link Type,Entity Name,Relationship Type,Contract Type,Service Channel,Regulatory Tags,Status,Last Interaction Date
+Customer,Alex Williams,Loan Recipient,Digital Consent,API,"KYC, GDPR",Active,2024-11-01
+Customer,Anna Williams,Insurance Subscriber,Digital Consent,Online,"FATCA, KYC",Active,2025-06-29
+Customer,Chris Williams,Account Holder,Standard Agreement,Mobile,"KYC, FATCA",Inactive,2025-06-26
+Customer,Emily Williams,Loan Recipient,Digital Consent,Online,"AML, GDPR",Inactive,2025-01-13
+Customer,Jane Williams,Loan Recipient,Standard Agreement,Branch,"AML, GDPR",Inactive,2024-11-12
+Customer,John Williams,Account Holder,Standard Agreement,Mobile,"AML, FATCA",Active,2025-02-16
+Customer,Katie Williams,Account Holder,Standard Agreement,API,"AML, GDPR",Active,2025-08-14
+Customer,Laura Williams,Investor,Standard Agreement,Online,"FATCA, KYC",Inactive,2024-10-01
+Customer,Linda Williams,Loan Recipient,Premium Contract,API,"GDPR, AML",Inactive,2024-11-07
+Customer,Michael Williams,Insurance Subscriber,Standard Agreement,Online,"KYC, AML",Inactive,2025-01-19
+Customer,Robert Williams,Loan Recipient,Standard Agreement,Online,"KYC, FATCA",Inactive,2025-09-06
+Customer,Tom Williams,Account Holder,Standard Agreement,API,"GDPR, KYC",Inactive,2025-01-08
+Customer,Alex Walker,Insurance Subscriber,Premium Contract,Online,"AML, GDPR",Inactive,2025-02-13
+Customer,Anna Walker,Loan Recipient,Premium Contract,Branch,"FATCA, AML",Active,2024-12-18
+Customer,Chris Walker,Loan Recipient,Premium Contract,Branch,"GDPR, FATCA",Active,2025-02-08
+Customer,Emily Walker,Insurance Subscriber,Premium Contract,Mobile,"KYC, GDPR",Active,2025-04-17
+Customer,Jane Walker,Insurance Subscriber,Standard Agreement,Mobile,"AML, KYC",Active,2025-02-09
+Customer,John Walker,Insurance Subscriber,Standard Agreement,Branch,"AML, FATCA",Inactive,2025-08-01
+Customer,Katie Walker,Account Holder,Digital Consent,Online,"FATCA, GDPR",Active,2025-07-21
+Customer,Laura Walker,Account Holder,Digital Consent,Branch,"AML, FATCA",Inactive,2025-02-22
+Customer,Linda Walker,Insurance Subscriber,Digital Consent,Online,"KYC, AML",Active,2025-07-31
+Customer,Michael Walker,Account Holder,Digital Consent,Online,"GDPR, AML",Active,2025-07-13
+Customer,Robert Walker,Insurance Subscriber,Digital Consent,Online,"KYC, FATCA",Active,2024-11-07
+Customer,Tom Walker,Account Holder,Standard Agreement,Online,"AML, GDPR",Inactive,2025-01-29
+Customer,Alex Taylor,Loan Recipient,Digital Consent,Branch,"AML, KYC",Active,2025-08-16
+Customer,Anna Taylor,Account Holder,Digital Consent,API,"KYC, GDPR",Inactive,2025-03-04
+Customer,Chris Taylor,Insurance Subscriber,Digital Consent,Online,"FATCA, AML",Inactive,2024-10-31
+Customer,Emily Taylor,Loan Recipient,Digital Consent,API,"GDPR, KYC",Inactive,2025-05-10
+Customer,Jane Taylor,Loan Recipient,Premium Contract,Branch,"GDPR, AML",Active,2024-11-11
+Customer,John Taylor,Investor,Standard Agreement,API,"GDPR, KYC",Inactive,2024-12-01
+Customer,Katie Taylor,Account Holder,Standard Agreement,API,"AML, KYC",Active,2025-04-22
+Customer,Laura Taylor,Loan Recipient,Digital Consent,Branch,"AML, GDPR",Inactive,2024-12-17
+Customer,Linda Taylor,Account Holder,Digital Consent,Online,"FATCA, GDPR",Inactive,2025-02-14
+Customer,Michael Taylor,Investor,Standard Agreement,Online,"KYC, FATCA",Active,2025-09-05
+Customer,Robert Taylor,Account Holder,Standard Agreement,Branch,"KYC, GDPR",Inactive,2025-05-02
+Customer,Tom Taylor,Investor,Premium Contract,API,"AML, GDPR",Active,2024-11-17
+Customer,Alex Smith,Investor,Premium Contract,Mobile,"GDPR, FATCA",Inactive,2025-09-13
+Customer,Anna Smith,Investor,Digital Consent,API,"GDPR, AML",Active,2025-07-07
+Customer,Chris Smith,Account Holder,Standard Agreement,Mobile,"KYC, AML",Inactive,2025-01-16
+Customer,Emily Smith,Insurance Subscriber,Premium Contract,Mobile,"KYC, AML",Active,2025-03-19
+Customer,Jane Smith,Insurance Subscriber,Premium Contract,Branch,"KYC, AML",Inactive,2025-06-06
+Customer,John Smith,Account Holder,Standard Agreement,API,"AML, KYC",Active,2025-05-12
+Customer,Katie Smith,Loan Recipient,Standard Agreement,Online,"FATCA, GDPR",Active,2025-02-08
+Customer,Laura Smith,Insurance Subscriber,Premium Contract,Mobile,"FATCA, KYC",Active,2025-02-25
+Customer,Linda Smith,Investor,Premium Contract,Mobile,"FATCA, GDPR",Inactive,2025-09-02
+Customer,Michael Smith,Account Holder,Digital Consent,API,"GDPR, FATCA",Inactive,2024-11-06
+Customer,Robert Smith,Account Holder,Standard Agreement,API,"FATCA, AML",Active,2025-06-15
+Customer,Tom Smith,Investor,Premium Contract,Branch,"KYC, GDPR",Inactive,2025-06-28
+Customer,Alex Miller,Loan Recipient,Premium Contract,Online,"GDPR, AML",Inactive,2025-01-01
+Customer,Anna Miller,Account Holder,Standard Agreement,API,"AML, KYC",Active,2025-07-03
+Customer,Chris Miller,Account Holder,Digital Consent,Mobile,"KYC, FATCA",Active,2024-12-27
+Customer,Emily Miller,Investor,Digital Consent,API,"KYC, FATCA",Active,2024-11-20
+Customer,Jane Miller,Investor,Standard Agreement,Mobile,"AML, FATCA",Active,2025-03-15
+Customer,John Miller,Investor,Premium Contract,Branch,"FATCA, GDPR",Inactive,2025-02-01
+Customer,Katie Miller,Loan Recipient,Digital Consent,API,"AML, GDPR",Inactive,2025-06-29
+Customer,Laura Miller,Account Holder,Digital Consent,Online,"FATCA, AML",Active,2024-09-24
+Customer,Linda Miller,Investor,Standard Agreement,Mobile,"FATCA, GDPR",Active,2025-01-16
+Customer,Michael Miller,Insurance Subscriber,Standard Agreement,Online,"KYC, AML",Inactive,2025-04-18
+Customer,Robert Miller,Insurance Subscriber,Standard Agreement,Mobile,"KYC, AML",Inactive,2024-11-30
+Customer,Tom Miller,Loan Recipient,Standard Agreement,Mobile,"KYC, FATCA",Inactive,2025-04-14
+Customer,Alex Lewis,Insurance Subscriber,Standard Agreement,Branch,"AML, FATCA",Inactive,2024-12-22
+Customer,Anna Lewis,Loan Recipient,Standard Agreement,Branch,"AML, KYC",Inactive,2024-10-15
+Customer,Chris Lewis,Insurance Subscriber,Standard Agreement,API,"KYC, GDPR",Inactive,2025-07-15
+Customer,Emily Lewis,Loan Recipient,Digital Consent,Mobile,"FATCA, GDPR",Active,2025-08-18
+Customer,Jane Lewis,Account Holder,Digital Consent,Mobile,"GDPR, KYC",Active,2024-12-07
+Customer,John Lewis,Account Holder,Digital Consent,Online,"KYC, GDPR",Active,2025-03-27
+Customer,Katie Lewis,Loan Recipient,Standard Agreement,API,"AML, KYC",Inactive,2025-04-25
+Customer,Laura Lewis,Insurance Subscriber,Premium Contract,API,"FATCA, GDPR",Inactive,2025-05-01
+Customer,Linda Lewis,Account Holder,Standard Agreement,Mobile,"GDPR, AML",Inactive,2024-10-03
+Customer,Michael Lewis,Loan Recipient,Premium Contract,API,"GDPR, AML",Inactive,2024-12-07
+Customer,Robert Lewis,Account Holder,Standard Agreement,API,"GDPR, AML",Inactive,2025-02-08
+Customer,Tom Lewis,Insurance Subscriber,Premium Contract,Branch,"AML, FATCA",Active,2025-04-17
+Customer,Alex Jones,Investor,Premium Contract,API,"AML, FATCA",Active,2024-11-26
+Customer,Anna Jones,Account Holder,Digital Consent,Mobile,"FATCA, KYC",Active,2024-09-18
+Customer,Chris Jones,Loan Recipient,Standard Agreement,Mobile,"KYC, AML",Inactive,2025-06-23
+Customer,Emily Jones,Account Holder,Digital Consent,Branch,"AML, GDPR",Inactive,2025-04-19
+Customer,Jane Jones,Insurance Subscriber,Standard Agreement,Online,"KYC, FATCA",Active,2024-11-06
+Customer,John Jones,Loan Recipient,Premium Contract,Branch,"GDPR, FATCA",Inactive,2025-08-29
+Customer,Katie Jones,Insurance Subscriber,Digital Consent,Online,"GDPR, FATCA",Active,2025-05-22
+Customer,Laura Jones,Investor,Premium Contract,Branch,"FATCA, GDPR",Inactive,2024-10-05
+Customer,Linda Jones,Investor,Digital Consent,Branch,"AML, GDPR",Active,2024-09-19
+Customer,Michael Jones,Account Holder,Standard Agreement,API,"GDPR, FATCA",Active,2025-07-15
+Customer,Robert Jones,Account Holder,Digital Consent,API,"FATCA, KYC",Inactive,2024-12-05
+Customer,Tom Jones,Account Holder,Digital Consent,API,"KYC, FATCA",Active,2025-03-19
+Customer,Alex Johnson,Loan Recipient,Standard Agreement,API,"AML, GDPR",Active,2025-05-27
+Customer,Anna Johnson,Investor,Premium Contract,Mobile,"GDPR, AML",Active,2025-02-21
+Customer,Chris Johnson,Investor,Standard Agreement,Branch,"AML, GDPR",Inactive,2024-10-14
+Customer,Emily Johnson,Insurance Subscriber,Digital Consent,Online,"AML, KYC",Inactive,2025-05-26
+Customer,Jane Johnson,Investor,Premium Contract,API,"GDPR, KYC",Active,2025-01-30
+Customer,John Johnson,Account Holder,Premium Contract,Branch,"GDPR, FATCA",Inactive,2025-06-01
+Customer,Katie Johnson,Account Holder,Premium Contract,API,"GDPR, FATCA",Active,2024-09-22
+Customer,Laura Johnson,Loan Recipient,Standard Agreement,Online,"AML, GDPR",Active,2025-08-01
+Customer,Linda Johnson,Account Holder,Premium Contract,Branch,"FATCA, KYC",Inactive,2025-05-23
+Customer,Michael Johnson,Investor,Digital Consent,Online,"FATCA, AML",Inactive,2024-10-13
+Customer,Robert Johnson,Insurance Subscriber,Digital Consent,Branch,"KYC, AML",Inactive,2025-01-10
+Customer,Tom Johnson,Investor,Standard Agreement,API,"AML, KYC",Active,2025-07-03
+Customer,Alex Garcia,Insurance Subscriber,Standard Agreement,Online,"AML, GDPR",Active,2025-06-24
+Customer,Anna Garcia,Insurance Subscriber,Premium Contract,Mobile,"KYC, AML",Inactive,2025-05-04
+Customer,Chris Garcia,Insurance Subscriber,Premium Contract,API,"KYC, AML",Inactive,2025-01-31
+Customer,Emily Garcia,Insurance Subscriber,Digital Consent,Mobile,"FATCA, AML",Inactive,2025-06-24
+Customer,Jane Garcia,Loan Recipient,Standard Agreement,Branch,"AML, GDPR",Inactive,2025-02-07
+Customer,John Garcia,Account Holder,Premium Contract,Branch,"KYC, GDPR",Active,2025-05-06
+Customer,Katie Garcia,Insurance Subscriber,Premium Contract,Branch,"AML, KYC",Inactive,2025-06-27
+Customer,Laura Garcia,Loan Recipient,Standard Agreement,Online,"FATCA, AML",Inactive,2025-04-01
+Customer,Linda Garcia,Investor,Premium Contract,Online,"GDPR, AML",Inactive,2024-12-28
+Customer,Michael Garcia,Loan Recipient,Digital Consent,Branch,"AML, GDPR",Active,2025-01-03
+Customer,Robert Garcia,Loan Recipient,Premium Contract,Mobile,"GDPR, KYC",Active,2025-01-14
+Customer,Tom Garcia,Account Holder,Premium Contract,Online,"GDPR, AML",Inactive,2024-12-06
+Customer,Alex Davis,Account Holder,Standard Agreement,Mobile,"AML, FATCA",Inactive,2024-09-25
+Customer,Anna Davis,Insurance Subscriber,Digital Consent,Branch,"GDPR, AML",Active,2024-12-24
+Customer,Chris Davis,Insurance Subscriber,Standard Agreement,Mobile,"FATCA, GDPR",Inactive,2025-07-05
+Customer,Emily Davis,Account Holder,Premium Contract,API,"KYC, GDPR",Active,2025-06-01
+Customer,Jane Davis,Investor,Premium Contract,Online,"GDPR, FATCA",Inactive,2024-10-06
+Customer,John Davis,Investor,Premium Contract,Branch,"KYC, GDPR",Inactive,2025-06-05
+Customer,Katie Davis,Account Holder,Premium Contract,Mobile,"AML, GDPR",Active,2025-06-27
+Customer,Laura Davis,Insurance Subscriber,Standard Agreement,Branch,"AML, FATCA",Active,2025-02-12
+Customer,Linda Davis,Loan Recipient,Premium Contract,API,"FATCA, AML",Inactive,2024-12-15
+Customer,Michael Davis,Insurance Subscriber,Standard Agreement,Online,"KYC, GDPR",Active,2024-11-29
+Customer,Robert Davis,Investor,Digital Consent,Online,"GDPR, AML",Active,2024-10-15
+Customer,Tom Davis,Account Holder,Standard Agreement,API,"FATCA, GDPR",Inactive,2025-05-13
+Customer,Alex Clark,Account Holder,Standard Agreement,Online,"AML, KYC",Active,2025-08-31
+Customer,Anna Clark,Investor,Digital Consent,Branch,"KYC, AML",Active,2025-08-07
+Customer,Chris Clark,Insurance Subscriber,Digital Consent,API,"AML, FATCA",Active,2024-11-08
+Customer,Emily Clark,Loan Recipient,Standard Agreement,Mobile,"GDPR, FATCA",Inactive,2024-12-10
+Customer,Jane Clark,Account Holder,Digital Consent,Online,"KYC, FATCA",Inactive,2024-11-20
+Customer,John Clark,Insurance Subscriber,Standard Agreement,Online,"GDPR, KYC",Active,2024-11-28
+Customer,Katie Clark,Account Holder,Premium Contract,Mobile,"KYC, FATCA",Inactive,2024-12-10
+Customer,Laura Clark,Loan Recipient,Standard Agreement,API,"AML, FATCA",Active,2025-01-04
+Customer,Linda Clark,Investor,Standard Agreement,Branch,"AML, GDPR",Inactive,2025-02-12
+Customer,Michael Clark,Investor,Premium Contract,Online,"AML, FATCA",Active,2025-01-04
+Customer,Robert Clark,Investor,Standard Agreement,Mobile,"KYC, FATCA",Inactive,2024-10-09
+Customer,Tom Clark,Insurance Subscriber,Premium Contract,API,"AML, GDPR",Active,2025-07-30
+Customer,Alex Brown,Loan Recipient,Standard Agreement,Mobile,"KYC, FATCA",Inactive,2025-01-12
+Customer,Anna Brown,Account Holder,Premium Contract,Online,"GDPR, AML",Active,2025-08-22
+Customer,Chris Brown,Account Holder,Digital Consent,Mobile,"AML, FATCA",Active,2024-12-21
+Customer,Emily Brown,Loan Recipient,Standard Agreement,Mobile,"KYC, GDPR",Inactive,2025-03-22
+Customer,Jane Brown,Loan Recipient,Standard Agreement,Online,"KYC, FATCA",Inactive,2025-02-13
+Customer,John Brown,Loan Recipient,Standard Agreement,Branch,"FATCA, KYC",Inactive,2025-09-04
+Customer,Katie Brown,Insurance Subscriber,Premium Contract,Branch,"KYC, GDPR",Inactive,2025-07-14
+Customer,Laura Brown,Loan Recipient,Standard Agreement,API,"FATCA, AML",Active,2025-03-22
+Customer,Linda Brown,Insurance Subscriber,Digital Consent,Branch,"FATCA, AML",Active,2025-05-08
+Customer,Michael Brown,Account Holder,Standard Agreement,Online,"KYC, FATCA",Active,2025-02-01
+Customer,Robert Brown,Insurance Subscriber,Premium Contract,Mobile,"AML, GDPR",Inactive,2025-01-12
+Customer,Tom Brown,Loan Recipient,Premium Contract,Branch,"FATCA, GDPR",Active,2025-02-05
+Supplier,TechNova Solutions,IT Vendor,Annual Contract,Mobile,"KYC, FATCA",Active,2024-11-06
+Supplier,CleanCo Services,Facilities,Consulting Agreement,API,"GDPR, AML",Active,2025-01-28
+Supplier,SecureNet Systems,Security,Consulting Agreement,Online,"KYC, AML",Active,2025-08-02
+Supplier,GreenLeaf Maintenance,Maintenance,Service Agreement,Online,"GDPR, AML",Active,2025-04-11
+Supplier,DataBridge Analytics,Analytics,Annual Contract,API,"KYC, FATCA",Active,2025-07-04

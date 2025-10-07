@@ -1,0 +1,61 @@
+Agreement ID,Type,Customer Name,Customer Email,Start Date,End Date,Status,Key Terms,Amount
+CUST-0001,Credit Card Agreement,Emily Davis,emily.davis@skynet.be,2023-02-05,2025-06-06,Active,Key terms for credit card agreement,162507.76
+CUST-0002,Letter of Credit,Michael Clark,michael.clark@gmail.com,2023-12-18,2026-09-27,Terminated,Key terms for letter of credit,499667.34
+CUST-0003,Trust Agreement,Anna Davis,anna.davis@proximus.be,2023-05-21,2024-11-12,Terminated,Key terms for trust agreement,478642.11
+CUST-0004,Insurance Distribution Agreement,Robert Garcia,robert.garcia@skynet.be,2023-03-07,2024-07-23,Pending,Key terms for insurance distribution agreement,95984.87
+CUST-0005,Trust Agreement,Jane Miller,jane.miller@proximus.be,2024-07-09,2026-05-14,Active,Key terms for trust agreement,172181.49
+CUST-0006,Personal Loan Agreement,Robert Miller,robert.miller@proximus.be,2023-08-11,2024-07-31,Expired,Key terms for personal loan agreement,392397.53
+CUST-0007,Letter of Credit,Chris Garcia,chris.garcia@skynet.be,2025-03-17,2026-08-20,Terminated,Key terms for letter of credit,126113.91
+CUST-0008,Overdraft Agreement,Katie Walker,katie.walker@hotmail.com,2023-10-08,2024-11-17,Expired,Key terms for overdraft agreement,121557.18
+CUST-0009,Bank Guarantee,Anna Smith,anna.smith@telenet.be,2022-01-14,2023-12-17,Terminated,Key terms for bank guarantee,242202.29
+CUST-0010,Safe Deposit Box Agreement,Michael Brown,michael.brown@skynet.be,2023-02-17,2024-05-14,Active,Key terms for safe deposit box agreement,66494.19
+CUST-0011,Insurance Distribution Agreement,Laura Smith,laura.smith@gmail.com,2023-07-02,2025-03-16,Active,Key terms for insurance distribution agreement,263429.48
+CUST-0012,Overdraft Agreement,Laura Jones,laura.jones@gmail.com,2023-03-21,2025-02-24,Expired,Key terms for overdraft agreement,295420.43
+CUST-0013,Guaranty Agreement,Linda Davis,linda.davis@hotmail.com,2022-05-25,2023-06-20,Terminated,Key terms for guaranty agreement,401193.98
+CUST-0014,Overdraft Agreement,Michael Walker,michael.walker@telenet.be,2022-06-21,2023-02-13,Terminated,Key terms for overdraft agreement,277191.04
+CUST-0015,Merchant Services Agreement,Katie Miller,katie.miller@skynet.be,2022-05-23,2022-10-07,Terminated,Key terms for merchant services agreement,253476.32
+CUST-0016,Deposit Agreement,Anna Lewis,anna.lewis@gmail.com,2025-08-18,2027-05-29,Terminated,Key terms for deposit agreement,248107.76
+CUST-0017,Guaranty Agreement,Anna Williams,anna.williams@skynet.be,2025-04-10,2026-02-16,Expired,Key terms for guaranty agreement,118637.08
+CUST-0018,Letter of Credit,Robert Smith,robert.smith@skynet.be,2025-06-05,2027-05-15,Terminated,Key terms for letter of credit,442661.11
+CUST-0019,Auto Loan Agreement,Alex Davis,alex.davis@skynet.be,2025-09-25,2027-07-11,Expired,Key terms for auto loan agreement,278280.8
+CUST-0020,Bank Guarantee,John Jones,john.jones@gmail.com,2022-07-27,2023-05-26,Terminated,Key terms for bank guarantee,376446.88
+CUST-0021,Safe Deposit Box Agreement,Anna Brown,anna.brown@hotmail.com,2024-07-19,2025-06-10,Expired,Key terms for safe deposit box agreement,323948.68
+CUST-0022,Mortgage Agreement,Chris Clark,chris.clark@proximus.be,2022-04-18,2024-04-06,Expired,Key terms for mortgage agreement,452258.43
+CUST-0023,Line of Credit Agreement,Emily Williams,emily.williams@hotmail.com,2025-09-06,2026-04-05,Active,Key terms for line of credit agreement,353236.74
+CUST-0024,Insurance Distribution Agreement,John Lewis,john.lewis@gmail.com,2024-11-11,2025-11-29,Terminated,Key terms for insurance distribution agreement,128676.98
+CUST-0025,Line of Credit Agreement,Katie Clark,katie.clark@hotmail.com,2022-10-30,2023-04-01,Terminated,Key terms for line of credit agreement,218770.46
+CUST-0026,Deposit Agreement,Alex Brown,alex.brown@telenet.be,2024-05-06,2026-02-11,Terminated,Key terms for deposit agreement,97198.94
+CUST-0027,Personal Loan Agreement,Chris Walker,chris.walker@telenet.be,2023-02-16,2026-02-15,Expired,Key terms for personal loan agreement,409113.5
+CUST-0028,Auto Loan Agreement,Linda Johnson,linda.johnson@proximus.be,2024-04-20,2024-09-05,Active,Key terms for auto loan agreement,497139.0
+CUST-0029,Deposit Agreement,Tom Lewis,tom.lewis@telenet.be,2025-07-12,2026-03-25,Active,Key terms for deposit agreement,418270.9
+CUST-0030,Safe Deposit Box Agreement,Tom Davis,tom.davis@hotmail.com,2025-07-10,2027-02-07,Terminated,Key terms for safe deposit box agreement,430185.97
+CUST-0031,Electronic Banking Agreement,Katie Taylor,katie.taylor@telenet.be,2024-12-23,2026-03-16,Active,Key terms for electronic banking agreement,42784.37
+CUST-0032,Business Loan Agreement,Emily Brown,emily.brown@gmail.com,2024-07-18,2026-04-01,Active,Key terms for business loan agreement,126607.7
+CUST-0033,Line of Credit Agreement,Chris Miller,chris.miller@telenet.be,2024-11-17,2025-11-30,Terminated,Key terms for line of credit agreement,273843.29
+CUST-0034,Auto Loan Agreement,Linda Lewis,linda.lewis@hotmail.com,2025-03-24,2026-05-15,Terminated,Key terms for auto loan agreement,112482.7
+CUST-0035,Security Agreement,John Johnson,john.johnson@proximus.be,2024-04-17,2024-12-16,Expired,Key terms for security agreement,192532.29
+CUST-0036,Bank Guarantee,John Williams,john.williams@proximus.be,2022-12-01,2023-04-27,Active,Key terms for bank guarantee,373588.93
+CUST-0037,Investment Account Agreement,Michael Lewis,michael.lewis@skynet.be,2022-01-21,2022-08-16,Pending,Key terms for investment account agreement,102358.65
+CUST-0038,Insurance Distribution Agreement,Laura Williams,laura.williams@gmail.com,2022-02-04,2023-08-28,Active,Key terms for insurance distribution agreement,403295.27
+CUST-0039,Guaranty Agreement,Anna Clark,anna.clark@hotmail.com,2023-08-16,2024-12-24,Terminated,Key terms for guaranty agreement,74023.14
+CUST-0040,Foreign Exchange Agreement,Michael Jones,michael.jones@hotmail.com,2023-11-26,2025-09-19,Terminated,Key terms for foreign exchange agreement,252254.87
+CUST-0041,Foreign Exchange Agreement,Michael Davis,michael.davis@hotmail.com,2024-10-22,2025-02-16,Terminated,Key terms for foreign exchange agreement,98110.32
+CUST-0042,Bank Guarantee,Jane Williams,jane.williams@telenet.be,2022-03-18,2023-04-22,Expired,Key terms for bank guarantee,74037.86
+CUST-0043,Safe Deposit Box Agreement,Alex Walker,alex.walker@gmail.com,2023-10-10,2026-02-01,Expired,Key terms for safe deposit box agreement,208899.07
+CUST-0044,Letter of Credit,Jane Lewis,jane.lewis@telenet.be,2023-10-01,2025-12-28,Pending,Key terms for letter of credit,310738.37
+CUST-0045,Bank Guarantee,Tom Walker,tom.walker@hotmail.com,2022-09-02,2023-11-15,Pending,Key terms for bank guarantee,212569.0
+CUST-0046,Personal Loan Agreement,Jane Walker,jane.walker@gmail.com,2024-04-17,2025-07-10,Pending,Key terms for personal loan agreement,451133.43
+CUST-0047,Electronic Banking Agreement,John Garcia,john.garcia@proximus.be,2022-02-01,2023-12-09,Terminated,Key terms for electronic banking agreement,459673.43
+CUST-0048,Custody Agreement,John Brown,john.brown@telenet.be,2025-01-17,2026-01-31,Terminated,Key terms for custody agreement,129526.75
+CUST-0049,Insurance Distribution Agreement,Laura Clark,laura.clark@skynet.be,2025-08-06,2027-10-28,Terminated,Key terms for insurance distribution agreement,279185.45
+CUST-0050,Electronic Banking Agreement,Emily Jones,emily.jones@skynet.be,2023-01-20,2025-09-22,Active,Key terms for electronic banking agreement,35037.61
+CUST-0051,Security Agreement,Katie Lewis,katie.lewis@gmail.com,2022-11-22,2024-02-01,Terminated,Key terms for security agreement,264663.79
+CUST-0052,Insurance Distribution Agreement,Anna Miller,anna.miller@gmail.com,2024-07-22,2027-06-11,Active,Key terms for insurance distribution agreement,420771.73
+CUST-0053,Letter of Credit,Tom Johnson,tom.johnson@proximus.be,2025-09-17,2026-02-24,Pending,Key terms for letter of credit,40376.82
+CUST-0054,Safe Deposit Box Agreement,Alex Smith,alex.smith@hotmail.com,2022-01-03,2023-04-15,Pending,Key terms for safe deposit box agreement,203538.7
+CUST-0055,Credit Card Agreement,Tom Clark,tom.clark@gmail.com,2024-06-20,2025-12-19,Pending,Key terms for credit card agreement,279479.12
+CUST-0056,Overdraft Agreement,Katie Johnson,katie.johnson@gmail.com,2025-04-03,2027-01-19,Pending,Key terms for overdraft agreement,492879.62
+CUST-0057,Safe Deposit Box Agreement,Anna Jones,anna.jones@telenet.be,2024-05-26,2026-04-09,Expired,Key terms for safe deposit box agreement,437942.08
+CUST-0058,Mortgage Agreement,Laura Miller,laura.miller@telenet.be,2024-04-28,2025-03-25,Active,Key terms for mortgage agreement,496011.55
+CUST-0059,Safe Deposit Box Agreement,Tom Williams,tom.williams@skynet.be,2022-04-20,2025-02-23,Expired,Key terms for safe deposit box agreement,275174.68
+CUST-0060,Merchant Services Agreement,Laura Brown,laura.brown@proximus.be,2022-02-12,2024-07-03,Pending,Key terms for merchant services agreement,361956.59

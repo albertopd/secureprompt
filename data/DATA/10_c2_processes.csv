@@ -1,0 +1,21 @@
+Process Name,Category,Description,Responsible Team,Automation Status,Frequency,Last Executed Date,Status
+Customer Onboarding,HR,This process handles customer onboarding operations in the bank.,HR Department,Fully Automated,On Demand,2025-09-05,Deprecated
+Loan Origination,Finance,This process handles loan origination operations in the bank.,HR Department,Semi-Automated,Weekly,2025-08-18,Active
+KYC Verification,Compliance,This process handles kyc verification operations in the bank.,Risk Office,Semi-Automated,Monthly,2025-09-14,Deprecated
+AML Screening,Compliance,This process handles aml screening operations in the bank.,Risk Office,Semi-Automated,On Demand,2025-08-31,Deprecated
+Credit Scoring,Finance,This process handles credit scoring operations in the bank.,Customer Support,Fully Automated,On Demand,2025-09-03,Under Review
+Account Closure,Customer Onboarding,This process handles account closure operations in the bank.,Compliance Team,Fully Automated,On Demand,2025-08-31,Deprecated
+Transaction Monitoring,Risk Management,This process handles transaction monitoring operations in the bank.,Finance Team,Fully Automated,Weekly,2025-09-15,Deprecated
+Fraud Detection,HR,This process handles fraud detection operations in the bank.,Finance Team,Fully Automated,Daily,2025-08-23,Active
+Mobile App Update,Loan Management,This process handles mobile app update operations in the bank.,Retail Banking,Fully Automated,Weekly,2025-09-15,Active
+ATM Reconciliation,HR,This process handles atm reconciliation operations in the bank.,Risk Office,Fully Automated,Monthly,2025-09-03,Deprecated
+Interest Calculation,Loan Management,This process handles interest calculation operations in the bank.,IT Department,Fully Automated,Daily,2025-09-02,Active
+Statement Generation,HR,This process handles statement generation operations in the bank.,HR Department,Semi-Automated,Daily,2025-08-23,Active
+Customer Complaint Handling,Customer Service,This process handles customer complaint handling operations in the bank.,Customer Support,Fully Automated,On Demand,2025-09-11,Active
+Password Reset,Customer Service,This process handles password reset operations in the bank.,HR Department,Semi-Automated,Daily,2025-08-22,Active
+Data Backup,Customer Onboarding,This process handles data backup operations in the bank.,HR Department,Manual,On Demand,2025-09-06,Under Review
+Regulatory Reporting,Customer Service,This process handles regulatory reporting operations in the bank.,Finance Team,Semi-Automated,On Demand,2025-09-16,Under Review
+Internal Audit,Finance,This process handles internal audit operations in the bank.,Compliance Team,Fully Automated,Daily,2025-09-15,Under Review
+Risk Assessment,Risk Management,This process handles risk assessment operations in the bank.,Compliance Team,Fully Automated,Weekly,2025-08-28,Under Review
+Employee Onboarding,HR,This process handles employee onboarding operations in the bank.,Risk Office,Semi-Automated,Weekly,2025-08-30,Under Review
+Vendor Management,Customer Service,This process handles vendor management operations in the bank.,IT Department,Manual,Monthly,2025-08-20,Active

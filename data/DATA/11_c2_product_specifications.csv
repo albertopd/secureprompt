@@ -1,0 +1,51 @@
+Product Name,Product Type,Description,Supported Currencies,Interest Rate,Fees,Distribution Channels,Eligibility Criteria,Regulatory Tags,Operational Status,Version,Product Code
+INGBA1,Business Account,This is a business account designed for general banking needs.,"EUR, GBP, USD",3.39,$86 annual fee,"Branch, Mobile, ATM","18+ years, valid ID, proof of income",KYC,Inactive,v3.3,BPR6XSTY
+INGBA2,Business Account,This is a business account designed for general banking needs.,USD,4.55,$50 annual fee,Online,"18+ years, valid ID, proof of income",AML,Inactive,v2.7,BPFW34O3
+INGBA3,Business Account,This is a business account designed for general banking needs.,"AUD, GBP",3.97,$28 annual fee,"Mobile, Branch","18+ years, valid ID, proof of income","KYC, AML",Inactive,v3.6,BPVPE4BI
+INGBA4,Business Account,This is a business account designed for general banking needs.,GBP,2.64,$43 annual fee,Online,"18+ years, valid ID, proof of income","KYC, FATCA",Active,v2.2,BPRL9KDW
+INGBA5,Business Account,This is a business account designed for general banking needs.,GBP,4.86,$90 annual fee,"ATM, Mobile, Branch","18+ years, valid ID, proof of income","FATCA, KYC",Active,v1.9,BPDY78V8
+INGBA6,Business Account,This is a business account designed for general banking needs.,AUD,2.42,$24 annual fee,"Mobile, Online","18+ years, valid ID, proof of income","GDPR, FATCA",Active,v1.4,BP9S6249
+INGBA7,Business Account,This is a business account designed for general banking needs.,"JPY, GBP, EUR",0.96,$32 annual fee,"Branch, Online, Mobile","18+ years, valid ID, proof of income","AML, FATCA",Active,v1.5,BPQ5ROC8
+INGBA8,Business Account,This is a business account designed for general banking needs.,"GBP, AUD, EUR",4.54,$86 annual fee,"ATM, Mobile, Online","18+ years, valid ID, proof of income","FATCA, KYC",Inactive,v2.7,BPMQ5PQ0
+INGCC1,Credit Card,This is a credit card designed for general banking needs.,"EUR, USD",2.56,$70 annual fee,"ATM, Mobile, Online","18+ years, valid ID, proof of income","AML, FATCA",Active,v2.4,BP631524
+INGCC2,Credit Card,This is a credit card designed for general banking needs.,EUR,1.41,$68 annual fee,"Branch, ATM, Online","18+ years, valid ID, proof of income",FATCA,Inactive,v1.3,BPHBGL3E
+INGCC3,Credit Card,This is a credit card designed for general banking needs.,"JPY, AUD, USD",4.09,$98 annual fee,Online,"18+ years, valid ID, proof of income",AML,Inactive,v3.4,BPAHMC8D
+INGCC4,Credit Card,This is a credit card designed for general banking needs.,"JPY, GBP",2.49,$72 annual fee,"Branch, Online","18+ years, valid ID, proof of income","FATCA, KYC",Active,v1.0,BPS7MXPN
+INGCC5,Credit Card,This is a credit card designed for general banking needs.,"AUD, JPY, USD",2.18,$58 annual fee,"Branch, ATM","18+ years, valid ID, proof of income","KYC, GDPR",Active,v2.8,BPMSVFCA
+INGCC6,Credit Card,This is a credit card designed for general banking needs.,"AUD, USD",4.88,$88 annual fee,Branch,"18+ years, valid ID, proof of income","GDPR, AML",Inactive,v2.3,BPYPSTLE
+INGCC7,Credit Card,This is a credit card designed for general banking needs.,"USD, AUD",2.2,$99 annual fee,Branch,"18+ years, valid ID, proof of income",AML,Active,v1.9,BP9VP6DR
+INGCC8,Credit Card,This is a credit card designed for general banking needs.,"USD, GBP, JPY",3.48,$88 annual fee,"Online, ATM, Mobile","18+ years, valid ID, proof of income",KYC,Inactive,v1.9,BPBNACVC
+INGCC9,Credit Card,This is a credit card designed for general banking needs.,"JPY, GBP",2.41,$30 annual fee,"Online, ATM","18+ years, valid ID, proof of income",AML,Active,v3.2,BPIN553G
+INGCC10,Credit Card,This is a credit card designed for general banking needs.,"USD, EUR",3.96,$100 annual fee,"Mobile, Online","18+ years, valid ID, proof of income","GDPR, AML",Active,v2.2,BP4DCW3J
+INGCC11,Credit Card,This is a credit card designed for general banking needs.,"EUR, GBP",3.17,$12 annual fee,"Branch, ATM, Mobile","18+ years, valid ID, proof of income",GDPR,Inactive,v2.1,BPUFAXQC
+INGCC12,Credit Card,This is a credit card designed for general banking needs.,AUD,1.06,$83 annual fee,"Online, Mobile, Branch","18+ years, valid ID, proof of income","AML, FATCA",Inactive,v1.9,BP9XED0Z
+INGCC13,Credit Card,This is a credit card designed for general banking needs.,GBP,0.84,$74 annual fee,Online,"18+ years, valid ID, proof of income",KYC,Active,v3.9,BP825VJA
+INGM1,Mortgage,This is a mortgage designed for general banking needs.,EUR,4.27,$64 annual fee,"Mobile, ATM, Branch","18+ years, valid ID, proof of income",FATCA,Active,v2.9,BPWY73HD
+INGM2,Mortgage,This is a mortgage designed for general banking needs.,"EUR, USD, JPY",3.58,$19 annual fee,"ATM, Mobile","18+ years, valid ID, proof of income","GDPR, AML",Active,v2.3,BP3YDLOC
+INGM3,Mortgage,This is a mortgage designed for general banking needs.,"GBP, AUD",4.2,$74 annual fee,"ATM, Online, Mobile","18+ years, valid ID, proof of income","AML, GDPR",Inactive,v3.8,BP2XHE3N
+INGM4,Mortgage,This is a mortgage designed for general banking needs.,"JPY, EUR",1.58,$68 annual fee,"Mobile, Online","18+ years, valid ID, proof of income","KYC, FATCA",Active,v3.1,BPNPY80L
+INGM5,Mortgage,This is a mortgage designed for general banking needs.,AUD,0.86,$26 annual fee,Branch,"18+ years, valid ID, proof of income","FATCA, GDPR",Inactive,v3.8,BPTRLCTM
+INGM6,Mortgage,This is a mortgage designed for general banking needs.,"USD, JPY, AUD",3.83,$19 annual fee,"Online, Branch","18+ years, valid ID, proof of income",GDPR,Inactive,v3.8,BPNHVC5K
+INGM7,Mortgage,This is a mortgage designed for general banking needs.,JPY,2.56,$72 annual fee,Mobile,"18+ years, valid ID, proof of income","KYC, FATCA",Active,v2.6,BP2IU83W
+INGM8,Mortgage,This is a mortgage designed for general banking needs.,USD,1.29,$97 annual fee,"ATM, Online, Branch","18+ years, valid ID, proof of income","GDPR, FATCA",Active,v1.1,BPYXNN8K
+INGPL1,Personal Loan,This is a personal loan designed for general banking needs.,"AUD, USD, GBP",0.67,$90 annual fee,Mobile,"18+ years, valid ID, proof of income","AML, GDPR",Active,v1.7,BPAW41W0
+INGPL2,Personal Loan,This is a personal loan designed for general banking needs.,USD,3.78,$44 annual fee,"ATM, Online, Mobile","18+ years, valid ID, proof of income","AML, GDPR",Active,v1.2,BPTWZVRH
+INGPL3,Personal Loan,This is a personal loan designed for general banking needs.,"EUR, JPY, GBP",1.12,$99 annual fee,"Online, ATM","18+ years, valid ID, proof of income",FATCA,Inactive,v2.7,BPMG12T5
+INGPL4,Personal Loan,This is a personal loan designed for general banking needs.,"EUR, GBP",4.67,$20 annual fee,"Online, Branch","18+ years, valid ID, proof of income","GDPR, AML",Active,v2.1,BP6LJJW0
+INGPL5,Personal Loan,This is a personal loan designed for general banking needs.,USD,2.51,$17 annual fee,"ATM, Online","18+ years, valid ID, proof of income","GDPR, AML",Active,v2.9,BPWDITVI
+INGPL6,Personal Loan,This is a personal loan designed for general banking needs.,"AUD, JPY, EUR",1.52,$99 annual fee,"ATM, Online","18+ years, valid ID, proof of income","KYC, AML",Inactive,v3.3,BP676OQ4
+INGPL7,Personal Loan,This is a personal loan designed for general banking needs.,"EUR, JPY",4.02,$89 annual fee,"ATM, Branch, Mobile","18+ years, valid ID, proof of income",GDPR,Active,v1.7,BPBG4BW6
+INGSA1,Savings Account,This is a savings account designed for general banking needs.,"EUR, USD",2.98,$82 annual fee,"Online, Mobile, ATM","18+ years, valid ID, proof of income","KYC, AML",Active,v1.1,BPZBPRD7
+INGSA2,Savings Account,This is a savings account designed for general banking needs.,"USD, AUD, JPY",1.59,$46 annual fee,ATM,"18+ years, valid ID, proof of income","FATCA, GDPR",Active,v2.6,BPQWKIWW
+INGSA3,Savings Account,This is a savings account designed for general banking needs.,"JPY, AUD, EUR",1.1,$78 annual fee,"Branch, Mobile","18+ years, valid ID, proof of income",GDPR,Active,v1.0,BPZTBUFF
+INGSA4,Savings Account,This is a savings account designed for general banking needs.,"EUR, GBP, AUD",0.58,$20 annual fee,Online,"18+ years, valid ID, proof of income",AML,Inactive,v2.1,BPIV6D2L
+INGSA5,Savings Account,This is a savings account designed for general banking needs.,"JPY, GBP, AUD",0.96,$69 annual fee,"Online, ATM, Branch","18+ years, valid ID, proof of income","KYC, GDPR",Inactive,v3.3,BPDG56XH
+INGSA6,Savings Account,This is a savings account designed for general banking needs.,"GBP, USD",4.52,$62 annual fee,"Branch, Mobile","18+ years, valid ID, proof of income","FATCA, KYC",Inactive,v2.0,BPT6MX59
+INGSA7,Savings Account,This is a savings account designed for general banking needs.,JPY,2.24,$35 annual fee,Online,"18+ years, valid ID, proof of income","GDPR, KYC",Active,v3.0,BPOXTYWJ
+INGSA8,Savings Account,This is a savings account designed for general banking needs.,"USD, EUR, AUD",2.29,$47 annual fee,"ATM, Online","18+ years, valid ID, proof of income","AML, FATCA",Inactive,v3.5,BPY023NM
+INGSA9,Savings Account,This is a savings account designed for general banking needs.,"AUD, EUR, GBP",1.13,$36 annual fee,Mobile,"18+ years, valid ID, proof of income",GDPR,Active,v1.2,BPQYXAPU
+INGSA10,Savings Account,This is a savings account designed for general banking needs.,"JPY, EUR",1.68,$59 annual fee,Online,"18+ years, valid ID, proof of income","AML, GDPR",Inactive,v3.2,BP6M19GL
+INGSA11,Savings Account,This is a savings account designed for general banking needs.,"USD, JPY, AUD",0.78,$16 annual fee,"ATM, Online, Mobile","18+ years, valid ID, proof of income","AML, GDPR",Inactive,v3.4,BPYLEK72
+INGSA12,Savings Account,This is a savings account designed for general banking needs.,"GBP, JPY",4.0,$12 annual fee,Online,"18+ years, valid ID, proof of income",KYC,Inactive,v1.7,BPY77Q3U
+INGSA13,Savings Account,This is a savings account designed for general banking needs.,"JPY, USD",2.5,$74 annual fee,"Branch, ATM","18+ years, valid ID, proof of income","AML, KYC",Active,v1.5,BPVVFKK9
+INGSA14,Savings Account,This is a savings account designed for general banking needs.,"EUR, GBP, USD",1.69,$88 annual fee,"Branch, ATM, Online","18+ years, valid ID, proof of income",GDPR,Inactive,v1.1,BP0TQZ32
