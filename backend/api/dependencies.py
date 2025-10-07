@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 from database.connection import get_mongo_client
 from database.user_manager import UserManager
-from database.audit_manager import AuditManager
+from database.log_manager import LogManager
 from scrubbers.text_scrubber import TextScrubber
 from scrubbers.file_scrubber import FileScrubber
 
@@ -22,9 +22,9 @@ def get_user_manager_dep(
 
 def get_audit_manager_dep(
     client: MongoClient = Depends(get_mongo_client_dep),
-) -> AuditManager:
+) -> LogManager:
     """Get AuditManager instance with MongoDB client"""
-    return AuditManager(client)
+    return LogManager(client)
 
 
 def get_text_scrubber_dep() -> TextScrubber:

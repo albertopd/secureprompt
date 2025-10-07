@@ -10,7 +10,12 @@ from core.config import settings
 from api.models import LoginRequest, LoginResponse
 from api.dependencies import get_user_manager_dep, get_audit_manager_dep
 from database.user_manager import UserManager
-from database.audit_manager import AuditManager, AuditLog
+from database.log_manager import (
+    LogRecordAction,
+    LogRecordCategory,
+    LogManager,
+    LogRecord,
+)
 
 
 # In-memory demo session store (see notes below)
@@ -135,7 +140,7 @@ def login(
     req: LoginRequest,
     request: Request,
     user_manager: UserManager = Depends(get_user_manager_dep),
-    audit_manager: AuditManager = Depends(get_audit_manager_dep),
+    audit_manager: LogManager = Depends(get_audit_manager_dep),
 ):
     """User login endpoint"""
     logger.info("Login attempt with email: %s", req.email)
@@ -165,14 +170,13 @@ def login(
     with SESSIONS_LOCK:
         SESSIONS.add(token)
 
-    # Extract client identification information
     client_info = extract_client_info(request)
 
-    audit_manager.log(
-        AuditLog(
+    audit_manager.add_log(
+        LogRecord(
             corp_key=user["corp_key"],
-            category="security",
-            action="login",
+            category=LogRecordCategory.SECURITY,
+            action=LogRecordAction.LOGIN,
             device_info=client_info.device_info,
             browser_info=client_info.browser_info,
             client_ip=client_info.client_ip,
@@ -193,7 +197,7 @@ def login(
 def logout(
     request: Request,
     session=Depends(require_auth),
-    audit_manager: AuditManager = Depends(get_audit_manager_dep),
+    audit_manager: LogManager = Depends(get_audit_manager_dep),
 ):
     """User logout endpoint"""
     logger.info(f"Logout attempt with email: {session['email']}")
@@ -203,11 +207,11 @@ def logout(
 
     client_info = extract_client_info(request)
 
-    audit_manager.log(
-        AuditLog(
+    audit_manager.add_log(
+        LogRecord(
             corp_key=session["corp_key"],
-            category="security",
-            action="logout",
+            category=LogRecordCategory.SECURITY,
+            action=LogRecordAction.LOGOUT,
             device_info=client_info.device_info,
             browser_info=client_info.browser_info,
             client_ip=client_info.client_ip,

@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     MONGO_URI: str = "mongodb://localhost:27017"
     MONGO_DB: str = "secureprompt"
     MONGO_USERS_COLLECTION: str = "users"
-    MONGO_AUDITS_COLLECTION: str = "audits"
+    MONGO_LOGS_COLLECTION: str = "logs"
 
     # Paths
     EMPLOYEES_CSV_PATH: str = "data/mock_employees.csv"
