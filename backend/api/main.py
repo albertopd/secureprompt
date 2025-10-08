@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.logger import logger
 from core.config import settings
 from database.connection import db_manager
-from api.routers import system, authentication, text_scrubbing, file_scrubbing
+from api.routers import system, authentication, text_scrubbing, file_scrubbing, audit
 
 
 # Lifespan handler
@@ -35,3 +35,4 @@ app.include_router(system.router)
 app.include_router(authentication.router, prefix=settings.API_V1_STR)
 app.include_router(text_scrubbing.router, prefix=settings.API_V1_STR)
 app.include_router(file_scrubbing.router, prefix=settings.API_V1_STR)
+app.include_router(audit.router, prefix=settings.API_V1_STR)
