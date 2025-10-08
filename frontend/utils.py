@@ -35,7 +35,7 @@ def create_scrubbed_entity_report(entities):
 
         rows.append(
             {
-                "Original": e.get("span", ""),
+                "Original": e.get("original", ""),
                 "Replacement": e.get("replacement", ""),
                 "Reason": e.get("explanation", ""),
                 "Score": score_display

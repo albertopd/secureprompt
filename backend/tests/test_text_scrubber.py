@@ -15,7 +15,7 @@ def test_text_scrubber(file: str, input_prompt: str, sanitized_prompt: str):
         The redacted text produced by TextScrubber matches the expected sanitized prompt.
     """
     scrubber = TextScrubber()
-    result = scrubber.anonymize_text(input_prompt)
-    redacted_text = result["redacted_text"]
+    result = scrubber.scrub_text(input_prompt)
+    scrubbed_text = result["scrubbed_text"]
 
-    assert redacted_text == sanitized_prompt
+    assert scrubbed_text == sanitized_prompt

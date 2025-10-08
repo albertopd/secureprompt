@@ -1,32 +1,27 @@
 import os, time
 
+from scrubbers.text_scrubber import TextScrubber
+
 class FileScrubber:
     def __init__(self):
+        self.text_scrubber = TextScrubber()
         self.out_dir = os.environ.get("FILES_OUT", "/tmp/secureprompt_files")
         os.makedirs(self.out_dir, exist_ok=True)
 
     def scrub_file(self, filename: str, data: bytes):
         ts = int(time.time())
         redacted_filename = f"{ts}_{filename}"
-        redacted_path = os.path.join(self.out_dir, f"redacted_{redacted_filename}")
+        redacted_path = os.path.join(self.out_dir, f"anonymized_{redacted_filename}")
 
-        # For demo: just write placeholder redacted file
-        with open(redacted_path, "w") as f:
-            f.write("[REDACTED FILE CONTENT - demo]")
+        # Make case depending on file type - for demo, just txt files
+        if filename.lower().endswith(".txt"):
+            text = data.decode("utf-8", errors="ignore")
+            scrub_result = self.text_scrubber.scrub_text(text)
+            with open(redacted_path, "w", encoding="utf-8") as f:
+                f.write(scrub_result["scrubbed_text"])
 
         return {
-            "entities": [
-                {
-                    "span": "+324985715",
-                    "type": "PHONE_BE",
-                    "replacement": "<PHONE_BE_1>",
-                    "source": "regex",
-                    "score": 0.9,
-                    "start": 0,
-                    "end": 10,
-                    "explanation": "Detected by regex"
-                }
-            ],
+            "entities": scrub_result.get("entities", []),
             "filename": filename,
-            "download_url": f"file/download/{redacted_filename}"
+            "download_url": f"/file/download/{redacted_filename}"
         }
