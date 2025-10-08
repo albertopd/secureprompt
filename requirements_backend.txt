@@ -27,3 +27,5 @@ opencv-python-headless
 
 # JWT
 pyjwt
+
+pandas
