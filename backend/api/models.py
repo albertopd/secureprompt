@@ -49,5 +49,6 @@ class DescrubRequest(BaseModel):
 
 class TextDescrubResponse(BaseModel):
     scrub_id: str
+    original_text: str
+    scrubbed_text: str
     descrubbed_text: str
-

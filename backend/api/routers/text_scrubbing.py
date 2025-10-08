@@ -28,14 +28,14 @@ def scrub(
     """Scrub sensitive information from text"""
     lang = req.language if req.language else "en"
     target_risk = req.target_risk if req.target_risk else "C4"
-    scrub_result = text_scrubber.anonymize_text(req.prompt, target_risk, lang)
+    scrub_result = text_scrubber.scrub_text(req.prompt, target_risk, lang)
 
-    audits_details = {
+    log_details = {
         "language": lang,
         "target_risk": target_risk,
         "original_text": req.prompt,
     }
-    audits_details.update(scrub_result)
+    log_details.update(scrub_result)
 
     client_info = extract_client_info(request)
 
@@ -44,7 +44,7 @@ def scrub(
             corp_key=session["corp_key"],
             category=LogRecordCategory.TEXT,
             action=LogRecordAction.SCRUB,
-            details=audits_details,
+            details=log_details,
             device_info=client_info.device_info,
             browser_info=client_info.browser_info,
             client_ip=client_info.client_ip,
@@ -54,7 +54,7 @@ def scrub(
 
     return TextScrubResponse(
         scrub_id=str(id),
-        scrubbed_text=scrub_result.get("anonymized_text", ""),
+        scrubbed_text=scrub_result.get("scrubbed_text", ""),
         entities=scrub_result.get("entities", []),
     )
 
@@ -65,20 +65,29 @@ def descrub(
     req: DescrubRequest,
     session=Depends(DESCRUBBER_OR_ADMIN),
     log_manager: LogManager = Depends(get_log_manager_dep),
+    text_scrubber: TextScrubber = Depends(get_text_scrubber_dep),
 ):
     """Descrub (restore) previously scrubbed content - RESTRICTED to descrubber/admin roles"""
-    # TODO: Ensure requesting user has permission to descrub this content
-    audit_record = log_manager.get_log(req.scrub_id)
-    if not audit_record:
+    log_record = log_manager.get_log(req.scrub_id)
+    if not log_record:
         raise HTTPException(status_code=404, detail="Scrub record not found")
 
-    if not audit_record.details:
+    # Ensure requesting user has permission to descrub this content
+    if log_record.corp_key != session["corp_key"]:
+        raise HTTPException(
+            status_code=403, detail="Access denied to this scrub record"
+        )
+
+    if not log_record.details:
         raise HTTPException(
             status_code=400, detail="No details found for this scrub record"
         )
 
+    original_text = log_record.details.get("original_text", "")
+    scrubbed_text = log_record.details.get("anonymized_text", "")
+    entities = log_record.details.get("entities", [])
+
     if req.descrub_all:
-        original_text = audit_record.details.get("original_text", "")
         if not original_text:
             raise HTTPException(
                 status_code=400, detail="Original text not found in scrub record"
@@ -91,28 +100,21 @@ def descrub(
                 detail="No entity replacements provided for partial descrubbing",
             )
 
-        entities = audit_record.details.get("entities", [])
         if not entities:
             raise HTTPException(
                 status_code=400, detail="No entities found in scrub record"
             )
 
-        scrubbed_text = audit_record.details.get("anonymized_text", "")
+        scrubbed_text = log_record.details.get("anonymized_text", "")
         if not scrubbed_text:
             raise HTTPException(
                 status_code=400, detail="Scrubbed text not found in scrub record"
             )
 
-        descrubbed_text = scrubbed_text
-        for entity_replacement in req.entity_replacements:
-            entity = next(
-                (e for e in entities if e.get("replacement") == entity_replacement),
-                None,
-            )
-            if entity and entity.get("original"):
-                descrubbed_text = descrubbed_text.replace(
-                    entity["replacement"], entity["original"]
-                )
+        entities_to_replace = [
+            e for e in entities if e.get("replacement") in req.entity_replacements
+        ]
+        descrubbed_text = text_scrubber.descrub_text(scrubbed_text, entities_to_replace)
 
     client_info = extract_client_info(request)
 
@@ -125,9 +127,12 @@ def descrub(
                 "scrub_id": req.scrub_id,
                 "descrub_all": req.descrub_all,
                 "entity_replacements": req.entity_replacements,
+                "replaced_entities": (
+                    entities if req.descrub_all else entities_to_replace
+                ),
                 "justification": req.justification,
-                "original_text": audit_record.details.get("original_text", ""),
-                "scrubbed_text": audit_record.details.get("anonymized_text", ""),
+                "original_text": original_text,
+                "scrubbed_text": scrubbed_text,
                 "descrubbed_text": descrubbed_text,
             },
             device_info=client_info.device_info,
@@ -137,4 +142,9 @@ def descrub(
         )
     )
 
-    return TextDescrubResponse(scrub_id=req.scrub_id, descrubbed_text=descrubbed_text)
+    return TextDescrubResponse(
+        scrub_id=req.scrub_id,
+        original_text=original_text,
+        scrubbed_text=scrubbed_text,
+        descrubbed_text=descrubbed_text,
+    )

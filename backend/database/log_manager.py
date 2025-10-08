@@ -4,6 +4,7 @@ from core.config import settings
 from database.log_record import LogRecord, LogRecordAction, LogRecordCategory
 
 
+# TODO: Use append-only, tamper-proof logs (integrity must be ensured)
 class LogManager:
     def __init__(self, client: MongoClient):
         self.client = client
@@ -31,12 +32,12 @@ class LogManager:
         # Convert string values back to enums and reconstruct LogRecord
         return LogRecord(
             corp_key=doc["corp_key"],
-            category=LogRecordCategory(doc["category"]), 
+            category=LogRecordCategory(doc["category"]),
             action=LogRecordAction(doc["action"]),
             details=doc["details"],
             device_info=doc["device_info"],
             browser_info=doc["browser_info"],
             client_ip=doc["client_ip"],
             user_agent=doc["user_agent"],
-            timestamp=doc["timestamp"]
+            timestamp=doc["timestamp"],
         )

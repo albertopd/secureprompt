@@ -16,9 +16,9 @@ class FileScrubber:
         # Make case depending on file type - for demo, just txt files
         if filename.lower().endswith(".txt"):
             text = data.decode("utf-8", errors="ignore")
-            scrub_result = self.text_scrubber.anonymize_text(text)
+            scrub_result = self.text_scrubber.scrub_text(text)
             with open(redacted_path, "w", encoding="utf-8") as f:
-                f.write(scrub_result["anonymized_text"])
+                f.write(scrub_result["scrubbed_text"])
 
         return {
             "entities": scrub_result.get("entities", []),
