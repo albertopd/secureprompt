@@ -1,19 +1,54 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import List, Optional
+
+
+class DetectedEntity(BaseModel):
+    type: str
+    start: int
+    end: int
+    original: str
+    replacement: str
+    explanation: str
+    score: float
+
 
 class LoginRequest(BaseModel):
     email: str
-    CorpKey: str
+    password: str
+
+
+class LoginResponse(BaseModel):
+    status: str
+    token: str
+
 
 class ScrubRequest(BaseModel):
-    user_id: str
     prompt: str
     target_risk: str = "C4"
     language: Optional[str] = "en"
 
+
+class TextScrubResponse(BaseModel):
+    scrub_id: str
+    scrubbed_text: str
+    entities: List[DetectedEntity]
+
+
+class FileScrubResponse(BaseModel):
+    scrub_id: str
+    entities: List[DetectedEntity]
+    filename: str
+    download_url: str
+
+
 class DescrubRequest(BaseModel):
-    user_id: str
-    prompt: str
-    all_tokens: bool = False
-    token_ids: List[str]
+    scrub_id: str
+    descrub_all: bool = False
+    entity_replacements: List[str]
     justification: str
+
+class TextDescrubResponse(BaseModel):
+    scrub_id: str
+    original_text: str
+    scrubbed_text: str
+    descrubbed_text: str

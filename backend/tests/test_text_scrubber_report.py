@@ -28,13 +28,13 @@ def test_text_scrubber_report():
 
     results = []
     for file, prompt, expected in cases:
-        result = scrubber.anonymize_text(prompt)
+        result = scrubber.scrub_text(prompt)
         passed = result == expected
         results.append({
             "file": file,
             "prompt": prompt,
             "expected": expected,
-            "got": result["redacted_text"],
+            "got": result["scrubbed_text"],
             "passed": passed
         })
 
