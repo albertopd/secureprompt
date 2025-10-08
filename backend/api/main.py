@@ -2,15 +2,14 @@ import sys
 import uuid
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from fastapi import FastAPI, UploadFile, File, Depends, HTTPException, Header
-from fastapi.responses import FileResponse
-from api.models import LoginRequest, ScrubRequest, DescrubRequest
-from backend.scrubbers.text_scrubber import TextScrubber
-from backend.scrubbers.file_scrubber import FileScrubber
-from backend.audit.auditor import Auditor
-from backend.database.mongo import get_collection
+from fastapi import FastAPI, Depends, HTTPException, Header
+from api.models import LoginRequest, LLMIngestRequest, LLMQueryRequest
+from scrubbers.text_scrubber import TextScrubber
+from scrubbers.file_scrubber import FileScrubber
+from audit.auditor import Auditor
+from database.mongo import get_collection
+from database.LLM import LLMSystem
 from datetime import datetime
-from pymongo import MongoClient
 from fastapi.logger import logger
 
 app = FastAPI(title="SecurePrompt API")
@@ -19,6 +18,7 @@ SESSIONS = {}
 text_scrubber = TextScrubber()
 file_scrubber = FileScrubber()
 auditor = Auditor()
+llm_system = LLMSystem()  # Index automatically built on initialization
 
 # Use the get_collection function to connect to MongoDB
 users_col = get_collection("employees")
@@ -96,40 +96,36 @@ def logout(authorization: str = Header(None)):
 
     return {"message": "Successfully logged out"}
 
-"""
-@app.post("/api/v1/scrub")
-def scrub(req: ScrubRequest, session=Depends(require_auth)):
-    lang = req.language if req.language else "en"
-    scrub_result = text_scrubber.scrub(req.prompt, req.target_risk, lang)
-    auditor.log(session["username"], "scrub", scrub_result)
-    return scrub_result
-
-@app.post("/api/v1/file/scrub")
-async def scrub_file(file: UploadFile = File(...), session=Depends(require_auth)):
-    if file.filename is None:
-        raise HTTPException(status_code=400, detail="Filename is required")
-    result = file_scrubber.scrub_file(file.filename, await file.read())
-    auditor.log(session["username"], "file_scrub", {"filename": file.filename})
-    return result
-
-@app.get("/api/v1/file/download/{file_id}")
-def download_file(file_id: str):
+@app.post("/api/v1/llm/test")
+def llm_test(req: LLMQueryRequest):
+    """
+    Simple RAG test endpoint - NO AUTH REQUIRED.
+    Just tests: MongoDB → chunks → embeddings → FAISS → retrieval → Gemini answer
+    """
     try:
-        record = files_col.find_one({"_id": file_id})
-    except Exception as exc:
-        raise HTTPException(status_code=400, detail="Invalid file_id") from exc
-
-    if not record:
-        raise HTTPException(status_code=404, detail="File record not found")
-
-    redacted_path = record.get("redacted_path")
-    if not redacted_path or not os.path.exists(redacted_path):
-        raise HTTPException(status_code=404, detail="File not available")
-
-    return FileResponse(redacted_path, filename=os.path.basename(redacted_path))
-
-@app.post("/api/v1/descrub")
-def descrub(req: DescrubRequest, session=Depends(require_auth)):
-    auditor.log(session["username"], "descrub", req.dict())
-    return {"status": "OK"}
-"""
+        # Retrieval
+        retrieved = llm_system.retrieve(req.question, top_k=max(1, req.top_k or 3))
+        
+        # Answer generation  
+        answer = llm_system.generate_answer(req.question, retrieved)
+        
+        # Return results with transparency
+        retrieved_info = [
+            {
+                "chunk_index": int(idx),
+                "distance": float(dist),
+                "source": llm_system.sources.get(int(idx)),
+                "security": llm_system.securities.get(int(idx)),
+            }
+            for idx, dist in retrieved
+        ]
+        
+        return {
+            "question": req.question,
+            "top_k": req.top_k,
+            "retrieved": retrieved_info,
+            "answer": answer,
+        }
+    except Exception as e:
+        print(f"LLM test error: {e}")
+        raise HTTPException(status_code=500, detail=f"LLM test failed: {str(e)}")

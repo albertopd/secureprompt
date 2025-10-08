@@ -20,6 +20,7 @@ google-generativeai>=0.8.3
 faiss-cpu>=1.8.0
 numpy>=1.26.0
 tqdm>=4.66.0
+requests>=2.31.0
 
 # Testing
 pytest>=8.0.0
