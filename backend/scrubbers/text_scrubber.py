@@ -14,6 +14,13 @@ from scrubbers.recognizers import (
     REGEX_RECOGNIZERS_C2,
 )
 
+# Optional custom model integration
+try:
+    from scrubbers.model_manager import get_model_manager
+    _HAS_CUSTOM_MODELS = True
+except ImportError:
+    _HAS_CUSTOM_MODELS = False
+
 
 class TextScrubber:
     def __init__(self):
@@ -23,6 +30,9 @@ class TextScrubber:
 
         self._register_pattern_recognizers()
         self._register_list_recognizers()
+        
+        # Initialize custom model manager if available
+        self.model_manager = get_model_manager() if _HAS_CUSTOM_MODELS else None
 
     def _distinct_by_entity(self, items: List[dict]) -> List[dict]:
         seen = set()
@@ -116,6 +126,35 @@ class TextScrubber:
         analyzer_results = self.analyzer.analyze(
             text=text, entities=class_entities, language=language
         )
+
+        # Enhance with custom models if available
+        if self.model_manager and target_risk in ['C3', 'C4']:
+            # Convert analyzer results to dict format for enhancement
+            presidio_entities = []
+            for result in analyzer_results:
+                presidio_entities.append({
+                    'entity_type': result.entity_type,
+                    'start': result.start,
+                    'end': result.end,
+                    'score': result.score,
+                    'source': 'presidio'
+                })
+            
+            # Enhance with custom models
+            enhanced_entities = self.model_manager.enhance_entities(
+                text, presidio_entities, target_risk
+            )
+            
+            # Convert back to analyzer result format
+            from presidio_analyzer import RecognizerResult
+            analyzer_results = []
+            for entity in enhanced_entities:
+                analyzer_results.append(RecognizerResult(
+                    entity_type=entity['entity_type'],
+                    start=entity['start'],
+                    end=entity['end'],
+                    score=entity['score']
+                ))
 
         # Sort analyzer results by their start position first and second by score
         analyzer_results.sort(key=lambda r: (r.start, r.score))

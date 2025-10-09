@@ -1,0 +1,72 @@
+🎯 TRAINING DATA CONSISTENCY ANALYSIS REPORT
+============================================================
+
+📈 OVERALL STATISTICS:
+   • Files Analyzed: 4
+   • Total Training Rows: 886
+   • Inconsistent Rows: 502
+   • Total Issues Found: 726
+   • Overall Consistency Rate: 43.3%
+
+📊 C1 SECURITY LEVEL:
+   • File: c1_public_data_prompts.csv
+   • Total Rows: 100
+   • Inconsistent Rows: 0
+   • Consistency Rate: 100.0%
+   • Total Issues: 0
+
+📊 C2 SECURITY LEVEL:
+   • File: c2_internal_operations_prompts.csv
+   • Total Rows: 150
+   • Inconsistent Rows: 40
+   • Consistency Rate: 73.3%
+   • Total Issues: 58
+   • Sample Issues:
+     - Row 1: 1 issues
+       * Response: Unscrubbed PERSON: 'Cory Griffin...'
+     - Row 5: 1 issues
+       * Response: Unscrubbed EMAIL_ADDRESS: 'george.cox@ing.com...'
+     - Row 7: 3 issues
+       * Response: Unscrubbed PERSON: 'Yolanda Allen...'
+       * Response: Unscrubbed PERSON: 'Cory Griffin...'
+
+📊 C3 SECURITY LEVEL:
+   • File: c3_customer_data_prompts.csv
+   • Total Rows: 200
+   • Inconsistent Rows: 64
+   • Consistency Rate: 68.0%
+   • Total Issues: 96
+   • Sample Issues:
+     - Row 1: 1 issues
+       * Response: Unscrubbed EMAIL_ADDRESS: 'linda.walker@skynet.be...'
+     - Row 3: 2 issues
+       * Response: Unscrubbed PERSON: 'Chris Taylor...'
+       * Response: Unscrubbed PERSON: 'John Miller...'
+     - Row 4: 2 issues
+       * Response: Unscrubbed PERSON: 'Emily Brown...'
+       * Response: Unscrubbed PERSON: 'Laura Clark...'
+
+📊 C4 SECURITY LEVEL:
+   • File: c4_sensitive_data_prompts.csv
+   • Total Rows: 436
+   • Inconsistent Rows: 398
+   • Consistency Rate: 8.7%
+   • Total Issues: 572
+   • Sample Issues:
+     - Row 1: 1 issues
+       * Prompt: Unscrubbed PERSON: 'William Forbes...'
+     - Row 2: 1 issues
+       * Prompt: Unscrubbed PERSON: 'Anna Miller...'
+     - Row 3: 2 issues
+       * Prompt: Unscrubbed PERSON: 'Jonathan Green...'
+       * Response: Unscrubbed EXPIRATION_DATE: '10/29...'
+
+💡 RECOMMENDATIONS:
+   ⚠️  CRITICAL: Data consistency is below 80%
+   🔧 URGENT: Run data normalization before model training
+
+🎯 NEXT STEPS:
+   1. Run data normalization tool
+   2. Re-train custom models with normalized data
+   3. Test performance improvements
+   4. Update training pipeline for consistency
