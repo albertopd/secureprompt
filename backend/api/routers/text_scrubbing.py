@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 
 from api.models import (
-    ScrubRequest,
+    TextScrubRequest,
     TextDescrubResponse,
     TextScrubResponse,
     DescrubRequest,
@@ -20,7 +20,7 @@ router = APIRouter(prefix="/text", tags=["text-scrubbing"])
 @router.post("/scrub", response_model=TextScrubResponse)
 def scrub(
     request: Request,
-    req: ScrubRequest,
+    req: TextScrubRequest,
     session=Depends(SCRUBBER_OR_ABOVE),
     log_manager: LogManager = Depends(get_log_manager_dep),
     text_scrubber: TextScrubber = Depends(get_text_scrubber_dep),

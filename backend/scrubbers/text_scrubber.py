@@ -103,7 +103,10 @@ class TextScrubber:
         return classification_entities
 
     def scrub_text(
-        self, text: str, target_risk: str = "C4", language: str = "en"
+        self, 
+        text: str, 
+        target_risk: str = "C4", 
+        language: str = "en"
     ) -> dict:
         """
         Scrubs (anonymizes) the input text based on the target risk level and language.
@@ -117,8 +120,8 @@ class TextScrubber:
             text=text, entities=class_entities, language=language
         )
 
-        # Sort analyzer results by their start position first and second by score
-        analyzer_results.sort(key=lambda r: (r.start, r.score))
+        # Sort analyzer results first by their start position (lower to higher) and second by score (from higher to lower)
+        analyzer_results.sort(key=lambda r: (r.start, -r.score))
 
         anonymized_result = self.anonymizer.anonymize(
             text=text, analyzer_results=analyzer_results  # type: ignore

@@ -52,12 +52,12 @@ def file_scrubber_tab():
 
                 if entities:
                     st.markdown("")
-                    redacted_filename = json_result.get("filename", "")
+                    scrubbed_filename = json_result.get("output_filename", "")
                     download_url = json_result.get("download_url", "")
                     full_download_url = f"{API_URL.rstrip('/')}{download_url}?token={st.session_state['token']}"
 
                     st.html("<div class='field_header'>Anonymized file:</div>")
-                    download_link_html = f"<a href='{full_download_url}' download='{redacted_filename}' title='Click to download'>{redacted_filename}</a>"
+                    download_link_html = f"<a href='{full_download_url}' download='{scrubbed_filename}' title='Click to download'>{scrubbed_filename}</a>"
                     st.markdown(download_link_html, unsafe_allow_html=True)
                     st.markdown("")
 

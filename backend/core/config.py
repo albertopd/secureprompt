@@ -24,9 +24,11 @@ class Settings(BaseSettings):
     MONGO_DB: str = "secureprompt"
     MONGO_USERS_COLLECTION: str = "users"
     MONGO_LOGS_COLLECTION: str = "logs"
+    MONGO_FILES_COLLECTION: str = "files"
 
     # Paths
     EMPLOYEES_CSV_PATH: str = "data/mock_employees.csv"
+    TMP_FILES_PATH: str = "C:/tmp/secureprompt_files"
 
 
 settings = Settings()
