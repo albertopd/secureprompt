@@ -35,9 +35,7 @@ class TextScrubber:
 
     def _register_pattern_recognizers(self) -> None:
         recognizers = self._distinct_by_entity(
-            REGEX_RECOGNIZERS_C4 
-            + REGEX_RECOGNIZERS_C3 
-            + REGEX_RECOGNIZERS_C2
+            REGEX_RECOGNIZERS_C4 + REGEX_RECOGNIZERS_C3 + REGEX_RECOGNIZERS_C2
         )
 
         for rec in recognizers:
@@ -75,9 +73,7 @@ class TextScrubber:
         classification_entities = {}
 
         c2_rec_list = (
-            DEFAULT_RECOGNIZERS_C2
-            + REGEX_RECOGNIZERS_C2
-            + DENY_LIST_RECOGNIZERS_C2
+            DEFAULT_RECOGNIZERS_C2 + REGEX_RECOGNIZERS_C2 + DENY_LIST_RECOGNIZERS_C2
         )
         classification_entities["C2"] = [rec["entity"] for rec in c2_rec_list]
 
@@ -91,7 +87,7 @@ class TextScrubber:
         )
         classification_entities["C3"] = [rec["entity"] for rec in c3_rec_list]
 
-        c4_rec_list =(
+        c4_rec_list = (
             DEFAULT_RECOGNIZERS_C4
             + REGEX_RECOGNIZERS_C4
             + DENY_LIST_RECOGNIZERS_C4
@@ -113,28 +109,49 @@ class TextScrubber:
         Scrubs (anonymizes) the input text based on the target risk level and language.
         Returns a dictionary with the anonymized text and a list of detected entities.
         """
-        class_entities = self.classification_entities.get(target_risk.strip().upper(), [])
+        class_entities = self.classification_entities.get(
+            target_risk.strip().upper(), []
+        )
 
         analyzer_results = self.analyzer.analyze(
-            text=text,
-            entities=class_entities,
-            language=language
+            text=text, entities=class_entities, language=language
         )
 
         # Sort analyzer results by their start position first and second by score
         analyzer_results.sort(key=lambda r: (r.start, r.score))
 
         anonymized_result = self.anonymizer.anonymize(
-            text=text, 
-            analyzer_results=analyzer_results  # type: ignore
+            text=text, analyzer_results=analyzer_results  # type: ignore
         )
 
         # Sort anonymized results by their start position
         anonymized_result.items.sort(key=lambda r: r.start)
 
-        entities = []
+        # Count entities types
+        entity_counts = {}
         for res in anonymized_result.items:
-            explanation = f"{res.entity_type.lower().replace('_', ' ').capitalize()} detected"
+            entity_counts[res.entity_type] = entity_counts.get(res.entity_type, 0) + 1
+
+        # Create list of suffixed replacements
+        # for entities with counts > 1, e.g. PERSON_1, PERSON_2
+        # for count = 1 just PERSON
+        suffixed_replacements = []
+        for entity_type, count in entity_counts.items():
+            if count > 1:
+                for i in range(count):
+                    suffixed_replacements.append(f"<{entity_type}_{i+1}>")
+            else:
+                suffixed_replacements.append(f"<{entity_type}>") 
+
+        # Build list of detected entities with original text and explanation
+        # and update replacements with suffixed versions
+        scrubbed_text = anonymized_result.text
+        entities = []
+        offset = 0
+        for res in anonymized_result.items:
+            explanation = (
+                f"{res.entity_type.lower().replace('_', ' ').capitalize()} detected"
+            )
 
             # Find matching result from analyzer
             original = ""
@@ -146,19 +163,32 @@ class TextScrubber:
                     score = candidate.score
                     break
 
+            # Get next replacement with suffix (if applicable)
+            replacement = suffixed_replacements.pop(0)
+
+            # Update the replacement in the scrubbed text
+            start = res.start + offset
+            end = res.end + offset
+            scrubbed_text = scrubbed_text[:start] + replacement + scrubbed_text[end:]
+
+            # Adjust start and end positions based on offset
+            new_start = start
+            new_end = new_start + len(replacement)
+            offset += len(replacement) - len(res.text)
+
             entities.append(
                 {
                     "type": res.entity_type,
-                    "start": res.start,
-                    "end": res.end,
+                    "start": new_start,
+                    "end": new_end,
                     "original": original,
-                    "replacement": f"<{res.entity_type}>",
+                    "replacement": replacement,
                     "explanation": explanation,
-                    "score": score
+                    "score": score,
                 }
             )
 
-        return {"scrubbed_text": anonymized_result.text, "entities": entities}
+        return {"scrubbed_text": scrubbed_text, "entities": entities}
 
     def descrub_text(self, scrubbed_text: str, entities: list[dict]) -> str:
         """

@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -47,8 +48,50 @@ class DescrubRequest(BaseModel):
     entity_replacements: List[str]
     justification: str
 
+
 class TextDescrubResponse(BaseModel):
     scrub_id: str
     original_text: str
     scrubbed_text: str
     descrubbed_text: str
+
+
+class PaginationInfo(BaseModel):
+    page: int
+    page_size: int
+    total_count: int
+    total_pages: int
+    has_next: bool
+    has_prev: bool
+
+
+class LogRecordResponse(BaseModel):
+    id: str
+    corp_key: str
+    category: str
+    action: str
+    details: dict
+    device_info: str
+    browser_info: str
+    client_ip: str
+    user_agent: str
+    timestamp: datetime
+
+
+class LogListResponse(BaseModel):
+    logs: List[LogRecordResponse]
+    pagination: PaginationInfo
+
+
+class LogSearchFilters(BaseModel):
+    corp_key: Optional[str] = None
+    category: Optional[str] = None
+    action: Optional[str] = None
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+
+
+class LogSearchResponse(BaseModel):
+    logs: List[LogRecordResponse]
+    pagination: PaginationInfo
+    filters: LogSearchFilters

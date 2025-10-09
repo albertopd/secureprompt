@@ -84,7 +84,7 @@ def descrub(
         )
 
     original_text = log_record.details.get("original_text", "")
-    scrubbed_text = log_record.details.get("anonymized_text", "")
+    scrubbed_text = log_record.details.get("scrubbed_text", "")
     entities = log_record.details.get("entities", [])
 
     if req.descrub_all:
@@ -105,7 +105,6 @@ def descrub(
                 status_code=400, detail="No entities found in scrub record"
             )
 
-        scrubbed_text = log_record.details.get("anonymized_text", "")
         if not scrubbed_text:
             raise HTTPException(
                 status_code=400, detail="Scrubbed text not found in scrub record"
