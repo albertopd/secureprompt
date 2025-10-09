@@ -76,23 +76,29 @@ def descrub(
     log_manager: LogManager = Depends(get_log_manager_dep),
 ):
     """Descrub (restore) previously scrubbed content - RESTRICTED to descrubber/admin roles"""
-    # TODO: Implement descrubbing logic if applicable
-    # TODO: Ensure requesting user has permission to descrub this content
+    log_record = log_manager.get_log(req.scrub_id)
+    if not log_record:
+        raise HTTPException(status_code=404, detail="Scrub record not found")
 
-    client_info = extract_client_info(request)
-
-    log_manager.add_log(
-        LogRecord(
-            corp_key=session["corp_key"],
-            category=LogRecordCategory.FILE,
-            action=LogRecordAction.DESCRUB,
-            details=req.model_dump(),
-            device_info=client_info.device_info,
-            browser_info=client_info.browser_info,
-            client_ip=client_info.client_ip,
-            user_agent=client_info.user_agent,
+    # Ensure requesting user has permission to descrub this content
+    if log_record.corp_key != session["corp_key"]:
+        raise HTTPException(
+            status_code=403, detail="Access denied to this scrub record"
         )
-    )
+
+    if log_record.category != LogRecordCategory.FILE or log_record.action != LogRecordAction.SCRUB:
+        raise HTTPException(
+            status_code=400, detail="Log record is not a file scrub record"
+        )
+
+    if not log_record.details:
+        raise HTTPException(
+            status_code=400, detail="No details found for this scrub record"
+        )
+    
+    output_filename = log_record.details.get("output_filename", "")
+    file_id = log_record.details.get("file_id", "")
+
     return {"status": "OK"}
 
 

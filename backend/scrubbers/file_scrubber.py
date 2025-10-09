@@ -34,6 +34,36 @@ class FileScrubber:
             "output_filename": output_filename,
             "entities": scrub_result.get("entities", [])
         }
+    
+    def descrub_file(
+        self,
+        original_filename: str,
+        scrubbed_filename: str,
+        entity_replacements: list[str]
+    ):
+        input_path = os.path.join(self.out_dir, scrubbed_filename)
+        if not os.path.exists(input_path):
+            raise FileNotFoundError("Scrubbed file not found")
+
+        ts = int(time.time())
+        output_filename = f"{ts}_descrubbed_{scrubbed_filename}"
+        output_path = os.path.join(self.out_dir, output_filename)
+
+        # For now, only support text files
+        file_extension = os.path.splitext(scrubbed_filename)[1].lower()
+        match file_extension:
+            case ".txt":
+                descrub_result = self._descrub_text_file(
+                    input_path, entity_replacements, output_path
+                )
+            case _:
+                raise ValueError("Unsupported file type")
+
+        return {
+            "file_id": str(ts),
+            "output_filename": output_filename,
+            "entities": descrub_result.get("entities", [])
+        }
 
     def _scrub_text_file(
         self, 
@@ -48,3 +78,12 @@ class FileScrubber:
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(scrub_result["scrubbed_text"])
         return scrub_result
+
+    def _descrub_text_file(
+        self,
+        input_path: str,
+        entity_replacements: list[str],
+        output_path: str
+    ):
+        # TODO: Implement file descrubbing logic
+        return {"entities": []}

@@ -77,6 +77,11 @@ def descrub(
         raise HTTPException(
             status_code=403, detail="Access denied to this scrub record"
         )
+    
+    if log_record.category != LogRecordCategory.TEXT or log_record.action != LogRecordAction.SCRUB:
+        raise HTTPException(
+            status_code=400, detail="Log record is not a text scrub record"
+        )
 
     if not log_record.details:
         raise HTTPException(
