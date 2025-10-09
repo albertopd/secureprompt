@@ -1,6 +1,7 @@
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern
 from presidio_anonymizer import AnonymizerEngine
 from typing import List
+from scrubbers.custom_spacy_recognizer import CustomSpacyRecognizer
 
 from scrubbers.recognizers import (
     DENY_LIST_RECOGNIZERS_C4,
@@ -12,7 +13,9 @@ from scrubbers.recognizers import (
     DENY_LIST_RECOGNIZERS_C2,
     DEFAULT_RECOGNIZERS_C2,
     REGEX_RECOGNIZERS_C2,
-)
+    CUSTOM_RECOGNIZERS_C3,
+    CUSTOM_RECOGNIZERS_C4
+    )
 
 
 class TextScrubber:
@@ -22,7 +25,8 @@ class TextScrubber:
         self.classification_entities = self._setup_classification_entities()
 
         self._register_pattern_recognizers()
-        self._register_list_recognizers()
+        self._register_list_recognizers() 
+        self._register_custom_recognizers()
 
     def _distinct_by_entity(self, items: List[dict]) -> List[dict]:
         seen = set()
@@ -69,34 +73,62 @@ class TextScrubber:
             )
             self.analyzer.registry.add_recognizer(recognizer)
 
+    def _register_custom_recognizers(self) -> None:
+        recognizers = self._distinct_by_entity(
+            CUSTOM_RECOGNIZERS_C3 + CUSTOM_RECOGNIZERS_C4
+        )
+
+        for rec in recognizers:
+            custom_spacy = CustomSpacyRecognizer(
+                path_to_model = rec["model_path"],
+                supported_entities = [rec["entity"]]
+            )
+
+            self.analyzer.registry.add_recognizer(custom_spacy)
+
     def _setup_classification_entities(self) -> dict[str, List[str]]:
         classification_entities = {}
 
         c2_rec_list = (
-            DEFAULT_RECOGNIZERS_C2 + REGEX_RECOGNIZERS_C2 + DENY_LIST_RECOGNIZERS_C2
+
+            DEFAULT_RECOGNIZERS_C2
+            + REGEX_RECOGNIZERS_C2
+            + DENY_LIST_RECOGNIZERS_C2
+
         )
         classification_entities["C2"] = [rec["entity"] for rec in c2_rec_list]
 
         c3_rec_list = (
-            DEFAULT_RECOGNIZERS_C3
-            + REGEX_RECOGNIZERS_C3
-            + DENY_LIST_RECOGNIZERS_C3
-            + DEFAULT_RECOGNIZERS_C2
+
+            DEFAULT_RECOGNIZERS_C2
             + REGEX_RECOGNIZERS_C2
             + DENY_LIST_RECOGNIZERS_C2
+
+            + DEFAULT_RECOGNIZERS_C3
+            + REGEX_RECOGNIZERS_C3
+            + DENY_LIST_RECOGNIZERS_C3
+            + CUSTOM_RECOGNIZERS_C3
+        
+
         )
         classification_entities["C3"] = [rec["entity"] for rec in c3_rec_list]
 
         c4_rec_list = (
+                       
             DEFAULT_RECOGNIZERS_C4
             + REGEX_RECOGNIZERS_C4
             + DENY_LIST_RECOGNIZERS_C4
             + DEFAULT_RECOGNIZERS_C3
             + REGEX_RECOGNIZERS_C3
             + DENY_LIST_RECOGNIZERS_C3
+    
             + DEFAULT_RECOGNIZERS_C2
             + REGEX_RECOGNIZERS_C2
             + DENY_LIST_RECOGNIZERS_C2
+
+            +CUSTOM_RECOGNIZERS_C3
+            +CUSTOM_RECOGNIZERS_C4
+
         )
         classification_entities["C4"] = [rec["entity"] for rec in c4_rec_list]
 
@@ -119,6 +151,12 @@ class TextScrubber:
 
         # Sort analyzer results by their start position first and second by score
         analyzer_results.sort(key=lambda r: (r.start, r.score))
+
+        for r in analyzer_results:
+            print(
+                f"Entity: {r.entity_type:<20} "
+                f"Text: '{text[r.start:r.end]}' "
+            )
 
         anonymized_result = self.anonymizer.anonymize(
             text=text, analyzer_results=analyzer_results  # type: ignore

@@ -1,3 +1,5 @@
+import os
+
 # Recognizers configuration for C4 risk level
 DEFAULT_RECOGNIZERS_C4 = [
     {"name": "person", "entity": "PERSON"},
@@ -17,9 +19,9 @@ REGEX_RECOGNIZERS_C4 = [
     {"name": "money", "entity": "FINANCIAL_AMOUNT", "pattern": r"€\s?\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})?"},
     {"name": "pin_mask", "entity": "PIN_MASKED", "pattern": r"\*{4}\d{2}"},
    
-    {"name": "cred_sc", "entity":"CREDIT_SCORE", "pattern": r"\b(3\d{2}|4\d{2}|5\d{2}|6\d{2}|7\d{2}|8[0-4]\d|850)\b", "score": 0.3, "context":["credit score", "credit"]},
-    {"name": "pin", "entity": "PIN", "pattern": r"(?<!\d)\d{4}(?!\d)", "score": 0.3, "context":["PIN", "pin", "pin code", "pin:", "code", "passcode"]},
-    {"name": "cvc", "entity": "CVC", "pattern": r"(?<!\d)\d{3}(?!\d)", "score": 0.3, "context":["CCV", "ccv", "ccv:", "cvc", "cvc:", "security code", "security number", "card security", "card code"]},
+    #{"name": "cred_sc", "entity":"CREDIT_SCORE", "pattern": r"\b(3\d{2}|4\d{2}|5\d{2}|6\d{2}|7\d{2}|8[0-4]\d|850)\b", "score": 0.3, "context":["credit score", "credit"]},
+    #{"name": "pin", "entity": "PIN", "pattern": r"(?<!\d)\d{4}(?!\d)", "score": 0.3, "context":["PIN", "pin", "pin code", "pin:", "code", "passcode"]},
+    #{"name": "cvc", "entity": "CVC", "pattern": r"(?<!\d)\d{3}(?!\d)", "score": 0.3, "context":["CCV", "ccv", "ccv:", "cvc", "cvc:", "security code", "security number", "card security", "card code"]},
    
     {"name": "exp_dt", "entity": "EXPIRATION_DATE", "pattern": r"\b(0[1-9]|1[0-2])\s?[\/\-]\s?\d{2}\b", "context":["expiration date", "exp date", "expiry date", "valid thru", "valid through", "expires"]}
 ]
@@ -36,6 +38,19 @@ DENY_LIST_RECOGNIZERS_C4 = [
     {"name": "bio_data", "entity": "BIOMETRIC_DATA", "deny_list": ["biometric data","voice", "FaceID", "fingerprint", "iris"], "context":["biometric"]}
 ]
 
+BASE_MODEL_C4 = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "nlp", "models_c4", "model_vers_3_small", "model-best"
+)
+
+CUSTOM_RECOGNIZERS_C4 =[{"name": "pin", 
+                         "entity": "PIN",         
+                         "model_path": BASE_MODEL_C4},
+
+                        {"name": "cvv", 
+                         "entity": "CVV", 
+                         "model_path": BASE_MODEL_C4} ]
+
 
 # Recognizers configuration for C3 risk level
 
@@ -51,7 +66,7 @@ REGEX_RECOGNIZERS_C3 = [
     {"name": "date", "entity": "DATE", "pattern": r"\b(19[0-9]{2}|20[0-4][0-9])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])\b", "context" : ["date"]},
     #{"name": "ph_be","entity": "PHONE_BE", "pattern": r"(\+32\s?|0)(\d{1,2})(\s?\d{2}\s?\d{2}\s?\d{2}|\s?\d{3}\s?\d{3})"},
     {"name": "ip_addr", "entity":"IP_ADDRESS", "pattern": r"\b((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b"},
-    {"name": "pay_id", "entity": "PAYMENT_ID", "pattern": r"^PO-\d{4}$"},
+    {"name": "pay_id", "entity": "PAYMENT_ID", "pattern": r"PO-\d{4}"},
     {"name":"ref_num", "entity": "REFERENCE_NUMBER", "pattern": r"(?i)^invoice \d{5}$"}
 ]
 
@@ -64,6 +79,14 @@ DENY_LIST_RECOGNIZERS_C3 = [
     {"name":"pay_type", "entity":"PAYMENT_TYPE", "deny_list":["Wire Transfer", "Cheque", "SEPA Credit", "Direct Debit", "Standing Order"]},
     {"name":"prod_type", "entity":"PRODUCT_TYPE", "deny_list": ["Mobile Banking", "Life Insurance", "Investment Portfolio", "Savings Account", "Travel Insurance", "Mortgage", "Current Account", "Credit Card" ]}
 ]
+
+BASE_MODEL_C3 = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "nlp", "models_c3", "model_c3_v3_3_small", "model-best"
+)
+
+CUSTOM_RECOGNIZERS_C3 =[{"name": "pay_nam", "entity": "PAYMENT_NAME", "model_path": BASE_MODEL_C3 },
+                        {"name": "pay_stat", "entity": "PAYMENT_STATUS", "model_path": BASE_MODEL_C3 } ]
 
 
 # Recognizers configuration for C2 risk level

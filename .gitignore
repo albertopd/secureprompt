@@ -213,3 +213,5 @@ __marimo__/
 backend/tests/data/reports/
 
 /backend/scrubbers/nlp/datafiles/
+backend/scrubbers/nlp/models_c3
+backend/scrubbers/nlp/models_c4
