@@ -4,7 +4,7 @@
 
 SecurePrompt is a comprehensive data protection system designed for banking environments, showcasing an end-to-end secure prompt management architecture. Built with FastAPI, Streamlit, and MongoDB, it implements a sophisticated multi-tier architecture with advanced text and file scrubbing capabilities.
 
-The system features specialized AI models developed by Estefania for financial data detection, achieving exceptional performance scores of 99.7% for customer data (C3) and 90.7% for sensitive financial data (C4). A comprehensive security-aware testing framework, developed by Floriane, validates the system across 906 test scenarios with an overall security score of 73.2%, prioritizing data protection over traditional accuracy metrics.
+The system features specialized AI models for financial data detection, achieving exceptional performance scores of 99.7% for customer data (C3) and 90.7% for sensitive financial data (C4). A comprehensive security-aware testing framework validates the system across 906 test scenarios with an overall security score of 73.2%, prioritizing data protection over traditional accuracy metrics.
 
 Key innovations include Presidio-based entity detection with custom spaCy models, multi-format file processing (PDF, screenshots), and a "better safe than sorry" approach that rewards over-detection to prevent data leaks. The system automatically redacts sensitive financial and personal information before prompts are sent to large language models (LLMs), ensuring compliance with banking data privacy and security standards while enabling secure AI interactions.
 
@@ -18,7 +18,7 @@ Key innovations include Presidio-based entity detection with custom spaCy models
 ### 🛡️ Advanced Text Scrubbing
 - **Presidio Integration**: Enterprise-grade entity detection and anonymization
 - **Security Level Classification**: C1 (Public), C2 (Internal), C3 (Customer Data), C4 (Sensitive Financial Data)
-- **Custom NLP Models**: Estefania's specialized spaCy models for C3/C4 levels achieving 99.7% performance
+- **Custom NLP Models**: Specialized spaCy models for C3/C4 levels achieving 99.7% performance
 - **Regex & Model-Based Entities**: Combined approach for comprehensive detection
 - **Over-Detection Strategy**: "Better safe than sorry" approach with 90% score for cautious detection
 
@@ -127,7 +127,7 @@ pip install -r requirements_frontend.txt
 
 ### Custom Models Setup
 
-The system uses Estefania's specialized spaCy models for enhanced financial data detection:
+The system uses specialized spaCy models for enhanced financial data detection:
 
 #### 📥 Model Installation
 Custom models are hosted externally due to size constraints:
@@ -201,8 +201,8 @@ Structural Accuracy: 35.0%
 BY SECURITY LEVEL:
 • C1 (Public Data): 36.3%
 • C2 (Internal Operations): 66.0%  
-• C3 (Customer Data): 99.7% ⭐ (Estefania's custom models)
-• C4 (Sensitive Data): 90.7% ⭐ (Conservative over-detection)
+• C3 (Customer Data): 99.7% ⭐
+• C4 (Sensitive Data): 90.7% ⭐
 
 SECURITY BREAKDOWN:
 • Perfect Detection: 49.2% (exact matches)
@@ -251,7 +251,7 @@ Text Input → Analyzer Engine → Entity Detection → Anonymizer Engine → Sc
 
 ### NLP Model Training
 
-#### Custom Model Development (by Estefania)
+#### Custom Model Development
 - **Data Sources**: CSV data, synthetic data generation, LLM-generated templates
 - **Processing**: Data processor converts to DocBin format
 - **Training Files**: train.spacy, dev.spacy with config.cfg
@@ -270,35 +270,6 @@ Text Input → Analyzer Engine → Entity Detection → Anonymizer Engine → Sc
 - **OCR Engine**: OpenCV + Pytesseract for text extraction
 - **Presidio Integration**: Entity detection on extracted text
 - **Visual Redaction**: Coordinate-based masking of sensitive areas
-
-## 🚀 Next Steps
-
-Based on team development roadmap:
-
-### 🔬 Model Improvements
-- **Expand NLP Models**: Enhance custom models with additional training data
-- **Entity Coverage**: Add support for new financial entities and patterns
-- **Model Optimization**: Improve processing speed and accuracy
-
-### 📁 File Processing Enhancement
-- **Format Expansion**: Support for more document types (Word, Excel, PowerPoint)
-- **Advanced OCR**: Improved screenshot and image processing capabilities
-- **File De-scrubbing**: Implement reverse anonymization for authorized users
-
-### 📊 Monitoring & Analytics
-- **Metrics Dashboard**: Real-time performance monitoring interface
-- **Audit Improvements**: Enhanced logging and compliance reporting
-- **Performance Analytics**: Detailed insights into scrubbing effectiveness
-
-### 🔐 Security & Integration
-- **LLM Connection**: Direct integration with language models
-- **Advanced Authentication**: Enhanced login and security access controls
-- **Compliance Features**: Additional regulatory compliance tools
-
-### � Testing & Quality
-- **Prompt Testing**: Expanded test scenarios and validation
-- **Performance Benchmarking**: Continuous improvement metrics
-- **Integration Testing**: End-to-end workflow validation
 
 ## 🚨 Debugging
 
@@ -360,6 +331,34 @@ pytest -vv tests/test_security_aware_metrics.py
 
 Test reports are generated automatically and saved in the `backend/tests/data/reports` directory. These reports include detailed information about test failures and successes.
 
+## 🚀 Next Steps
+
+Based on team development roadmap:
+
+### 🔬 Model Improvements
+- **Expand NLP Models**: Enhance custom models with additional training data
+- **Entity Coverage**: Add support for new financial entities and patterns
+- **Model Optimization**: Improve processing speed and accuracy
+
+### 📁 File Processing Enhancement
+- **Format Expansion**: Support for more document types (Word, Excel, PowerPoint)
+- **Advanced OCR**: Improved screenshot and image processing capabilities
+- **File De-scrubbing**: Implement reverse anonymization for authorized users
+
+### 📊 Monitoring & Analytics
+- **Metrics Dashboard**: Real-time performance monitoring interface
+- **Audit Improvements**: Enhanced logging and compliance reporting
+- **Performance Analytics**: Detailed insights into scrubbing effectiveness
+
+### 🔐 Security & Integration
+- **LLM Connection**: Direct integration with language models
+- **Advanced Authentication**: Enhanced login and security access controls
+- **Compliance Features**: Additional regulatory compliance tools
+
+### � Testing & Quality
+- **Prompt Testing**: Expanded test scenarios and validation
+- **Performance Benchmarking**: Continuous improvement metrics
+- **Integration Testing**: End-to-end workflow validation
 
 ## 👤 Collaborators
 
