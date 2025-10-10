@@ -61,7 +61,7 @@ secureprompt/
 │   │   ├── file_scrubber.py        # PDF processing capabilities
 │   │   ├── screenshot_scrub.py     # Image/OCR processing
 │   │   ├── recognizers.py          # Custom entity recognizers
-│   │   ├── custom_spacy_recognizer.py # Estefania's custom model integration
+│   │   ├── custom_spacy_recognizer.py # Custom model integration
 │   │   └── models/                 # Custom spaCy models (excluded from repo)
 │   │       ├── models_c3/          # Customer data models
 │   │       └── models_c4/          # Sensitive financial data models
