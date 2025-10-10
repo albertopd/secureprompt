@@ -103,7 +103,10 @@ class TextScrubber:
         return classification_entities
 
     def scrub_text(
-        self, text: str, target_risk: str = "C4", language: str = "en"
+        self, 
+        text: str, 
+        target_risk: str = "C4", 
+        language: str = "en"
     ) -> dict:
         """
         Scrubs (anonymizes) the input text based on the target risk level and language.
@@ -113,35 +116,36 @@ class TextScrubber:
             target_risk.strip().upper(), []
         )
 
+        # Analyze text to find entities
         analyzer_results = self.analyzer.analyze(
             text=text, entities=class_entities, language=language
         )
 
-        # Sort analyzer results by their start position first and second by score
-        analyzer_results.sort(key=lambda r: (r.start, r.score))
+        # Create a map from analyzer_results, entity_type to list of results, where list results are sorted first by their start position (lower to higher) and second by score (from higher to lower)
+        entity_map = {}
+        for res in analyzer_results:
+            if res.entity_type not in entity_map:
+                entity_map[res.entity_type] = []
+            entity_map[res.entity_type].append(res)
 
+        for entity_type in entity_map:
+            entity_map[entity_type].sort(key=lambda r: (r.start, -r.score))
+
+        # Update replacements to have suffixes if there are multiple entities of the same type
+        for entity_type, results in entity_map.items():
+            if len(results) > 1:
+                for i, res in enumerate(results):
+                    res.replacement = f"<{entity_type}_{i+1}>"
+            else:
+                results[0].replacement = f"<{entity_type}>"
+
+        # Anonymize text using the analyzer results
         anonymized_result = self.anonymizer.anonymize(
             text=text, analyzer_results=analyzer_results  # type: ignore
         )
 
         # Sort anonymized results by their start position
         anonymized_result.items.sort(key=lambda r: r.start)
-
-        # Count entities types
-        entity_counts = {}
-        for res in anonymized_result.items:
-            entity_counts[res.entity_type] = entity_counts.get(res.entity_type, 0) + 1
-
-        # Create list of suffixed replacements
-        # for entities with counts > 1, e.g. PERSON_1, PERSON_2
-        # for count = 1 just PERSON
-        suffixed_replacements = []
-        for entity_type, count in entity_counts.items():
-            if count > 1:
-                for i in range(count):
-                    suffixed_replacements.append(f"<{entity_type}_{i+1}>")
-            else:
-                suffixed_replacements.append(f"<{entity_type}>") 
 
         # Build list of detected entities with original text and explanation
         # and update replacements with suffixed versions
@@ -153,18 +157,29 @@ class TextScrubber:
                 f"{res.entity_type.lower().replace('_', ' ').capitalize()} detected"
             )
 
-            # Find matching result from analyzer
-            original = ""
-            score = 0.5
-            while analyzer_results:
-                candidate = analyzer_results.pop(0)
-                if candidate.entity_type == res.entity_type:
-                    original = text[candidate.start : candidate.end]
-                    score = candidate.score
+            # Find best matching entity in the map for the current result, first by type, then by nearest start position
+            best_match = None
+            results_per_type = entity_map.get(res.entity_type, [])
+
+            # Look for exact match on start position
+            for candidate in results_per_type:
+                if candidate.start == res.start:
+                    best_match = candidate
                     break
 
-            # Get next replacement with suffix (if applicable)
-            replacement = suffixed_replacements.pop(0)
+            if not best_match:
+                # Find nearest match on start position
+                best_match = min(
+                    results_per_type, key=lambda r: abs(r.start - res.start)
+                )
+
+            # Remove best match from the list to avoid reusing it
+            results_per_type.remove(best_match)
+
+            # Extract original text, replacement, and score from best match
+            original = text[best_match.start : best_match.end]
+            replacement = best_match.replacement
+            score = best_match.score
 
             # Update the replacement in the scrubbed text
             start = res.start + offset

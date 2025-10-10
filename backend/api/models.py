@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 
-class DetectedEntity(BaseModel):
+class ReplacementEntity(BaseModel):
     type: str
     start: int
     end: int
@@ -23,7 +23,7 @@ class LoginResponse(BaseModel):
     token: str
 
 
-class ScrubRequest(BaseModel):
+class TextScrubRequest(BaseModel):
     prompt: str
     target_risk: str = "C4"
     language: Optional[str] = "en"
@@ -32,14 +32,15 @@ class ScrubRequest(BaseModel):
 class TextScrubResponse(BaseModel):
     scrub_id: str
     scrubbed_text: str
-    entities: List[DetectedEntity]
+    entities: List[ReplacementEntity]
 
 
 class FileScrubResponse(BaseModel):
     scrub_id: str
-    entities: List[DetectedEntity]
-    filename: str
+    input_filename: str
+    output_filename: str
     download_url: str
+    entities: List[ReplacementEntity]
 
 
 class DescrubRequest(BaseModel):

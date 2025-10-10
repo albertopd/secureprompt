@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 
 from api.models import (
-    ScrubRequest,
+    TextScrubRequest,
     TextDescrubResponse,
     TextScrubResponse,
     DescrubRequest,
@@ -20,7 +20,7 @@ router = APIRouter(prefix="/text", tags=["text-scrubbing"])
 @router.post("/scrub", response_model=TextScrubResponse)
 def scrub(
     request: Request,
-    req: ScrubRequest,
+    req: TextScrubRequest,
     session=Depends(SCRUBBER_OR_ABOVE),
     log_manager: LogManager = Depends(get_log_manager_dep),
     text_scrubber: TextScrubber = Depends(get_text_scrubber_dep),
@@ -76,6 +76,11 @@ def descrub(
     if log_record.corp_key != session["corp_key"]:
         raise HTTPException(
             status_code=403, detail="Access denied to this scrub record"
+        )
+    
+    if log_record.category != LogRecordCategory.TEXT or log_record.action != LogRecordAction.SCRUB:
+        raise HTTPException(
+            status_code=400, detail="Log record is not a text scrub record"
         )
 
     if not log_record.details:
