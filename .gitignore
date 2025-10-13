@@ -3,6 +3,14 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Large model files (too big for GitHub)
+backend/scrubbers/models/models_c3/
+backend/scrubbers/models/models_c4/
+backend/scrubbers/nlp/models_c3/
+backend/scrubbers/nlp/models_c4/
+*.bin
+vectors
+
 # C extensions
 *.so
 

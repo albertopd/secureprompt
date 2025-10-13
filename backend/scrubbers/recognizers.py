@@ -1,5 +1,7 @@
 import os
 
+import os
+
 # Recognizers configuration for C4 risk level
 DEFAULT_RECOGNIZERS_C4 = [
     {"name": "person", "entity": "PERSON"},
@@ -51,6 +53,19 @@ CUSTOM_RECOGNIZERS_C4 =[{"name": "pin",
                          "entity": "CVV", 
                          "model_path": BASE_MODEL_C4} ]
 
+BASE_MODEL_C4 = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "nlp", "models_c4", "model_vers_3_small", "model-best"
+)
+
+CUSTOM_RECOGNIZERS_C4 =[{"name": "pin", 
+                         "entity": "PIN",         
+                         "model_path": BASE_MODEL_C4},
+
+                        {"name": "cvv", 
+                         "entity": "CVV", 
+                         "model_path": BASE_MODEL_C4} ]
+
 
 # Recognizers configuration for C3 risk level
 
@@ -67,6 +82,7 @@ REGEX_RECOGNIZERS_C3 = [
     #{"name": "ph_be","entity": "PHONE_BE", "pattern": r"(\+32\s?|0)(\d{1,2})(\s?\d{2}\s?\d{2}\s?\d{2}|\s?\d{3}\s?\d{3})"},
     {"name": "ip_addr", "entity":"IP_ADDRESS", "pattern": r"\b((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b"},
     {"name": "pay_id", "entity": "PAYMENT_ID", "pattern": r"PO-\d{4}"},
+    {"name": "pay_id", "entity": "PAYMENT_ID", "pattern": r"PO-\d{4}"},
     {"name":"ref_num", "entity": "REFERENCE_NUMBER", "pattern": r"(?i)^invoice \d{5}$"}
 ]
 
@@ -79,6 +95,14 @@ DENY_LIST_RECOGNIZERS_C3 = [
     {"name":"pay_type", "entity":"PAYMENT_TYPE", "deny_list":["Wire Transfer", "Cheque", "SEPA Credit", "Direct Debit", "Standing Order"]},
     {"name":"prod_type", "entity":"PRODUCT_TYPE", "deny_list": ["Mobile Banking", "Life Insurance", "Investment Portfolio", "Savings Account", "Travel Insurance", "Mortgage", "Current Account", "Credit Card" ]}
 ]
+
+BASE_MODEL_C3 = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "nlp", "models_c3", "model_c3_v3_3_small", "model-best"
+)
+
+CUSTOM_RECOGNIZERS_C3 =[{"name": "pay_nam", "entity": "PAYMENT_NAME", "model_path": BASE_MODEL_C3 },
+                        {"name": "pay_stat", "entity": "PAYMENT_STATUS", "model_path": BASE_MODEL_C3 } ]
 
 BASE_MODEL_C3 = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
