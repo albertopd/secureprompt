@@ -1,12 +1,30 @@
 FROM python:3.11-slim
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 WORKDIR /backend
 
-COPY requirements_backend.txt .
-RUN pip install --no-cache-dir -r requirements_backend.txt --root-user-action=ignore
+# Install only system packages needed for PDF/Tesseract/Poppler (no git)
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+    poppler-utils \
+    libpoppler-cpp-dev \
+    tesseract-ocr \
+    libtesseract-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+    libsm6 \
+    libxext6 \
+    libxrender1 \
+ && rm -rf /var/lib/apt/lists/*
 
-# Install open-data-anonymizer directly from the GitHub repo instead of the broken PyPI release
-RUN pip install git+https://github.com/ArtLabss/open-data-anonymizer.git
+COPY requirements_backend.txt .
+RUN python -m pip install --upgrade pip setuptools wheel \
+ && pip install --no-cache-dir -r requirements_backend.txt --root-user-action=ignore
+
+# Install from GitHub archive (no git required)
+RUN pip install --no-cache-dir https://github.com/ArtLabss/open-data-anonymizer/archive/refs/heads/main.zip
+
 
 COPY ./backend .
 
