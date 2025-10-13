@@ -5,6 +5,9 @@ WORKDIR /backend
 COPY requirements_backend.txt .
 RUN pip install --no-cache-dir -r requirements_backend.txt --root-user-action=ignore
 
+# Install open-data-anonymizer directly from the GitHub repo instead of the broken PyPI release
+RUN pip install git+https://github.com/ArtLabss/open-data-anonymizer.git
+
 COPY ./backend .
 
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]

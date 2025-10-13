@@ -29,3 +29,6 @@ opencv-python-headless
 pyjwt
 
 pandas
+
+# PDF handling
+pdf2image

@@ -9,17 +9,17 @@ from pathlib import Path
 import importlib.util
 
 # === CONFIG ===
-input_pdf = r"C:\Users\preet\practicefolder\secureprompt\backend\scrubbers\resume-sample.pdf"
-output_pdf = r"C:\Users\preet\practicefolder\secureprompt\backend\scrubbers\output.pdf"
-audit_log = r"C:\Users\preet\practicefolder\secureprompt\backend\scrubbers\auditlogs.jsonl"
-recognizers_py = r"C:\Users\preet\practicefolder\secureprompt\backend\scrubbers\recognizers.py"  # your uploaded recognizers
+input_pdf = r"scrubbers\resume-sample.pdf"
+output_pdf = r"scrubbers\output.pdf"
+audit_log = r"scrubbers\auditlogs.jsonl"
+recognizers_py = r"scrubbers\recognizers.py"  # your uploaded recognizers
 risk_level = "C4"
 
 # === helper: load recognizers module ===
 def load_recognizers_module(path):
     spec = importlib.util.spec_from_file_location("recog_conf", path)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+    mod = importlib.util.module_from_spec(spec) # type: ignore
+    spec.loader.exec_module(mod) # type: ignore
     return mod
 
 # === helper: extract text via OCR ===
