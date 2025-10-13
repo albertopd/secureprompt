@@ -37,7 +37,7 @@ class CustomSpacyRecognizer(SpacyRecognizer):
         """
         results = []
 
-        doc = self.model(text)
+        doc = self.model(text) # type: ignore
         
         ner_entities = doc.ents
 
