@@ -1,6 +1,7 @@
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern
 from presidio_anonymizer import AnonymizerEngine
 from typing import List
+from scrubbers.custom_spacy_recognizer import CustomSpacyRecognizer
 
 from scrubbers.recognizers import (
     DENY_LIST_RECOGNIZERS_C4,
@@ -12,7 +13,16 @@ from scrubbers.recognizers import (
     DENY_LIST_RECOGNIZERS_C2,
     DEFAULT_RECOGNIZERS_C2,
     REGEX_RECOGNIZERS_C2,
-)
+    CUSTOM_RECOGNIZERS_C3,
+    CUSTOM_RECOGNIZERS_C4
+    )
+
+# Optional custom model integration
+try:
+    from scrubbers.model_manager import get_model_manager
+    _HAS_CUSTOM_MODELS = True
+except ImportError:
+    _HAS_CUSTOM_MODELS = False
 
 
 class TextScrubber:
@@ -23,6 +33,11 @@ class TextScrubber:
 
         self._register_pattern_recognizers()
         self._register_list_recognizers()
+        
+        # Initialize custom model manager if available
+        self.model_manager = get_model_manager() if _HAS_CUSTOM_MODELS else None
+        self._register_list_recognizers() 
+        self._register_custom_recognizers()
 
     def _distinct_by_entity(self, items: List[dict]) -> List[dict]:
         seen = set()
@@ -69,34 +84,62 @@ class TextScrubber:
             )
             self.analyzer.registry.add_recognizer(recognizer)
 
+    def _register_custom_recognizers(self) -> None:
+        recognizers = self._distinct_by_entity(
+            CUSTOM_RECOGNIZERS_C3 + CUSTOM_RECOGNIZERS_C4
+        )
+
+        for rec in recognizers:
+            custom_spacy = CustomSpacyRecognizer(
+                path_to_model = rec["model_path"],
+                supported_entities = [rec["entity"]]
+            )
+
+            self.analyzer.registry.add_recognizer(custom_spacy)
+
     def _setup_classification_entities(self) -> dict[str, List[str]]:
         classification_entities = {}
 
         c2_rec_list = (
-            DEFAULT_RECOGNIZERS_C2 + REGEX_RECOGNIZERS_C2 + DENY_LIST_RECOGNIZERS_C2
+
+            DEFAULT_RECOGNIZERS_C2
+            + REGEX_RECOGNIZERS_C2
+            + DENY_LIST_RECOGNIZERS_C2
+
         )
         classification_entities["C2"] = [rec["entity"] for rec in c2_rec_list]
 
         c3_rec_list = (
-            DEFAULT_RECOGNIZERS_C3
-            + REGEX_RECOGNIZERS_C3
-            + DENY_LIST_RECOGNIZERS_C3
-            + DEFAULT_RECOGNIZERS_C2
+
+            DEFAULT_RECOGNIZERS_C2
             + REGEX_RECOGNIZERS_C2
             + DENY_LIST_RECOGNIZERS_C2
+
+            + DEFAULT_RECOGNIZERS_C3
+            + REGEX_RECOGNIZERS_C3
+            + DENY_LIST_RECOGNIZERS_C3
+            + CUSTOM_RECOGNIZERS_C3
+        
+
         )
         classification_entities["C3"] = [rec["entity"] for rec in c3_rec_list]
 
         c4_rec_list = (
+                       
             DEFAULT_RECOGNIZERS_C4
             + REGEX_RECOGNIZERS_C4
             + DENY_LIST_RECOGNIZERS_C4
             + DEFAULT_RECOGNIZERS_C3
             + REGEX_RECOGNIZERS_C3
             + DENY_LIST_RECOGNIZERS_C3
+    
             + DEFAULT_RECOGNIZERS_C2
             + REGEX_RECOGNIZERS_C2
             + DENY_LIST_RECOGNIZERS_C2
+
+            +CUSTOM_RECOGNIZERS_C3
+            +CUSTOM_RECOGNIZERS_C4
+
         )
         classification_entities["C4"] = [rec["entity"] for rec in c4_rec_list]
 
@@ -116,6 +159,7 @@ class TextScrubber:
             target_risk.strip().upper(), []
         )
 
+
         # Analyze text to find entities
         analyzer_results = self.analyzer.analyze(
             text=text, entities=class_entities, language=language
@@ -130,6 +174,21 @@ class TextScrubber:
 
         for entity_type in entity_map:
             entity_map[entity_type].sort(key=lambda r: (r.start, -r.score))
+
+        # Update replacements to have suffixes if there are multiple entities of the same type
+        for entity_type, results in entity_map.items():
+            if len(results) > 1:
+                for i, res in enumerate(results):
+                    res.replacement = f"<{entity_type}_{i+1}>"
+            else:
+                results[0].replacement = f"<{entity_type}>"
+
+        # Anonymize text using the analyzer results
+        for r in analyzer_results:
+            print(
+                f"Entity: {r.entity_type:<20} "
+                f"Text: '{text[r.start:r.end]}' "
+            )
 
         # Update replacements to have suffixes if there are multiple entities of the same type
         for entity_type, results in entity_map.items():

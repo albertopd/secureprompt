@@ -1,0 +1,265 @@
+{
+  "C1": {
+    "file": "c1_public_data_prompts.csv",
+    "level": "C1",
+    "total_rows": 100,
+    "inconsistent_rows": 0,
+    "consistency_rate": 100.0,
+    "issues": [],
+    "total_issues": 0
+  },
+  "C2": {
+    "file": "c2_internal_operations_prompts.csv",
+    "level": "C2",
+    "total_rows": 150,
+    "inconsistent_rows": 40,
+    "consistency_rate": 73.33333333333333,
+    "issues": [
+      {
+        "row": 1,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Cory Griffin...'"
+        ],
+        "prompt_sample": "Employee with corp key AY30HX - need their details"
+      },
+      {
+        "row": 5,
+        "issues": [
+          "Response: Unscrubbed EMAIL_ADDRESS: 'george.cox@ing.com...'"
+        ],
+        "prompt_sample": "IT support: George Cox reporting login issues"
+      },
+      {
+        "row": 7,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Yolanda Allen...'",
+          "Response: Unscrubbed PERSON: 'Cory Griffin...'",
+          "Response: Unscrubbed PERSON: 'Adam Gross...'"
+        ],
+        "prompt_sample": "List all employees with Advanced User role"
+      },
+      {
+        "row": 8,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Luke Lewis...'"
+        ],
+        "prompt_sample": "Who has the corporate key DA03WE?"
+      },
+      {
+        "row": 9,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Mary Sims...'"
+        ],
+        "prompt_sample": "Contact information for corp key holder NV26ZI"
+      },
+      {
+        "row": 12,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Email...'"
+        ],
+        "prompt_sample": "Email setup: Trevor Montgomery's work email address"
+      },
+      {
+        "row": 15,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Amy King...'"
+        ],
+        "prompt_sample": "Who has the corporate key VE89GR?"
+      },
+      {
+        "row": 16,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Email...'"
+        ],
+        "prompt_sample": "Email setup: Amy King's work email address"
+      },
+      {
+        "row": 17,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Yolanda Allen...'"
+        ],
+        "prompt_sample": "Who has the corporate key QW46BO?"
+      },
+      {
+        "row": 19,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Mary Sims...'"
+        ],
+        "prompt_sample": "Who has the corporate key NV26ZI?"
+      }
+    ],
+    "total_issues": 58
+  },
+  "C3": {
+    "file": "c3_customer_data_prompts.csv",
+    "level": "C3",
+    "total_rows": 200,
+    "inconsistent_rows": 64,
+    "consistency_rate": 68.0,
+    "issues": [
+      {
+        "row": 1,
+        "issues": [
+          "Response: Unscrubbed EMAIL_ADDRESS: 'linda.walker@skynet.be...'"
+        ],
+        "prompt_sample": "System check: is Linda Walker's information up to date?"
+      },
+      {
+        "row": 3,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Chris Taylor...'",
+          "Response: Unscrubbed PERSON: 'John Miller...'"
+        ],
+        "prompt_sample": "Transaction PO-0010 failed - need to contact the customer"
+      },
+      {
+        "row": 4,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Emily Brown...'",
+          "Response: Unscrubbed PERSON: 'Laura Clark...'"
+        ],
+        "prompt_sample": "Michael Williams says they never made payment PO-0012 - can you verify?"
+      },
+      {
+        "row": 8,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Katie Taylor...'",
+          "Response: Unscrubbed PERSON: 'Linda Lewis...'"
+        ],
+        "prompt_sample": "Who sent payment order PO-0020? Need sender verification"
+      },
+      {
+        "row": 12,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Email michael.walker@telenet.be...'"
+        ],
+        "prompt_sample": "Data validation: confirm Michael Walker's registered details"
+      },
+      {
+        "row": 15,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Robert Brown...'",
+          "Response: Unscrubbed PERSON: 'Katie Williams...'"
+        ],
+        "prompt_sample": "Payment routing issue with PO-0006 - need customer contact"
+      },
+      {
+        "row": 16,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Emily Brown...'",
+          "Response: Unscrubbed PERSON: 'Laura Clark...'"
+        ],
+        "prompt_sample": "Customer Anna Williams moved but payment PO-0012 still failed"
+      },
+      {
+        "row": 17,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Tom Taylor...'",
+          "Response: Unscrubbed PERSON: 'Anna Davis...'"
+        ],
+        "prompt_sample": "Investigation: did Emily Williams authorize payment PO-0002?"
+      },
+      {
+        "row": 22,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Robert Lewis...'"
+        ],
+        "prompt_sample": "Transaction PO-0017 failed - need to contact the customer"
+      },
+      {
+        "row": 23,
+        "issues": [
+          "Response: Unscrubbed PERSON: 'Email michael.walker@telenet.be...'"
+        ],
+        "prompt_sample": "Data export request for Michael Walker - what info do we have?"
+      }
+    ],
+    "total_issues": 96
+  },
+  "C4": {
+    "file": "c4_sensitive_data_prompts.csv",
+    "level": "C4",
+    "total_rows": 436,
+    "inconsistent_rows": 398,
+    "consistency_rate": 8.715596330275229,
+    "issues": [
+      {
+        "row": 1,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'William Forbes...'"
+        ],
+        "prompt_sample": "E-commerce issue: William Forbes says CVV 846 keeps getting declined online."
+      },
+      {
+        "row": 2,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Anna Miller...'"
+        ],
+        "prompt_sample": "E-commerce dispute: Anna Miller says merchant shouldn't have stored CVV 195 after transaction."
+      },
+      {
+        "row": 3,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Jonathan Green...'",
+          "Response: Unscrubbed EXPIRATION_DATE: '10/29...'"
+        ],
+        "prompt_sample": "Can someone double-check? Jonathan Green insists their PIN is 2741 but I'm seeing something differen..."
+      },
+      {
+        "row": 4,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'John Jones...'"
+        ],
+        "prompt_sample": "Card verification: John Jones has card 4267022256893233 with CVV 787, expires 12/25."
+      },
+      {
+        "row": 6,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Andrea Spears...'"
+        ],
+        "prompt_sample": "Compliance audit: Anyone know why Andrea Spears requested documentation of PIN 8445 usage history."
+      },
+      {
+        "row": 7,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Terry Moore...'",
+          "Prompt: Unscrubbed CVC: '893...'",
+          "Response: Unscrubbed EXPIRATION_DATE: '09/26...'"
+        ],
+        "prompt_sample": "Phone order from Terry Moore. Card CVV given as 893, expiry 09/26. Should I process?"
+      },
+      {
+        "row": 8,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Laura Garcia...'",
+          "Response: Unscrubbed EXPIRATION_DATE: '05/27...'"
+        ],
+        "prompt_sample": "Manager escalation: Laura Garcia insists correct PIN is 1532 but card remains blocked."
+      },
+      {
+        "row": 9,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Heather Boyer...'"
+        ],
+        "prompt_sample": "Verification failure: Heather Boyer gave CVV 500 but transaction still declined."
+      },
+      {
+        "row": 10,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Janice Santana...'",
+          "Response: Unscrubbed PERSON: 'Card 377587545333727...'",
+          "Response: Unscrubbed EXPIRATION_DATE: '12/27...'"
+        ],
+        "prompt_sample": "Can someone double-check? Janice Santana insists their PIN is 5417 but I'm seeing something differen..."
+      },
+      {
+        "row": 11,
+        "issues": [
+          "Prompt: Unscrubbed PERSON: 'Amy Bryan...'"
+        ],
+        "prompt_sample": "E-commerce dispute: Amy Bryan says merchant shouldn't have stored CVV 508 after transaction."
+      }
+    ],
+    "total_issues": 572
+  }
+}
