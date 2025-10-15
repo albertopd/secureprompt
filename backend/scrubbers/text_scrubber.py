@@ -40,6 +40,7 @@ class TextScrubber:
         self._register_custom_recognizers()
 
     def _distinct_by_entity(self, items: List[dict]) -> List[dict]:
+        '''Appends entities acording to the passed lists'''
         seen = set()
         result = []
         for item in items:
@@ -49,6 +50,7 @@ class TextScrubber:
         return result
 
     def _register_pattern_recognizers(self) -> None:
+        '''Adds Regex recognizers'''
         recognizers = self._distinct_by_entity(
             REGEX_RECOGNIZERS_C4 + REGEX_RECOGNIZERS_C3 + REGEX_RECOGNIZERS_C2
         )
@@ -69,6 +71,7 @@ class TextScrubber:
             self.analyzer.registry.add_recognizer(recognizer)
 
     def _register_list_recognizers(self) -> None:
+        '''Add black-list recognizers'''
         recognizers = self._distinct_by_entity(
             DENY_LIST_RECOGNIZERS_C4
             + DENY_LIST_RECOGNIZERS_C3
@@ -85,6 +88,7 @@ class TextScrubber:
             self.analyzer.registry.add_recognizer(recognizer)
 
     def _register_custom_recognizers(self) -> None:
+        '''Add model recognizers'''
         recognizers = self._distinct_by_entity(
             CUSTOM_RECOGNIZERS_C3 + CUSTOM_RECOGNIZERS_C4
         )
@@ -98,6 +102,7 @@ class TextScrubber:
             self.analyzer.registry.add_recognizer(custom_spacy)
 
     def _setup_classification_entities(self) -> dict[str, List[str]]:
+        '''Append recognizers by security level'''
         classification_entities = {}
 
         c2_rec_list = (
